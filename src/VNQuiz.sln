@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D14987E0-1FFF-4AB5-A63A-4763D655BCED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VNQuiz.Alice", "API\VNQuiz.Alice\VNQuiz.Alice.csproj", "{B3EC1063-28F7-4CBD-B1F7-673208B647B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VNQuiz.Alice.Tests", "API\VNQuiz.Alice.Tests\VNQuiz.Alice.Tests.csproj", "{5F557ECD-C5F9-44C2-A1F6-A36336E78D57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3EC1063-28F7-4CBD-B1F7-673208B647B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3EC1063-28F7-4CBD-B1F7-673208B647B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3EC1063-28F7-4CBD-B1F7-673208B647B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3EC1063-28F7-4CBD-B1F7-673208B647B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F557ECD-C5F9-44C2-A1F6-A36336E78D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F557ECD-C5F9-44C2-A1F6-A36336E78D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F557ECD-C5F9-44C2-A1F6-A36336E78D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F557ECD-C5F9-44C2-A1F6-A36336E78D57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3EC1063-28F7-4CBD-B1F7-673208B647B8} = {D14987E0-1FFF-4AB5-A63A-4763D655BCED}
+		{5F557ECD-C5F9-44C2-A1F6-A36336E78D57} = {D14987E0-1FFF-4AB5-A63A-4763D655BCED}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4197B33-EFB4-452E-A226-5A9709EDC4EC}
+	EndGlobalSection
+EndGlobal
