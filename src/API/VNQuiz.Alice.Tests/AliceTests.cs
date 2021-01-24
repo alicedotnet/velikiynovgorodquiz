@@ -39,32 +39,5 @@ namespace VNQuiz.Alice.Tests
             Assert.NotNull(aliceResponse);
             _testOutputHelper.WriteLine(aliceResponse.Response.Text);
         }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(2)]
-        public async Task Alice_TestResponses_Success(int requestNumber)
-        {
-            string text = File.ReadAllText(TestsConstants.Assets.AlicePingFilePath);
-            var aliceRequest = JsonSerializer.Deserialize<AliceRequest>(text);
-            aliceRequest.State.User = new TempState()
-            {
-                RequestNumber = requestNumber
-            };
-            string aliceRequestText = JsonSerializer.Serialize(aliceRequest);
-            HttpContent requestContent = new StringContent(aliceRequestText, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("/alice", requestContent);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            Assert.True(response.IsSuccessStatusCode, responseContent);
-            var aliceResponse = JsonSerializer.Deserialize<AliceResponseWrapper>(responseContent);
-            Assert.NotNull(aliceResponse);
-            var options = new JsonSerializerOptions()
-            {
-                WriteIndented = true,
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
-            };
-            _testOutputHelper.WriteLine(JsonSerializer.Serialize(aliceResponse, options));
-        }
     }
 }
