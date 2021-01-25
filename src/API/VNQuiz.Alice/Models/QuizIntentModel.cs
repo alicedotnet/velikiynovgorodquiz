@@ -7,7 +7,7 @@ using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Models
 {
-    public class AliceQuizIntentModel
+    public class QuizIntentModel
     {
         [JsonPropertyName("YANDEX.CONFIRM")] //TODO::move this to library
         public AliceIntentModel<object> YandexConfirm { get; set; } //TODO::create non-generic version of AliceIntentModel

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Models;
+using VNQuiz.Alice.Scenes;
 using VNQuiz.Alice.Services;
 using Yandex.Alice.Sdk.Models;
 
@@ -14,37 +15,34 @@ namespace VNQuiz.Alice.Controllers
     [Route("[controller]")]
     public class AliceController : ControllerBase
     {
-        private readonly IAliceService _aliceService;
+        private readonly IScenesProvider _scenesProvider;
         private readonly ILogger<AliceController> _logger;
 
-        public AliceController(IAliceService aliceService, ILogger<AliceController> logger)
+        public AliceController(IScenesProvider scenesProvider, ILogger<AliceController> logger)
         {
-            _aliceService = aliceService;
+            _scenesProvider = scenesProvider;
             _logger = logger;
         }
 
         [HttpPost]
-        public IActionResult Post(AliceQuizRequest request)
+        public QuizResponse Post(QuizRequest request)
         {
-            return Ok(ProcessRequest(request));
-        }
-
-        private AliceQuizResponse ProcessRequest(AliceQuizRequest request)
-        {
-            if(request.State.Session != null)
+            Scene currentScene;
+            if (request.State.Session != null)
             {
-                switch(request.State.Session.QuizState)
-                {
-                    case QuizState.GameNotStarted:
-                        return _aliceService.ProcessNewSession(request);
-                }
+                currentScene = _scenesProvider.Get(request.State.Session.CurrentScene);
             }
-            else if(request.Session.New)
+            else
             {
-                return _aliceService.ProcessNewSession(request);
+                currentScene = _scenesProvider.Get();
             }
-            return new AliceQuizResponse(request, "Ой, я тебя не поняла. Попробуй еще раз");
+            var nextScene = currentScene.MoveToNextScene(request);
+            if (nextScene != null)
+            {
+                return nextScene.Reply(request);
+            }
+            //TODO::add fallback logging
+            return currentScene.Fallback(request);
         }
-
     }
 }

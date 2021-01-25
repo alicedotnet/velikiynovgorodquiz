@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VNQuiz.Alice.Scenes;
 
 namespace VNQuiz.Alice.Models
 {
@@ -10,17 +11,11 @@ namespace VNQuiz.Alice.Models
         public int IncorrectAnswersCount { get; set; }
         public int CurrentQuestionId { get; set; }
         public List<int> AnsweredQuestionsIds { get; set; }
-        public QuizState QuizState { get; set; }
+        public SceneType CurrentScene { get; set; }
 
         public QuizSessionState()
         {
             AnsweredQuestionsIds = new List<int>();
         }
-    }
-
-    public enum QuizState
-    {
-        GameNotStarted,
-        GameStarted
     }
 }
