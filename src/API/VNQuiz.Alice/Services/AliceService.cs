@@ -38,12 +38,10 @@ namespace VNQuiz.Alice.Services
                 {
                     var question = _questionsService.GetQuestion();
                     var response = new AliceQuizResponse(request, question.Text);
-                    response.Response.Buttons = new List<AliceButtonModel>(); //TODO:: should library do this initialization?
                     foreach (var answer in question.Answers)
                     {
                         response.Response.Buttons.Add(new AliceButtonModel(answer));
                     }
-                    response.SessionState = request.State.Session; //TODO::should library keep state automatically?
                     response.SessionState.QuizState = QuizState.GameStarted;
                     return response;
                 }
