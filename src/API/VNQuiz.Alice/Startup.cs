@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VNQuiz.Alice.Scenes;
+using VNQuiz.Alice.Services;
 
 namespace VNQuiz.Alice
 {
@@ -28,6 +30,13 @@ namespace VNQuiz.Alice
         {
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
+
+            services.AddScoped<IQuestionsService, QuestionsService>();
+            services.AddScoped<IScenesProvider, ScenesProvider>();
+            services.AddScoped<WelcomeScene>();
+            services.AddScoped<GameScene>();
+            services.AddScoped<EndSessionScene>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VNQuiz.Alice", Version = "v1" });

@@ -9,23 +9,24 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure.Models
 {
     class AliceResponseWrapper : AliceResponse
     {
-        public AliceResponseWrapper() : base(new AliceRequest(), string.Empty)
+        public AliceResponseWrapper()
+            : base(new AliceRequest() { State = new AliceStateModel<object, object>()}, string.Empty)
         {
 
         }
-        public AliceResponseWrapper(AliceRequestBase request, string text) : base(request, text)
+        public AliceResponseWrapper(AliceRequestBase<object, object> request, string text, bool keepSessionState = true) : base(request, text, keepSessionState)
         {
         }
 
-        public AliceResponseWrapper(AliceRequestBase request, string text, string tts) : base(request, text, tts)
+        public AliceResponseWrapper(AliceRequestBase<object, object> request, string text, string tts, bool keepSessionState = true) : base(request, text, tts, keepSessionState)
         {
         }
 
-        public AliceResponseWrapper(AliceRequestBase request, string text, List<AliceButtonModel> buttons) : base(request, text, buttons)
+        public AliceResponseWrapper(AliceRequestBase<object, object> request, string text, List<AliceButtonModel> buttons, bool keepSessionState = true) : base(request, text, buttons, keepSessionState)
         {
         }
 
-        public AliceResponseWrapper(AliceRequestBase request, string text, string tts, List<AliceButtonModel> buttons) : base(request, text, tts, buttons)
+        public AliceResponseWrapper(AliceRequestBase<object, object> request, string text, string tts, List<AliceButtonModel> buttons, bool keepSessionState = true) : base(request, text, tts, buttons, keepSessionState)
         {
         }
     }
