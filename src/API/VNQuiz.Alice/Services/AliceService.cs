@@ -34,24 +34,29 @@ namespace VNQuiz.Alice.Services
             }
             else if (request.State.Session.QuizState == QuizState.GameNotStarted)
             {
-                if (request.Request.Command == "да")
+                if(request.Request.Nlu.Intents != null)
                 {
-                    var question = _questionsService.GetQuestion();
-                    var response = new AliceQuizResponse(request, question.Text);
-                    foreach (var answer in question.Answers)
+                    if (request.Request.Nlu.Intents.YandexConfirm != null
+                        || request.Request.Nlu.Intents.Confirm != null)
                     {
-                        response.Response.Buttons.Add(new AliceButtonModel(answer));
+                        var question = _questionsService.GetQuestion();
+                        var response = new AliceQuizResponse(request, question.Text);
+                        foreach (var answer in question.Answers)
+                        {
+                            response.Response.Buttons.Add(new AliceButtonModel(answer));
+                        }
+                        response.SessionState.QuizState = QuizState.GameStarted;
+                        return response;
                     }
-                    response.SessionState.QuizState = QuizState.GameStarted;
-                    return response;
-                }
-                else if (request.Request.Command == "нет")
-                {
-                    var response = new AliceQuizResponse(
-                        request,
-                        "Очень жаль это слышать. Буду ждать еще!");
-                    response.Response.EndSession = true;
-                    return response;
+                    else if (request.Request.Nlu.Intents.YandexReject != null
+                        || request.Request.Nlu.Intents.Reject != null)
+                    {
+                        var response = new AliceQuizResponse(
+                            request,
+                            "Очень жаль это слышать. Буду ждать еще!");
+                        response.Response.EndSession = true;
+                        return response;
+                    }
                 }
             }
             return new AliceQuizResponse(request, "Я вас не поняла. Может сыграем?", new List<AliceButtonModel>

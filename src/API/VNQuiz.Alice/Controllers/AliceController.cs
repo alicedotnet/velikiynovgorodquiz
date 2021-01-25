@@ -43,7 +43,7 @@ namespace VNQuiz.Alice.Controllers
             {
                 return _aliceService.ProcessNewSession(request);
             }
-            return new AliceQuizResponse(request, "Ой, кажется что-то пошло не так. Попробуйте еще раз");
+            return new AliceQuizResponse(request, "Ой, я тебя не поняла. Попробуй еще раз");
         }
 
     }

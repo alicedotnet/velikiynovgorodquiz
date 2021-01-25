@@ -37,7 +37,7 @@ namespace VNQuiz.Alice.Tests.Services
                         QuizState = QuizState.GameNotStarted
                     }
                 },
-                Request = new AliceRequestModel<object>()
+                Request = new AliceRequestModel<AliceQuizIntentModel>()
                 {
                     Command = "да"
                 }
