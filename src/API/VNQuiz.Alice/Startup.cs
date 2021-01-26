@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Scenes;
@@ -33,7 +34,10 @@ namespace VNQuiz.Alice
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
 
-            services.AddScoped<IQuestionsHelper, QuestionsHelper>();
+            var helper = new QuestionsHelper();
+            helper.Initialize(Path.Combine(Environment.CurrentDirectory, "questions.json"));
+
+            services.AddSingleton<IQuestionsHelper>(helper);
             services.AddScoped<IQuestionsService, QuestionsService>();
             services.AddScoped<IScenesProvider, ScenesProvider>();
             services.AddScoped<WelcomeScene>();

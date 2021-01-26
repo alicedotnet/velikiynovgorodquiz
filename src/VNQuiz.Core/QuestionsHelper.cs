@@ -17,10 +17,10 @@ namespace VNQuiz.Core
             _questions = new List<Question>();
         }
 
-        public async Task Initialize(string path)
+        public void Initialize(string path)
         {
             var loader = new QuestionsLoader();
-            var questions = await loader.Load(path);
+            var questions = loader.Load(path);
             if (questions != null)
             {
                 _questions.AddRange(questions);

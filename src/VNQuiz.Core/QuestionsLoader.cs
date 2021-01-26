@@ -9,14 +9,13 @@ namespace VNQuiz.Core
 {
     class QuestionsLoader
     {
-        public async ValueTask<List<Question>?> Load(string path)
+        public List<Question>? Load(string path)
         {
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             if (!File.Exists(path)) throw new ArgumentException($"File does not exist {path}");
 
-            using var stream = new FileStream("questions.json", FileMode.Open, FileAccess.Read);
             var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-            return await JsonSerializer.DeserializeAsync<List<Question>>(stream, options);
+            return JsonSerializer.Deserialize<List<Question>>(File.ReadAllText(path), options);
         }
     }
 }
