@@ -41,10 +41,10 @@ namespace VNQuiz.Alice.Scenes
             return new QuizResponse(
                 request,
                 "Привет! Предлагаю сыграть в викторину по истории Великого Новгорода. Я буду задавать тебе вопросы, а ты выбирать один из трех вариантов ответа. Игра закончится после трех неправильных ответов. Начнем?",
-                new List<AliceButtonModel>()
+                new List<QuizButtonModel>()
                 {
-                    new AliceButtonModel("да"),
-                    new AliceButtonModel("нет")
+                    new QuizButtonModel("да"),
+                    new QuizButtonModel("нет")
                 })
             {
                 SessionState = new QuizSessionState()
@@ -53,10 +53,10 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Fallback(QuizRequest request)
         {
-            return new QuizResponse(request, "Я вас не поняла. Может сыграем?", new List<AliceButtonModel>
+            return new QuizResponse(request, "Я вас не поняла. Может сыграем?", new List<QuizButtonModel>
             {
-                new AliceButtonModel("да"),
-                new AliceButtonModel("нет")
+                new QuizButtonModel("да"),
+                new QuizButtonModel("нет")
             });
         }
     }

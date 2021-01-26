@@ -28,15 +28,24 @@ namespace VNQuiz.Alice.Scenes
         {
             int currentQuestionId = request.State.Session.CurrentQuestionId;
             var question = _questionsService.GetQuestion(currentQuestionId);
-            if (request.Request.Command == question.CorrectAnswer)
+            if (question.CorrectAnswer == GetAnswer(request))
             {
                 return _scenesProvider.Get(SceneType.CorrectAnswer);
             }
-            else if (question.WrongAnswers.Contains(request.Request.Command))
+            else if (question.WrongAnswers.Contains(GetAnswer(request)))
             {
                 return _scenesProvider.Get(SceneType.WrongAnswer);
             }
             return null;
+        }
+
+        private string GetAnswer(QuizRequest request)
+        {
+            if(request.Request.Type == AliceRequestType.ButtonPressed)
+            {
+                return request.Request.Payload.ToString();
+            }
+            return request.Request.Command;
         }
 
         public override QuizResponse Reply(QuizRequest request)
@@ -56,11 +65,11 @@ namespace VNQuiz.Alice.Scenes
             foreach (var wrongAnswer in question.WrongAnswers)
             {
                 //TODO::need to hide this button after click
-                response.Response.Buttons.Add(new AliceButtonModel(wrongAnswer));
+                response.Response.Buttons.Add(new QuizButtonModel(wrongAnswer));
             }
             var random = new Random();
             int correctAnswerIndex = random.Next(0, 2);
-            response.Response.Buttons.Insert(correctAnswerIndex, new AliceButtonModel(question.CorrectAnswer));
+            response.Response.Buttons.Insert(correctAnswerIndex, new QuizButtonModel(question.CorrectAnswer));
             response.SessionState.CurrentScene = SceneType.Question;
             response.SessionState.CurrentQuestionId = question.Id;
             return response;

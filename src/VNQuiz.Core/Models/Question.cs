@@ -15,13 +15,13 @@ namespace VNQuiz.Core.Models
         public string? Explanation { get; }
 
         [JsonConstructor]
-        public Question(string text, string answer, List<string> wrongAnswers)
+        public Question(string text, string correctAnswer, List<string> wrongAnswers)
         {
             if (wrongAnswers.Count < 1) throw new ArgumentException("Question must have at least one wrong answer");
 
             Id = _nextId++;
             Text = text;
-            CorrectAnswer = answer;
+            CorrectAnswer = correctAnswer;
             WrongAnswers = wrongAnswers;
         }
     }

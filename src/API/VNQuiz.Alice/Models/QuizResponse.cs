@@ -16,11 +16,11 @@ namespace VNQuiz.Alice.Models
         {
         }
 
-        public QuizResponse(AliceRequestBase<QuizSessionState, object> request, string text, List<AliceButtonModel> buttons) : base(request, text, buttons)
+        public QuizResponse(AliceRequestBase<QuizSessionState, object> request, string text, List<QuizButtonModel> buttons) : base(request, text, buttons.Cast<AliceButtonModel>().ToList())
         {
         }
 
-        public QuizResponse(AliceRequestBase<QuizSessionState, object> request, string text, string tts, List<AliceButtonModel> buttons) : base(request, text, tts, buttons)
+        public QuizResponse(AliceRequestBase<QuizSessionState, object> request, string text, string tts, List<QuizButtonModel> buttons) : base(request, text, tts, buttons.Cast<AliceButtonModel>().ToList())
         {
         }
     }
