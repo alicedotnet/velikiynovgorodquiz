@@ -10,7 +10,10 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure
     {
         public static class Assets
         {
-            public const string AlicePingFilePath = "TestsInfrastructure/Assets/AlicePing.json";
+            private const string AssetsFolder = "TestsInfrastructure/Assets/";
+            public const string AlicePingFilePath = AssetsFolder + "AlicePing.json";
+            public const string StartGameFilePath = AssetsFolder + "StartGame.json";
+            public const string WrongAnswerFilePath = AssetsFolder + "WrongAnswer.json";
         }
     }
 }

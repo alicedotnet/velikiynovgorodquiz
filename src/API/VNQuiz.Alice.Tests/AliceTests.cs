@@ -27,10 +27,13 @@ namespace VNQuiz.Alice.Tests
             _testOutputHelper = testOutputHelper;
         }
 
-        [Fact]
-        public async Task Alice_Ping_Success()
+        [Theory]        
+        [InlineData(TestsConstants.Assets.AlicePingFilePath)]
+        [InlineData(TestsConstants.Assets.StartGameFilePath)]
+        [InlineData(TestsConstants.Assets.WrongAnswerFilePath)]
+        public async Task Alice_SendRequest_Success(string filePath)
         {
-            string text = File.ReadAllText(TestsConstants.Assets.AlicePingFilePath);
+            string text = File.ReadAllText(filePath);
             HttpContent requestContent = new StringContent(text, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/alice", requestContent);
             string responseContent = await response.Content.ReadAsStringAsync();

@@ -11,10 +11,12 @@ namespace VNQuiz.Alice.Scenes
     public class GameScene : Scene
     {
         private readonly IQuestionsService _questionsService;
+        private readonly IScenesProvider _scenesProvider;
 
-        public GameScene(IQuestionsService questionsService)
+        public GameScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
         {
             _questionsService = questionsService;
+            _scenesProvider = scenesProvider;
         }
 
         public override QuizResponse Fallback(QuizRequest request)
@@ -24,6 +26,16 @@ namespace VNQuiz.Alice.Scenes
 
         public override Scene MoveToNextScene(QuizRequest request)
         {
+            int currentQuestionId = request.State.Session.CurrentQuestionId;
+            var question = _questionsService.GetQuestion(currentQuestionId);
+            if (request.Request.Command == question.CorrectAnswer)
+            {
+                return _scenesProvider.Get(SceneType.CorrectAnswer);
+            }
+            else if (question.WrongAnswers.Contains(request.Request.Command))
+            {
+                return _scenesProvider.Get(SceneType.WrongAnswer);
+            }
             return null;
         }
 
@@ -31,11 +43,15 @@ namespace VNQuiz.Alice.Scenes
         {
             var question = _questionsService.GetQuestion();
             var response = new QuizResponse(request, question.Text);
-            foreach (var answer in question.Answers)
+            foreach (var wrongAnswer in question.WrongAnswers)
             {
-                response.Response.Buttons.Add(new AliceButtonModel(answer));
+                response.Response.Buttons.Add(new AliceButtonModel(wrongAnswer));
             }
+            var random = new Random();
+            int correctAnswerIndex = random.Next(0, 2);
+            response.Response.Buttons.Insert(correctAnswerIndex, new AliceButtonModel(question.CorrectAnswer));
             response.SessionState.CurrentScene = SceneType.Game;
+            response.SessionState.CurrentQuestionId = question.QuestionId;
             return response;
         }
     }

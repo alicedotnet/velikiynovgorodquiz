@@ -16,12 +16,20 @@ namespace VNQuiz.Alice.Services
             return _questions[index];
         }
 
+        public QuestionModel GetQuestion(int id)
+        {
+            return _questions.FirstOrDefault(x => x.QuestionId == id);
+        }
+
         private readonly QuestionModel[] _questions = new QuestionModel[]
         {
             new QuestionModel()
             {
+                QuestionId = 1,
+                CorrectAnswer = "1044",
                 Text = "Отлично, начинаем! Вот первый вопрос: \nВ каком году Новгородский Кремль был впервые упомянут в летописи ?",
-                Answers = new string []{"987", "1045", "1211" }
+                Explanation = "Первое упоминание о Кремле было в 1045 году согласно \"Повести временных лет\".\nРассказать еще о Кремле?",
+                WrongAnswers = new string []{"987", "1211" }
             },
             //new QuestionModel()
             //{

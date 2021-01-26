@@ -10,6 +10,8 @@ namespace VNQuiz.Alice.Scenes
         Default,
         Welcome,
         Game,
+        CorrectAnswer,
+        WrongAnswer,
         EndSession
     }
 }

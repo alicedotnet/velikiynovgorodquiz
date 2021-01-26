@@ -9,5 +9,6 @@ namespace VNQuiz.Alice.Services
     public interface IQuestionsService
     {
         QuestionModel GetQuestion();
+        QuestionModel GetQuestion(int id);
     }
 }
