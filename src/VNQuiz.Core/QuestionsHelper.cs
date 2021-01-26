@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VNQuiz.Core.Interfaces;
+using VNQuiz.Core.Models;
 
 namespace VNQuiz.Core
 {
-    public class QuestionsHelper
+    public class QuestionsHelper : IQuestionsHelper
     {
-        private const int QUESTIONS_COUNT = 10;
-
         private readonly List<Question> _questions;
 
         public QuestionsHelper()
@@ -27,21 +27,28 @@ namespace VNQuiz.Core
             }
         }
 
-        public List<Question> GetQuestions()
+        public Question? GetQuestion(List<int> ids)
         {
-            if (_questions.Count < QUESTIONS_COUNT)
-                return _questions;
+            if (ids == null) throw new ArgumentNullException(nameof(ids));
+            if (_questions.Count == 0)
+                return null;
 
-            var indexes = new HashSet<int>();
-            var random = new Random();
-
-            while (indexes.Count != QUESTIONS_COUNT)
+            try
             {
-                var index = random.Next(0, _questions.Count);
-                indexes.Add(index);
+                var random = new Random();
+                var index = random.Next(_questions.Count);
+                if (ids.Contains(index))
+                {
+                    index = random.Next(_questions.Count);
+                }
+                return _questions[index];
             }
-
-            return indexes.Select(i => _questions[i]).ToList();
+            catch (Exception ex)
+            {
+                throw new CoreException("Failed to get a question", ex);
+            }
         }
+
+        public Question? GetQuestion(int id) => _questions.FirstOrDefault(q => q.Id == id);
     }
 }

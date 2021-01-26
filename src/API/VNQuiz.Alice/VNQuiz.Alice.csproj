@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\sdk\src\Yandex.Alice.Sdk\Yandex.Alice.Sdk.csproj" />
+    <ProjectReference Include="..\..\VNQuiz.Core\VNQuiz.Core.csproj" />
   </ItemGroup>
 
 </Project>

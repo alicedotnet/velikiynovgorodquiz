@@ -24,7 +24,7 @@ namespace VNQuiz.Alice.Scenes
             var question = QuestionsService.GetQuestion(request.State.Session.CurrentQuestionId);
             var questionScene = ScenesProvider.Get(SceneType.Question);
             var response = questionScene.Reply(request);
-            response.SessionState.AnsweredQuestionsIds.Add(question.QuestionId);
+            response.SessionState.AnsweredQuestionsIds.Add(question.Id);
             response.Response.Text = $"{GetAnswerTipText()} {question.Explanation}\n\n{GetSupportText(response.SessionState)} {response.Response.Text}";
             return response;
         }

@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Scenes;
 using VNQuiz.Alice.Services;
+using VNQuiz.Core;
+using VNQuiz.Core.Interfaces;
 
 namespace VNQuiz.Alice
 {
@@ -31,6 +33,7 @@ namespace VNQuiz.Alice
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
 
+            services.AddScoped<IQuestionsHelper, QuestionsHelper>();
             services.AddScoped<IQuestionsService, QuestionsService>();
             services.AddScoped<IScenesProvider, ScenesProvider>();
             services.AddScoped<WelcomeScene>();

@@ -62,7 +62,7 @@ namespace VNQuiz.Alice.Scenes
             int correctAnswerIndex = random.Next(0, 2);
             response.Response.Buttons.Insert(correctAnswerIndex, new AliceButtonModel(question.CorrectAnswer));
             response.SessionState.CurrentScene = SceneType.Question;
-            response.SessionState.CurrentQuestionId = question.QuestionId;
+            response.SessionState.CurrentQuestionId = question.Id;
             return response;
         }
     }
