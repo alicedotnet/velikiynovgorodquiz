@@ -8,12 +8,12 @@ using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Scenes
 {
-    public class GameScene : Scene
+    public class QuestionScene : Scene
     {
         private readonly IQuestionsService _questionsService;
         private readonly IScenesProvider _scenesProvider;
 
-        public GameScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
+        public QuestionScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
         {
             _questionsService = questionsService;
             _scenesProvider = scenesProvider;
@@ -43,14 +43,25 @@ namespace VNQuiz.Alice.Scenes
         {
             var question = _questionsService.GetQuestion();
             var response = new QuizResponse(request, question.Text);
+            string questionTipText;
+            if(response.SessionState.CurrentQuestionId == 0)
+            {
+                questionTipText = "Отлично, начинаем! Вот первый вопрос:\n";
+            }
+            else
+            {
+                questionTipText = "Вот следующий вопрос:";
+            }
+            response.Response.Text = $"{questionTipText}\n{response.Response.Text}";
             foreach (var wrongAnswer in question.WrongAnswers)
             {
+                //TODO::need to hide this button after click
                 response.Response.Buttons.Add(new AliceButtonModel(wrongAnswer));
             }
             var random = new Random();
             int correctAnswerIndex = random.Next(0, 2);
             response.Response.Buttons.Insert(correctAnswerIndex, new AliceButtonModel(question.CorrectAnswer));
-            response.SessionState.CurrentScene = SceneType.Game;
+            response.SessionState.CurrentScene = SceneType.Question;
             response.SessionState.CurrentQuestionId = question.QuestionId;
             return response;
         }

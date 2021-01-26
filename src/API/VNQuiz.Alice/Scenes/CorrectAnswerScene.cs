@@ -7,14 +7,16 @@ using VNQuiz.Alice.Services;
 
 namespace VNQuiz.Alice.Scenes
 {
-    public class CorrectAnswerScene : Scene
+    public class CorrectAnswerScene : AnswerScene
     {
-        private readonly IQuestionsService _questionsService;
+        protected override string[] AnswerTips { get; }
 
-        public CorrectAnswerScene(IQuestionsService questionsService)
+        public CorrectAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
+            : base(questionsService, scenesProvider)
         {
-            _questionsService = questionsService;
+            AnswerTips = new string[] { "Правильно!" };
         }
+
 
         public override QuizResponse Fallback(QuizRequest request)
         {
@@ -26,13 +28,9 @@ namespace VNQuiz.Alice.Scenes
             throw new NotImplementedException();
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        protected override string GetSupportText(QuizSessionState quizSessionState)
         {
-            var question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
-            string text = "Правильно! " + question.Explanation;
-            var response = new QuizResponse(request, text);
-            response.SessionState.AnsweredQuestionsIds.Add(question.QuestionId);
-            return response;
+            return string.Empty;
         }
     }
 }

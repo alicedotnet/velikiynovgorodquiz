@@ -14,6 +14,7 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure
             public const string AlicePingFilePath = AssetsFolder + "AlicePing.json";
             public const string StartGameFilePath = AssetsFolder + "StartGame.json";
             public const string WrongAnswerFilePath = AssetsFolder + "WrongAnswer.json";
+            public const string LastWrongAnswerFilePath = AssetsFolder + "LastWrongAnswer.json";
         }
     }
 }

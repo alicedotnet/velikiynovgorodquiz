@@ -9,9 +9,11 @@ namespace VNQuiz.Alice.Scenes
     {
         Default,
         Welcome,
-        Game,
+        StartGame,
+        Question,
         CorrectAnswer,
         WrongAnswer,
+        EndGame,
         EndSession
     }
 }

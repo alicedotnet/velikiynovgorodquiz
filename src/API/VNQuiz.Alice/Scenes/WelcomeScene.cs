@@ -24,13 +24,11 @@ namespace VNQuiz.Alice.Scenes
             }
             if (request.Request.Nlu.Intents != null)
             {
-                if (request.Request.Nlu.Intents.YandexConfirm != null
-                    || request.Request.Nlu.Intents.Confirm != null)
+                if (request.Request.Nlu.Intents.IsConfirm)
                 {
-                    return _scenesProvider.Get(SceneType.Game);
+                    return _scenesProvider.Get(SceneType.StartGame);
                 }
-                else if (request.Request.Nlu.Intents.YandexReject != null
-                    || request.Request.Nlu.Intents.Reject != null)
+                else if (request.Request.Nlu.Intents.IsReject)
                 {
                     return _scenesProvider.Get(SceneType.EndSession);
                 }

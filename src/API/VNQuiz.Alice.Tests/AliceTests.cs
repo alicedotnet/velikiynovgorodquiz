@@ -31,6 +31,7 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.AlicePingFilePath)]
         [InlineData(TestsConstants.Assets.StartGameFilePath)]
         [InlineData(TestsConstants.Assets.WrongAnswerFilePath)]
+        [InlineData(TestsConstants.Assets.LastWrongAnswerFilePath)]
         public async Task Alice_SendRequest_Success(string filePath)
         {
             string text = File.ReadAllText(filePath);

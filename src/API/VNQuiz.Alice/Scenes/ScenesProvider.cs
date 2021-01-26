@@ -21,9 +21,11 @@ namespace VNQuiz.Alice.Scenes
             {
                 SceneType.Default => _serviceProvider.GetService<WelcomeScene>(),
                 SceneType.Welcome => _serviceProvider.GetService<WelcomeScene>(),
-                SceneType.Game => _serviceProvider.GetService<GameScene>(),
+                SceneType.StartGame => _serviceProvider.GetService<StartGameScene>(),
+                SceneType.Question => _serviceProvider.GetService<QuestionScene>(),
                 SceneType.CorrectAnswer => _serviceProvider.GetService<CorrectAnswerScene>(),
                 SceneType.WrongAnswer => _serviceProvider.GetService<WrongAnswerScene>(),
+                SceneType.EndGame => _serviceProvider.GetService<EndGameScene>(),
                 SceneType.EndSession => _serviceProvider.GetService<EndSessionScene>(),
                 _ => throw new Exception("Unknown scene"),
             };

@@ -34,9 +34,11 @@ namespace VNQuiz.Alice
             services.AddScoped<IQuestionsService, QuestionsService>();
             services.AddScoped<IScenesProvider, ScenesProvider>();
             services.AddScoped<WelcomeScene>();
-            services.AddScoped<GameScene>();
+            services.AddScoped<StartGameScene>();
+            services.AddScoped<QuestionScene>();
             services.AddScoped<CorrectAnswerScene>();
             services.AddScoped<WrongAnswerScene>();
+            services.AddScoped<EndGameScene>();
             services.AddScoped<EndSessionScene>();
 
             services.AddSwaggerGen(c =>

@@ -7,13 +7,14 @@ using VNQuiz.Alice.Services;
 
 namespace VNQuiz.Alice.Scenes
 {
-    public class WrongAnswerScene : Scene
+    public class WrongAnswerScene : AnswerScene
     {
-        private readonly IQuestionsService _questionsService;
+        protected override string[] AnswerTips { get; }
 
-        public WrongAnswerScene(IQuestionsService questionsService)
+        public WrongAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
+            : base(questionsService, scenesProvider)
         {
-            _questionsService = questionsService;
+            AnswerTips = new string[] { "Неправильно!" };
         }
 
         public override QuizResponse Fallback(QuizRequest request)
@@ -28,12 +29,31 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Reply(QuizRequest request)
         {
-            var question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
-            string text = "Неправильно! " + question.Explanation;
-            var response = new QuizResponse(request, text);
-            response.SessionState.AnsweredQuestionsIds.Add(question.QuestionId);
+            QuizResponse response;
+            if (request.State.Session.IncorrectAnswersCount >= 2)
+            {
+                var endGameScene = ScenesProvider.Get(SceneType.EndGame);
+                response = endGameScene.Reply(request);
+            }
+            else
+            {
+                response = base.Reply(request);
+            }
             response.SessionState.IncorrectAnswersCount++;
             return response;
+        }
+
+        protected override string GetSupportText(QuizSessionState quizSessionState)
+        {
+            if(quizSessionState.IncorrectAnswersCount == 0)
+            {
+                return "Вы можете сделать еще две ошибки.";
+            }
+            else if(quizSessionState.IncorrectAnswersCount == 1)
+            {
+                return "Давай дальше без ошибок!";
+            }
+            return string.Empty;
         }
     }
 }

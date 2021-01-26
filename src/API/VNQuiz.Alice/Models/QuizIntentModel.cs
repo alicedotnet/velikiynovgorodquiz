@@ -15,10 +15,26 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName("confirm")]
         public AliceIntentModel<object> Confirm { get; set; } //TODO::create non-generic version of AliceIntentModel
 
+        public bool IsConfirm
+        {
+            get
+            {
+                return YandexConfirm != null || Confirm != null;
+            }
+        }
+
         [JsonPropertyName("YANDEX.REJECT")] //TODO::move this to library
         public AliceIntentModel<object> YandexReject { get; set; } //TODO::create non-generic version of AliceIntentModel
 
         [JsonPropertyName("reject")]
         public AliceIntentModel<object> Reject { get; set; } //TODO::create non-generic version of AliceIntentModel
+    
+        public bool IsReject
+        {
+            get
+            {
+                return YandexReject != null || Reject != null;
+            }
+        }
     }
 }
