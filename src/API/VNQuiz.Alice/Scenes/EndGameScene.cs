@@ -9,6 +9,8 @@ namespace VNQuiz.Alice.Scenes
 {
     public class EndGameScene : Scene
     {
+        protected override string[] FallbackQuestions => Array.Empty<string>();
+
         private readonly IScenesProvider _scenesProvider;
 
         public EndGameScene(IScenesProvider scenesProvider)

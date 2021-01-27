@@ -8,6 +8,8 @@ namespace VNQuiz.Alice.Scenes
 {
     public class StartGameScene : Scene
     {
+        protected override string[] FallbackQuestions => Array.Empty<string>();
+
         private readonly IScenesProvider _scenesProvider;
 
         public StartGameScene(IScenesProvider scenesProvider)

@@ -8,8 +8,22 @@ namespace VNQuiz.Alice.Scenes
 {
     public abstract class Scene
     {
+        private readonly string[] _fallbackVariants = new string[] { "Я вас не поняла.", "Не понимаю.", "Не могу разобрать." };
+        protected abstract string[] FallbackQuestions { get; }
+
         public abstract Scene MoveToNextScene(QuizRequest request);
         public abstract QuizResponse Reply(QuizRequest request);
-        public abstract QuizResponse Fallback(QuizRequest request);
+        public virtual QuizResponse Fallback(QuizRequest request)
+        {
+            var fallbackVariantsRandom = new Random();
+            int fallbackVariantIndex = fallbackVariantsRandom.Next(_fallbackVariants.Length);
+
+            var fallbackQuestionsRandom = new Random();
+            int fallbackQuestionIndex = fallbackQuestionsRandom.Next(FallbackQuestions.Length);
+
+            string text = string.Join(' ', _fallbackVariants[fallbackVariantIndex], FallbackQuestions[fallbackQuestionIndex]);
+
+            return new QuizResponse(request, text);
+        }
     }
 }

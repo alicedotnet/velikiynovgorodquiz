@@ -9,6 +9,8 @@ namespace VNQuiz.Alice.Scenes
 {
     public class WrongAnswerScene : AnswerScene
     {
+        protected override string[] FallbackQuestions => Array.Empty<string>();
+
         protected override string[] AnswerTips { get; }
 
         public WrongAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)

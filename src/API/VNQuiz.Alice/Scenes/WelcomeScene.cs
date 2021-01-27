@@ -11,6 +11,12 @@ namespace VNQuiz.Alice.Scenes
     {
         private readonly IScenesProvider _scenesProvider;
 
+        protected override string[] FallbackQuestions => new string[]
+        {
+            "Может сыграем?",
+            "Начнем игру?"
+        };
+
         public WelcomeScene(IScenesProvider scenesProvider)
         {
             _scenesProvider = scenesProvider;
@@ -53,11 +59,10 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Fallback(QuizRequest request)
         {
-            return new QuizResponse(request, "Я вас не поняла. Может сыграем?", new List<QuizButtonModel>
-            {
-                new QuizButtonModel("да"),
-                new QuizButtonModel("нет")
-            });
+            var response = base.Fallback(request);
+            response.Response.Buttons.Add(new QuizButtonModel("да"));
+            response.Response.Buttons.Add(new QuizButtonModel("нет"));
+            return response;
         }
     }
 }

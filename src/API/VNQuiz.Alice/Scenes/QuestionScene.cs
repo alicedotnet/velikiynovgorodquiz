@@ -10,6 +10,8 @@ namespace VNQuiz.Alice.Scenes
 {
     public class QuestionScene : Scene
     {
+        protected override string[] FallbackQuestions => Array.Empty<string>();
+
         private readonly IQuestionsService _questionsService;
         private readonly IScenesProvider _scenesProvider;
 
@@ -39,7 +41,7 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        private string GetAnswer(QuizRequest request)
+        private static string GetAnswer(QuizRequest request)
         {
             if(request.Request.Type == AliceRequestType.ButtonPressed)
             {
