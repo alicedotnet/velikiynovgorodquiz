@@ -11,6 +11,18 @@ namespace VNQuiz.Alice.Scenes
     public class QuestionScene : Scene
     {
         protected override string[] FallbackQuestions => Array.Empty<string>();
+        private readonly string[] _firstQuestionAnswers = new string[]
+        {
+            "Отлично, начинаем! Вот первый вопрос:",
+            "Начинаем игру. Первый вопрос:"
+        };
+
+        private readonly string[] _nextQuestionAnswers = new string[]
+        {
+            "Вот следующий вопрос:",
+            "Идем дальше.",
+            "Следующий вопрос:"
+        };
 
         private readonly IQuestionsService _questionsService;
         private readonly IScenesProvider _scenesProvider;
@@ -47,23 +59,34 @@ namespace VNQuiz.Alice.Scenes
             {
                 return request.Request.Payload.ToString();
             }
+            if(request.Request.Nlu.Intents?.Answer != null)
+            {
+                if(request.Request.Nlu.Intents.Answer.Slots.Number != null)
+                {
+                    int index = (int)request.Request.Nlu.Intents.Answer.Slots.Number.Value - 1;
+                    return request.State.Session.CurrentQuestionAnswers[index];
+                }
+                if (request.Request.Nlu.Intents.Answer.Slots.ExactAnswer != null)
+                {
+                    return request.Request.Nlu.Intents.Answer.Slots.ExactAnswer.Value;
+                }
+            }
             return request.Request.Command;
         }
 
         public override QuizResponse Reply(QuizRequest request)
         {
-            var question = _questionsService.GetQuestion();
-            var response = new QuizResponse(request, question.Text);
-            string questionTipText;
+            var response = new QuizResponse(request, string.Empty);
             if(response.SessionState.CurrentQuestionId == 0)
             {
-                questionTipText = "Отлично, начинаем! Вот первый вопрос:\n";
+                SetRandomSkillAnswer(response, _firstQuestionAnswers);
             }
             else
             {
-                questionTipText = "Вот следующий вопрос:";
+                SetRandomSkillAnswer(response, _nextQuestionAnswers);
             }
-            response.Response.Text = $"{questionTipText}\n{response.Response.Text}";
+            var question = _questionsService.GetQuestion();
+            response.Response.Text = $"{response.Response.Text}\n\n{question.Text}";
             foreach (var wrongAnswer in question.WrongAnswers)
             {
                 response.Response.Buttons.Add(new QuizButtonModel(wrongAnswer));
@@ -73,6 +96,7 @@ namespace VNQuiz.Alice.Scenes
             response.Response.Buttons.Insert(correctAnswerIndex, new QuizButtonModel(question.CorrectAnswer));
             response.SessionState.CurrentScene = SceneType.Question;
             response.SessionState.CurrentQuestionId = question.Id;
+            response.SessionState.CurrentQuestionAnswers = response.Response.Buttons.Select(x => x.Title).ToArray();
             return response;
         }
 

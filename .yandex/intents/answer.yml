@@ -1,0 +1,32 @@
+root:
+    %lemma
+    $Number
+    [$Number $VariantText]
+    $ExactAnswer
+    [$ExactAnswer $VariantText]
+slots:
+    number:
+        source: $Number
+        type: YANDEX.NUMBER
+    exactAnswer:
+        source: $ExactAnswer
+filler:
+    %lemma
+    пускай
+    пусть
+    будет
+    мне 
+    кажется
+    это
+    номер
+    ну
+    правильный    
+$Number:
+    1
+    2
+    3
+$ExactAnswer:
+    .+
+$VariantText:
+    вариант
+    ответ

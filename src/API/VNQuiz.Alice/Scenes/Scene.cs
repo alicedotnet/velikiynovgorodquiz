@@ -20,22 +20,29 @@ namespace VNQuiz.Alice.Scenes
 
         public virtual QuizResponse Fallback(QuizRequest request)
         {
-            var fallbackVariantsRandom = new Random();
-            int fallbackVariantIndex = fallbackVariantsRandom.Next(_fallbackVariants.Length);
+            var response = new QuizResponse(request, string.Empty);
+
+            SetRandomSkillAnswer(response, _fallbackVariants);
 
             var fallbackQuestionsRandom = new Random();
             int fallbackQuestionIndex = fallbackQuestionsRandom.Next(FallbackQuestions.Length);
 
-            string text = string.Join(' ', _fallbackVariants[fallbackVariantIndex], FallbackQuestions[fallbackQuestionIndex]);
+            response.Response.Text = string.Join(' ', response.Response.Text, FallbackQuestions[fallbackQuestionIndex]);
 
-            return new QuizResponse(request, text);
+            return response;
         }
 
-        protected string GetRandomString(string[] values)
+        protected void SetRandomSkillAnswer(QuizResponse response, string[] values)
         {
             var random = new Random();
-            int index = random.Next(values.Length);
-            return values[index];
+            int index;
+            do
+            {
+                index = random.Next(values.Length);
+            } while (response.SessionState.LastRandomSkillAnswerIndex != null &&
+                index == response.SessionState.LastRandomSkillAnswerIndex);
+            response.Response.Text = string.Join(' ', response.Response.Text, values[index]);
+            response.SessionState.LastRandomSkillAnswerIndex = index;
         }
     }
 }

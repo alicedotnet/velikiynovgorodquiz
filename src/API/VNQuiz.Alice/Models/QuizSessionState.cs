@@ -10,12 +10,15 @@ namespace VNQuiz.Alice.Models
     {
         public int IncorrectAnswersCount { get; set; }
         public int CurrentQuestionId { get; set; }
+        public string[] CurrentQuestionAnswers { get; set; }
         public List<int> AnsweredQuestionsIds { get; set; }
         public SceneType CurrentScene { get; set; }
+        public int? LastRandomSkillAnswerIndex { get; set; }
 
         public QuizSessionState()
         {
             AnsweredQuestionsIds = new List<int>();
+            CurrentQuestionAnswers = Array.Empty<string>();
         }
     }
 }

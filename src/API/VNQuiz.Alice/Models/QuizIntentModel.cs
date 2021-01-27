@@ -62,5 +62,17 @@ namespace VNQuiz.Alice.Models
                 return YandexHelp != null || Help != null;
             }
         }
+
+        [JsonPropertyName("answer")]
+        public AliceIntentModel<AnswerSlots> Answer { get; set; }
+    }
+
+    public class AnswerSlots
+    {
+        [JsonPropertyName("number")]
+        public AliceEntityNumberModel Number { get; set; }
+
+        [JsonPropertyName("exactAnswer")]
+        public AliceEntityStringModel ExactAnswer { get; set; }
     }
 }

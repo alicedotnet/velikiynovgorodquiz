@@ -50,10 +50,9 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Reply(QuizRequest request)
         {
-            string text = $"Привет! {GetRandomString(_replyVariations)}";
-            return new QuizResponse(
+            var response = new QuizResponse(
                 request,
-                text,
+                "Привет!",
                 new List<QuizButtonModel>()
                 {
                     new QuizButtonModel("да"),
@@ -62,6 +61,8 @@ namespace VNQuiz.Alice.Scenes
             {
                 SessionState = new QuizSessionState()
             };
+            SetRandomSkillAnswer(response, _replyVariations);
+            return response;
         }
 
         public override QuizResponse Fallback(QuizRequest request)
@@ -74,16 +75,19 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Repeat(QuizRequest request)
         {
-            return new QuizResponse(
+            var response = new QuizResponse(
                 request,
-                GetRandomString(_replyVariations),
+                string.Empty,
                 new List<QuizButtonModel>()
                 {
                     new QuizButtonModel("да"),
                     new QuizButtonModel("нет")
                 });
+            SetRandomSkillAnswer(response, _replyVariations);
+            return response;
         }
 
+        //TODO::probably need to have separate help screen
         public override QuizResponse Help(QuizRequest request)
         {
             return Repeat(request);
