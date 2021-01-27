@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Scenes;
@@ -41,7 +42,8 @@ namespace VNQuiz.Alice.Controllers
             {
                 return nextScene.Reply(request);
             }
-            //TODO::add fallback logging
+            string sessionText = JsonSerializer.Serialize(request.State.Session);
+            _logger.LogInformation("Unknown request. Text: {0} Session: {1}", request.Request.Command, sessionText);
             return currentScene.Fallback(request);
         }
     }

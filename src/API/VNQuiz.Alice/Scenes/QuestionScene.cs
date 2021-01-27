@@ -64,7 +64,6 @@ namespace VNQuiz.Alice.Scenes
             response.Response.Text = $"{questionTipText}\n{response.Response.Text}";
             foreach (var wrongAnswer in question.WrongAnswers)
             {
-                //TODO::need to hide this button after click
                 response.Response.Buttons.Add(new QuizButtonModel(wrongAnswer));
             }
             var random = new Random();

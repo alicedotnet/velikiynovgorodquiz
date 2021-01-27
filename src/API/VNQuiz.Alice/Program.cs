@@ -21,6 +21,13 @@ namespace VNQuiz.Alice
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureLogging((ctx, logging) => {
+                    var configuration = ctx.Configuration.GetSection("Logging");
+                    logging.AddConfiguration(configuration);
+
+                    //Environment.CurrentDirectory = ctx.HostingEnvironment.ContentRootPath;
+                    logging.AddFile(configuration);
                 });
     }
 }
