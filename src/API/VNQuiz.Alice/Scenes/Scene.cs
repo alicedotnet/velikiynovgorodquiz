@@ -13,6 +13,11 @@ namespace VNQuiz.Alice.Scenes
 
         public abstract Scene MoveToNextScene(QuizRequest request);
         public abstract QuizResponse Reply(QuizRequest request);
+
+        public abstract QuizResponse Repeat(QuizRequest request);
+
+        public abstract QuizResponse Help(QuizRequest request);
+
         public virtual QuizResponse Fallback(QuizRequest request)
         {
             var fallbackVariantsRandom = new Random();
@@ -24,6 +29,13 @@ namespace VNQuiz.Alice.Scenes
             string text = string.Join(' ', _fallbackVariants[fallbackVariantIndex], FallbackQuestions[fallbackQuestionIndex]);
 
             return new QuizResponse(request, text);
+        }
+
+        protected string GetRandomString(string[] values)
+        {
+            var random = new Random();
+            int index = random.Next(values.Length);
+            return values[index];
         }
     }
 }

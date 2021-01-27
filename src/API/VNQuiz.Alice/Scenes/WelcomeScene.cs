@@ -17,6 +17,12 @@ namespace VNQuiz.Alice.Scenes
             "Начнем игру?"
         };
 
+        private readonly string[] _replyVariations = new string[]
+        {
+            "Предлагаю сыграть в викторину по истории Великого Новгорода. Я буду задавать тебе вопросы, а ты выбирать один из трех вариантов ответа. Игра закончится после трех неправильных ответов. Начнем?",
+            "Давай сыграем в викторину по истории Великого Новгорода. Для каждого вопроса будут три варианта ответа. Игра закончится после трех ошибок. Начнем игру?"
+        };
+
         public WelcomeScene(IScenesProvider scenesProvider)
         {
             _scenesProvider = scenesProvider;
@@ -44,9 +50,10 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Reply(QuizRequest request)
         {
+            string text = $"Привет! {GetRandomString(_replyVariations)}";
             return new QuizResponse(
                 request,
-                "Привет! Предлагаю сыграть в викторину по истории Великого Новгорода. Я буду задавать тебе вопросы, а ты выбирать один из трех вариантов ответа. Игра закончится после трех неправильных ответов. Начнем?",
+                text,
                 new List<QuizButtonModel>()
                 {
                     new QuizButtonModel("да"),
@@ -63,6 +70,23 @@ namespace VNQuiz.Alice.Scenes
             response.Response.Buttons.Add(new QuizButtonModel("да"));
             response.Response.Buttons.Add(new QuizButtonModel("нет"));
             return response;
+        }
+
+        public override QuizResponse Repeat(QuizRequest request)
+        {
+            return new QuizResponse(
+                request,
+                GetRandomString(_replyVariations),
+                new List<QuizButtonModel>()
+                {
+                    new QuizButtonModel("да"),
+                    new QuizButtonModel("нет")
+                });
+        }
+
+        public override QuizResponse Help(QuizRequest request)
+        {
+            return Repeat(request);
         }
     }
 }

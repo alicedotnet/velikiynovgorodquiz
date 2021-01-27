@@ -47,5 +47,15 @@ namespace VNQuiz.Alice.Scenes
             response.SessionState.CurrentScene = SceneType.EndGame;
             return response;
         }
+
+        public override QuizResponse Repeat(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override QuizResponse Help(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -15,7 +15,17 @@ namespace VNQuiz.Alice.Scenes
             throw new NotImplementedException();
         }
 
+        public override QuizResponse Help(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Scene MoveToNextScene(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override QuizResponse Repeat(QuizRequest request)
         {
             throw new NotImplementedException();
         }

@@ -35,5 +35,15 @@ namespace VNQuiz.Alice.Scenes
             request.State.Session.IncorrectAnswersCount = 0;
             return questionScene.Reply(request);
         }
+
+        public override QuizResponse Repeat(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override QuizResponse Help(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

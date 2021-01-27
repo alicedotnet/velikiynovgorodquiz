@@ -34,7 +34,32 @@ namespace VNQuiz.Alice.Models
         {
             get
             {
-                return YandexReject != null || Reject != null;
+                return (YandexReject != null || Reject != null) && !IsHelp;
+            }
+        }
+
+        [JsonPropertyName(AliceConstants.AliceIntents.Repeat)]
+        public AliceIntentModel YandexRepeat { get; set; }
+
+        public bool IsRepeat
+        {
+            get
+            {
+                return YandexRepeat != null;
+            }
+        }
+
+        [JsonPropertyName(AliceConstants.AliceIntents.Help)]
+        public AliceIntentModel YandexHelp { get; set; }
+
+        [JsonPropertyName("help")]
+        public AliceIntentModel Help { get; set; }
+
+        public bool IsHelp
+        {
+            get
+            {
+                return YandexHelp != null || Help != null;
             }
         }
     }

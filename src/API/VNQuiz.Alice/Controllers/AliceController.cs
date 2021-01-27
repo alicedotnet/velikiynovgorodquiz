@@ -37,6 +37,19 @@ namespace VNQuiz.Alice.Controllers
             {
                 currentScene = _scenesProvider.Get();
             }
+
+            if(request.Request.Nlu.Intents != null)
+            {
+                if(request.Request.Nlu.Intents.IsRepeat)
+                {
+                    return currentScene.Repeat(request);
+                }
+                if(request.Request.Nlu.Intents.IsHelp)
+                {
+                    return currentScene.Help(request);
+                }
+            }
+
             var nextScene = currentScene.MoveToNextScene(request);
             if (nextScene != null)
             {

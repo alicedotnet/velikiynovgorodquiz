@@ -34,5 +34,15 @@ namespace VNQuiz.Alice.Scenes
         {
             return string.Empty;
         }
+
+        public override QuizResponse Repeat(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override QuizResponse Help(QuizRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
