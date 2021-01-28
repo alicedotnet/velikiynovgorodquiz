@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VNQuiz.Core.Util;
 using VNQuiz.Core.Interfaces;
 using VNQuiz.Core.Models;
 
@@ -24,6 +22,7 @@ namespace VNQuiz.Core
             if (questions != null)
             {
                 _questions.AddRange(questions);
+                _questions.Sort((x, y) => x.Id.CompareTo(y.Id));
             }
         }
 
@@ -49,6 +48,10 @@ namespace VNQuiz.Core
             }
         }
 
-        public Question? GetQuestion(int id) => _questions.FirstOrDefault(q => q.Id == id);
+        public Question? GetQuestion(int id)
+        {
+            var index = _questions.BinarySearch(id, (x) => x.Id);
+            return index >= 0 ? _questions[index] : null;
+        }
     }
 }

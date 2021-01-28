@@ -17,17 +17,29 @@
   {
     "correctAnswer": "correct answer",
     "text": "question 4",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ],
+    "additionalInfo": {
+      "text": "some bonus fact about question",
+      "pictureId": "45674567",
+      "links": [ "http://www.google.com" ]
+    }
   },
   {
     "text": "question 5",
+    "pictureId": "1234",  
     "correctAnswer": "correct answer",
     "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
   },
   {
     "correctAnswer": "correct answer",
     "text": "question 6",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ],
+    "explanation": "some smart explanation about answer",
+    "additionalInfo": {
+      "text": "some bonus fact about question",
+      "pictureId": "45674567",
+      "links": ["http://www.google.com"]
+    }
   },
   {
     "text": "question 7",
