@@ -20,14 +20,34 @@ namespace VNQuiz.Alice.Scenes
 
         public virtual QuizResponse Fallback(QuizRequest request)
         {
+            QuizResponse response;
+            if (request.State.Session.ConsecutiveFallbackAnswers < 2)
+            {
+                response = Fallback(request, FallbackQuestions);
+                SetFallbackButtons(request, response);
+            }
+            else
+            {
+                response = Repeat(request);
+            }
+            return response;
+        }
+
+        protected virtual void SetFallbackButtons(QuizRequest request, QuizResponse response)
+        {
+
+        }
+
+        protected QuizResponse Fallback(QuizRequest request, string[] fallbackQuestions)
+        {
             var response = new QuizResponse(request, string.Empty);
 
             SetRandomSkillAnswer(response, _fallbackVariants);
 
             var fallbackQuestionsRandom = new Random();
-            int fallbackQuestionIndex = fallbackQuestionsRandom.Next(FallbackQuestions.Length);
+            int fallbackQuestionIndex = fallbackQuestionsRandom.Next(fallbackQuestions.Length);
 
-            response.Response.Text = string.Join(' ', response.Response.Text, FallbackQuestions[fallbackQuestionIndex]);
+            response.Response.Text = string.Join(' ', response.Response.Text, fallbackQuestions[fallbackQuestionIndex]);
 
             return response;
         }

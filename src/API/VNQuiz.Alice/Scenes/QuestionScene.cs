@@ -10,7 +10,12 @@ namespace VNQuiz.Alice.Scenes
 {
     public class QuestionScene : Scene
     {
-        protected override string[] FallbackQuestions => Array.Empty<string>();
+        protected override string[] FallbackQuestions => new string[]
+        {
+            "Попробуй еще раз",
+            "Какой будет твой ответ на вопрос?"
+        };
+
         private readonly string[] _firstQuestionAnswers = new string[]
         {
             "Отлично, начинаем! Вот первый вопрос:",
@@ -24,6 +29,13 @@ namespace VNQuiz.Alice.Scenes
             "Следующий вопрос:"
         };
 
+        private readonly string[] _repeatVariations = new string[]
+        {
+            "Повторяю вопрос:",
+            "Вот вопрос:"
+        };
+
+
         private readonly IQuestionsService _questionsService;
         private readonly IScenesProvider _scenesProvider;
 
@@ -33,9 +45,17 @@ namespace VNQuiz.Alice.Scenes
             _scenesProvider = scenesProvider;
         }
 
-        public override QuizResponse Fallback(QuizRequest request)
+        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
         {
-            return new QuizResponse(request, "Я тебя не поняла. Повтори еще раз");
+            SetAnswersFromSession(request, response);
+        }
+
+        private void SetAnswersFromSession(QuizRequest request, QuizResponse response)
+        {
+            foreach (string currentQuestionAnswer in request.State.Session.CurrentQuestionAnswers)
+            {
+                response.Response.Buttons.Add(new QuizButtonModel(currentQuestionAnswer));
+            }
         }
 
         public override Scene MoveToNextScene(QuizRequest request)
@@ -102,12 +122,19 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Repeat(QuizRequest request)
         {
-            throw new NotImplementedException();
+            var response = new QuizResponse(
+                request,
+                string.Empty);
+            SetRandomSkillAnswer(response, _repeatVariations);
+            var question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
+            response.Response.Text += "\n" + question.Text;
+            SetAnswersFromSession(request, response);
+            return response;
         }
 
         public override QuizResponse Help(QuizRequest request)
         {
-            throw new NotImplementedException();
+            return Repeat(request);
         }
     }
 }

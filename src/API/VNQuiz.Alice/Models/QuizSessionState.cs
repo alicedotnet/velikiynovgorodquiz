@@ -14,6 +14,7 @@ namespace VNQuiz.Alice.Models
         public List<int> AnsweredQuestionsIds { get; set; }
         public SceneType CurrentScene { get; set; }
         public int? LastRandomSkillAnswerIndex { get; set; }
+        public int ConsecutiveFallbackAnswers { get; set; }
 
         public QuizSessionState()
         {

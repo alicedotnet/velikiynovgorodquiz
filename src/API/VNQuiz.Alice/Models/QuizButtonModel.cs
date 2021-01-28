@@ -9,7 +9,7 @@ namespace VNQuiz.Alice.Models
     public class QuizButtonModel : AliceButtonModel
     {
         public QuizButtonModel(string text)
-            : base(text, true, text, null)
+            : base(text, true, text)
         {
 
         }

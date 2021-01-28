@@ -65,12 +65,10 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        public override QuizResponse Fallback(QuizRequest request)
+        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
         {
-            var response = base.Fallback(request);
             response.Response.Buttons.Add(new QuizButtonModel("да"));
             response.Response.Buttons.Add(new QuizButtonModel("нет"));
-            return response;
         }
 
         public override QuizResponse Repeat(QuizRequest request)
@@ -87,7 +85,8 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        //TODO::probably need to have separate help screen
+        //TODO::probably need to have separate screen for rules
+        //TODO::add possibility to end session at any time
         public override QuizResponse Help(QuizRequest request)
         {
             return Repeat(request);

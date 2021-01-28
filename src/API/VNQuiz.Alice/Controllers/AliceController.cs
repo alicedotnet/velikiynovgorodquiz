@@ -37,14 +37,32 @@ namespace VNQuiz.Alice.Controllers
             {
                 currentScene = _scenesProvider.Get();
             }
-
-            if(request.Request.Nlu.Intents != null)
+            var response = GetResponse(request, currentScene);
+            if(response != null)
             {
-                if(request.Request.Nlu.Intents.IsRepeat)
+                response.SessionState.ConsecutiveFallbackAnswers = 0;
+            }
+            else
+            {
+                string sessionText = JsonSerializer.Serialize(request.State.Session);
+                _logger.LogInformation("Unknown request. Text: {0} Session: {1}", request.Request.Command, sessionText);
+
+                response = currentScene.Fallback(request);
+                response.SessionState.ConsecutiveFallbackAnswers++;
+            }
+
+            return response;
+        }
+
+        private QuizResponse GetResponse(QuizRequest request, Scene currentScene)
+        {
+            if (request.Request.Nlu.Intents != null)
+            {
+                if (request.Request.Nlu.Intents.IsRepeat)
                 {
                     return currentScene.Repeat(request);
                 }
-                if(request.Request.Nlu.Intents.IsHelp)
+                if (request.Request.Nlu.Intents.IsHelp)
                 {
                     return currentScene.Help(request);
                 }
@@ -55,9 +73,7 @@ namespace VNQuiz.Alice.Controllers
             {
                 return nextScene.Reply(request);
             }
-            string sessionText = JsonSerializer.Serialize(request.State.Session);
-            _logger.LogInformation("Unknown request. Text: {0} Session: {1}", request.Request.Command, sessionText);
-            return currentScene.Fallback(request);
+            return null;
         }
     }
 }
