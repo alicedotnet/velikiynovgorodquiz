@@ -15,7 +15,7 @@ namespace VNQuiz.Core.Util
             var left = 0;
             var right = list.Count;
             
-            while (left < right)
+            while (left <= right)
             {
                 var middle = (left + right) / 2;
 
