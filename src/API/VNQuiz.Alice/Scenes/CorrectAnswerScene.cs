@@ -16,7 +16,7 @@ namespace VNQuiz.Alice.Scenes
         public CorrectAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
             : base(questionsService, scenesProvider)
         {
-            AnswerTips = new string[] { "Правильно!" };
+            AnswerTips = new string[] { "Правильно!", "Верно.", "Вы правы." };
         }
 
 

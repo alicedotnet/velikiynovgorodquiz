@@ -54,7 +54,7 @@ namespace VNQuiz.Alice.Controllers
             return response;
         }
 
-        private QuizResponse GetResponse(QuizRequest request, Scene currentScene)
+        private static QuizResponse GetResponse(QuizRequest request, Scene currentScene)
         {
             if (request.Request.Nlu.Intents != null)
             {

@@ -50,7 +50,7 @@ namespace VNQuiz.Alice.Scenes
             SetAnswersFromSession(request, response);
         }
 
-        private void SetAnswersFromSession(QuizRequest request, QuizResponse response)
+        private static void SetAnswersFromSession(QuizRequest request, QuizResponse response)
         {
             foreach (string currentQuestionAnswer in request.State.Session.CurrentQuestionAnswers)
             {
@@ -106,7 +106,7 @@ namespace VNQuiz.Alice.Scenes
                 SetRandomSkillAnswer(response, _nextQuestionAnswers);
             }
             var question = _questionsService.GetQuestion();
-            response.Response.Text = $"{response.Response.Text}\n\n{question.Text}";
+            response.Response.SetText($"{response.Response.Text}\n{question.Text}");
             foreach (var wrongAnswer in question.WrongAnswers)
             {
                 response.Response.Buttons.Add(new QuizButtonModel(wrongAnswer));
@@ -127,7 +127,7 @@ namespace VNQuiz.Alice.Scenes
                 string.Empty);
             SetRandomSkillAnswer(response, _repeatVariations);
             var question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
-            response.Response.Text += "\n" + question.Text;
+            response.Response.SetText(response.Response.Text + "\n" + question.Text);
             SetAnswersFromSession(request, response);
             return response;
         }

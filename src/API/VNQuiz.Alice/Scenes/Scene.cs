@@ -47,7 +47,8 @@ namespace VNQuiz.Alice.Scenes
             var fallbackQuestionsRandom = new Random();
             int fallbackQuestionIndex = fallbackQuestionsRandom.Next(fallbackQuestions.Length);
 
-            response.Response.Text = string.Join(' ', response.Response.Text, fallbackQuestions[fallbackQuestionIndex]);
+            string text = JoinString(' ', response.Response.Text, fallbackQuestions[fallbackQuestionIndex]);
+            response.Response.SetText(text);
 
             return response;
         }
@@ -61,8 +62,13 @@ namespace VNQuiz.Alice.Scenes
                 index = random.Next(values.Length);
             } while (response.SessionState.LastRandomSkillAnswerIndex != null &&
                 index == response.SessionState.LastRandomSkillAnswerIndex);
-            response.Response.Text = string.Join(' ', response.Response.Text, values[index]);
+            response.Response.SetText(JoinString(' ', response.Response.Text, values[index]));
             response.SessionState.LastRandomSkillAnswerIndex = index;
+        }
+
+        protected string JoinString(char separator, params string[] values)
+        {
+            return string.Join(separator, values.Where(x => !string.IsNullOrEmpty(x)));
         }
     }
 }

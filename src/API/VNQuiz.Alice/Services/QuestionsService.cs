@@ -15,9 +15,7 @@ namespace VNQuiz.Alice.Services
 
         public QuestionsService(IQuestionsHelper questionsHelper)
         {
-            if (questionsHelper == null) throw new ArgumentNullException(nameof(questionsHelper));
-
-            _questionsHelper = questionsHelper;
+            _questionsHelper = questionsHelper ?? throw new ArgumentNullException(nameof(questionsHelper));
         }
 
         public Question GetQuestion() => _questionsHelper.GetQuestion(new List<int>());

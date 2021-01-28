@@ -16,7 +16,7 @@ namespace VNQuiz.Alice.Scenes
         public WrongAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
             : base(questionsService, scenesProvider)
         {
-            AnswerTips = new string[] { "Неправильно!" };
+            AnswerTips = new string[] { "Не совсем.", "Немножко не так." };
         }
 
         public override QuizResponse Fallback(QuizRequest request)
