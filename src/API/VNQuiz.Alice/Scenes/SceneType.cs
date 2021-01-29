@@ -13,7 +13,8 @@ namespace VNQuiz.Alice.Scenes
         Question,
         CorrectAnswer,
         WrongAnswer,
-        EndGame,
+        LoseGame,
+        WinGame,
         EndSession
     }
 }

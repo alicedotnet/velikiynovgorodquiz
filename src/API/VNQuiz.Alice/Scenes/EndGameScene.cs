@@ -7,20 +7,22 @@ using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Scenes
 {
-    public class EndGameScene : Scene
+    public abstract class EndGameScene : Scene
     {
-        protected override string[] FallbackQuestions => Array.Empty<string>();
+        protected override string[] FallbackQuestions => new string[]
+        {
+            "Может сыграем еще раз?",
+            "Повторим игру?"
+        };
 
         private readonly IScenesProvider _scenesProvider;
+        protected abstract string[] ReplyVariations { get; }
+        protected abstract SceneType CurrentScene { get; }
+
 
         public EndGameScene(IScenesProvider scenesProvider)
         {
             _scenesProvider = scenesProvider;
-        }
-
-        public override QuizResponse Fallback(QuizRequest request)
-        {
-            throw new NotImplementedException();
         }
 
         public override Scene MoveToNextScene(QuizRequest request)
@@ -41,21 +43,28 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Reply(QuizRequest request)
         {
-            var response = new QuizResponse(request, "К сожалению, наша игра подошла к концу. Сыграем еще раз?");
+            var response = new QuizResponse(request, string.Empty);
+            SetRandomSkillAnswer(response, ReplyVariations);
+            SetRandomSkillAnswer(response, FallbackQuestions);
+            SetFallbackButtons(request, response);
+            response.SessionState.CurrentScene = CurrentScene;
+            return response;
+        }
+
+        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
+        {
             response.Response.Buttons.Add(new AliceButtonModel("да"));
             response.Response.Buttons.Add(new AliceButtonModel("нет"));
-            response.SessionState.CurrentScene = SceneType.EndGame;
-            return response;
         }
 
         public override QuizResponse Repeat(QuizRequest request)
         {
-            throw new NotImplementedException();
+            return Reply(request);
         }
 
         public override QuizResponse Help(QuizRequest request)
         {
-            throw new NotImplementedException();
+            return Reply(request);
         }
     }
 }

@@ -32,6 +32,9 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.StartGameFilePath)]
         [InlineData(TestsConstants.Assets.WrongAnswerFilePath)]
         [InlineData(TestsConstants.Assets.LastWrongAnswerFilePath)]
+        [InlineData(TestsConstants.Assets.EndGame)]
+        [InlineData(TestsConstants.Assets.Question)]
+        [InlineData(TestsConstants.Assets.CorrectAnswer)]
         public async Task Alice_SendRequest_Success(string filePath)
         {
             string text = File.ReadAllText(filePath);
@@ -41,7 +44,13 @@ namespace VNQuiz.Alice.Tests
             Assert.True(response.IsSuccessStatusCode, responseContent);
             var aliceResponse = JsonSerializer.Deserialize<AliceResponseWrapper>(responseContent);
             Assert.NotNull(aliceResponse);
-            _testOutputHelper.WriteLine(aliceResponse.Response.Text);
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                WriteIndented = true
+            };
+            string prettyJson = JsonSerializer.Serialize(aliceResponse, options);
+            _testOutputHelper.WriteLine(prettyJson);
         }
     }
 }

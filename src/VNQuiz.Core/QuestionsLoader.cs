@@ -7,14 +7,18 @@ using VNQuiz.Core.Models;
 
 namespace VNQuiz.Core
 {
-    class QuestionsLoader
+    static class QuestionsLoader
     {
-        public List<Question>? Load(string path)
+        public static List<Question>? Load(string path)
         {
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             if (!File.Exists(path)) throw new ArgumentException($"File does not exist {path}");
 
-            var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+            var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+            {
+                ReadCommentHandling = JsonCommentHandling.Skip,
+                AllowTrailingCommas = true
+            };
             return JsonSerializer.Deserialize<List<Question>>(File.ReadAllText(path), options);
         }
     }

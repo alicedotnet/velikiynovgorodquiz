@@ -32,26 +32,28 @@ namespace VNQuiz.Alice.Scenes
         public override QuizResponse Reply(QuizRequest request)
         {
             QuizResponse response;
-            if (request.State.Session.IncorrectAnswersCount >= 2)
+            request.State.Session.IncorrectAnswersCount++;
+            if (request.State.Session.IncorrectAnswersCount >= 3)
             {
-                var endGameScene = ScenesProvider.Get(SceneType.EndGame);
-                response = endGameScene.Reply(request);
+                var wrongAnswerResponse = base.Reply(request);
+                var loseGameScene = ScenesProvider.Get(SceneType.LoseGame);
+                response = loseGameScene.Reply(request);
+                response.Response.SetText(JoinString('\n', wrongAnswerResponse.Response.Text, response.Response.Text));
             }
             else
             {
                 response = base.Reply(request);
             }
-            response.SessionState.IncorrectAnswersCount++;
             return response;
         }
 
         protected override string GetSupportText(QuizSessionState quizSessionState)
         {
-            if(quizSessionState.IncorrectAnswersCount == 0)
+            if(quizSessionState.IncorrectAnswersCount == 1)
             {
                 return "Вы можете сделать еще две ошибки.";
             }
-            else if(quizSessionState.IncorrectAnswersCount == 1)
+            else if(quizSessionState.IncorrectAnswersCount == 2)
             {
                 return "Давай дальше без ошибок!";
             }

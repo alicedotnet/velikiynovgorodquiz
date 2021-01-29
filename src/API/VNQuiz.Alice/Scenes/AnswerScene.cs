@@ -23,20 +23,23 @@ namespace VNQuiz.Alice.Scenes
         {
             var question = QuestionsService.GetQuestion(request.State.Session.CurrentQuestionId);
             var questionScene = ScenesProvider.Get(SceneType.Question);
-            var response = questionScene.Reply(request);
-            response.SessionState.AnsweredQuestionsIds.Add(question.Id);
-            string text = JoinString(' ', GetAnswerTipText(), question.Explanation);
-            text += "\n";
-            text += JoinString(' ', GetSupportText(response.SessionState), response.Response.Text);
-            response.Response.SetText(text);
-            return response;
-        }
+            request.State.Session.AnsweredQuestionsIds.Add(question.Id);
+            QuizResponse response;
+            string supportText = string.Empty;
+            if (request.State.Session.IncorrectAnswersCount < 3)
+            {
+                response = questionScene.Reply(request);
+                supportText = "\n" + GetSupportText(response.SessionState);
+            }
+            else
+            {
+                response = new QuizResponse(request, string.Empty);
+            }
 
-        protected string GetAnswerTipText()
-        {
-            var random = new Random();
-            int randomTipIndex = random.Next(AnswerTips.Length);
-            return AnswerTips[randomTipIndex];
+            string text = JoinString(' ', GetRandomSkillAnswer(response, AnswerTips), question.Explanation, supportText);
+            response.Response.Text = JoinString(' ', text, response.Response.Text);
+            response.Response.Tts = JoinString(' ', text, response.Response.Tts);
+            return response;
         }
 
         protected abstract string GetSupportText(QuizSessionState quizSessionState);

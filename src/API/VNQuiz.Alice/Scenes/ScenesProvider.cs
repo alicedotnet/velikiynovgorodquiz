@@ -19,16 +19,22 @@ namespace VNQuiz.Alice.Scenes
         {
             return type switch
             {
-                SceneType.Default => _serviceProvider.GetService<WelcomeScene>(),
-                SceneType.Welcome => _serviceProvider.GetService<WelcomeScene>(),
-                SceneType.StartGame => _serviceProvider.GetService<StartGameScene>(),
-                SceneType.Question => _serviceProvider.GetService<QuestionScene>(),
-                SceneType.CorrectAnswer => _serviceProvider.GetService<CorrectAnswerScene>(),
-                SceneType.WrongAnswer => _serviceProvider.GetService<WrongAnswerScene>(),
-                SceneType.EndGame => _serviceProvider.GetService<EndGameScene>(),
-                SceneType.EndSession => _serviceProvider.GetService<EndSessionScene>(),
+                SceneType.Default => Get<WelcomeScene>(),
+                SceneType.Welcome => Get<WelcomeScene>(),
+                SceneType.StartGame => Get<StartGameScene>(),
+                SceneType.Question => Get<QuestionScene>(),
+                SceneType.CorrectAnswer => Get<CorrectAnswerScene>(),
+                SceneType.WrongAnswer => Get<WrongAnswerScene>(),
+                SceneType.WinGame => Get<WinGameScene>(),
+                SceneType.LoseGame => Get<LoseGameScene>(),
+                SceneType.EndSession => Get<EndSessionScene>(),
                 _ => throw new Exception("Unknown scene"),
             };
+        }
+
+        private T Get<T>()
+        {
+            return _serviceProvider.GetRequiredService<T>();
         }
     }
 }

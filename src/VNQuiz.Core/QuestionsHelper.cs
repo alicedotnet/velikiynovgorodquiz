@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using VNQuiz.Core.Util;
 using VNQuiz.Core.Interfaces;
@@ -9,20 +10,25 @@ namespace VNQuiz.Core
     public class QuestionsHelper : IQuestionsHelper
     {
         private readonly List<Question> _questions;
+        private readonly Dictionary<int, Question> _idQuestionMap;
 
         public QuestionsHelper()
         {
             _questions = new List<Question>();
+            _idQuestionMap = new Dictionary<int, Question>();
         }
 
         public void Initialize(string path)
         {
-            var loader = new QuestionsLoader();
-            var questions = loader.Load(path);
+            var questions = QuestionsLoader.Load(path);
             if (questions != null)
             {
                 _questions.AddRange(questions);
                 _questions.Sort((x, y) => x.Id.CompareTo(y.Id));
+                foreach (var question in _questions)
+                {
+                    _idQuestionMap.Add(question.Id, question);
+                }
             }
         }
 
@@ -34,13 +40,17 @@ namespace VNQuiz.Core
 
             try
             {
-                var random = new Random();
-                var index = random.Next(_questions.Count);
-                if (ids.Contains(index))
+                var remainingQuestionsIds = _idQuestionMap.Keys
+                    .Where(x => !ids.Contains(x))
+                    .ToArray();
+                if(remainingQuestionsIds.Length > 0)
                 {
-                    index = random.Next(_questions.Count);
+                    var random = new Random();
+                    var index = random.Next(remainingQuestionsIds.Length);
+                    var id = remainingQuestionsIds[index];
+                    return _idQuestionMap[id];
                 }
-                return _questions[index];
+                return null;
             }
             catch (Exception ex)
             {

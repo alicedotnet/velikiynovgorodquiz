@@ -21,7 +21,7 @@ namespace VNQuiz.Core.Models
         {
             if (wrongAnswers.Count < 1) throw new ArgumentException("Question must have at least one wrong answer");
 
-            Id = _nextId++;
+            Id = ++_nextId;
             Text = text;
             CorrectAnswer = correctAnswer;
             WrongAnswers = wrongAnswers;

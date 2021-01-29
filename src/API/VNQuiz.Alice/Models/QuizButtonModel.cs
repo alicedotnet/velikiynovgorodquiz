@@ -13,5 +13,11 @@ namespace VNQuiz.Alice.Models
         {
 
         }
+
+        public QuizButtonModel(string text, object payload)
+            : base(text, true, payload)
+        {
+
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace VNQuiz.Alice.Services
 {
     public interface IQuestionsService
     {
-        Question GetQuestion();
+        Question GetQuestion(List<int> excludeIds);
         Question GetQuestion(int id);
     }
 }

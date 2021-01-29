@@ -55,20 +55,54 @@ namespace VNQuiz.Alice.Scenes
 
         protected void SetRandomSkillAnswer(QuizResponse response, string[] values)
         {
-            var random = new Random();
-            int index;
-            do
+            string value = GetRandomSkillAnswer(response, values);
+            response.Response.SetText(JoinString(' ', response.Response.Text, value));
+        }
+
+        protected string GetRandomSkillAnswer(QuizResponse response, string[] values)
+        {
+            string value;
+            if (values.Length > 1)
             {
-                index = random.Next(values.Length);
-            } while (response.SessionState.LastRandomSkillAnswerIndex != null &&
-                index == response.SessionState.LastRandomSkillAnswerIndex);
-            response.Response.SetText(JoinString(' ', response.Response.Text, values[index]));
-            response.SessionState.LastRandomSkillAnswerIndex = index;
+                var random = new Random();
+                int index;
+                do
+                {
+                    index = random.Next(values.Length);
+                } while (response.SessionState.LastRandomSkillAnswerIndex != null &&
+                    index == response.SessionState.LastRandomSkillAnswerIndex);
+                response.SessionState.LastRandomSkillAnswerIndex = index;
+                value = values[index];
+            }
+            else
+            {
+                value = values.FirstOrDefault();
+            }
+            return value;
         }
 
         protected string JoinString(char separator, params string[] values)
         {
-            return string.Join(separator, values.Where(x => !string.IsNullOrEmpty(x)));
+            string result = string.Empty;
+            foreach (var value in values)
+            {
+                if(!string.IsNullOrEmpty(value))
+                {
+                    if(string.IsNullOrEmpty(result))
+                    {
+                        result = value;
+                    }
+                    else if(separator == ' ' && result.EndsWith('\n'))
+                    {
+                        result += value;
+                    }
+                    else
+                    {
+                        result = string.Join(separator, result, value);
+                    }
+                }
+            }
+            return result;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VNQuiz.Alice.Helpers;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Services;
 using Yandex.Alice.Sdk.Models;
@@ -50,23 +51,16 @@ namespace VNQuiz.Alice.Scenes
             SetAnswersFromSession(request, response);
         }
 
-        private static void SetAnswersFromSession(QuizRequest request, QuizResponse response)
-        {
-            foreach (string currentQuestionAnswer in request.State.Session.CurrentQuestionAnswers)
-            {
-                response.Response.Buttons.Add(new QuizButtonModel(currentQuestionAnswer));
-            }
-        }
-
         public override Scene MoveToNextScene(QuizRequest request)
         {
             int currentQuestionId = request.State.Session.CurrentQuestionId;
             var question = _questionsService.GetQuestion(currentQuestionId);
-            if (question.CorrectAnswer == GetAnswer(request))
+            string answer = GetAnswer(request);
+            if (question.CorrectAnswer == answer)
             {
                 return _scenesProvider.Get(SceneType.CorrectAnswer);
             }
-            else if (question.WrongAnswers.Contains(GetAnswer(request)))
+            else if (question.WrongAnswers.Contains(answer))
             {
                 return _scenesProvider.Get(SceneType.WrongAnswer);
             }
@@ -77,7 +71,8 @@ namespace VNQuiz.Alice.Scenes
         {
             if(request.Request.Type == AliceRequestType.ButtonPressed)
             {
-                return request.Request.Payload.ToString();
+                int index = request.Request.GetPayload<int>() - 1;
+                return request.State.Session.CurrentQuestionAnswers[index];
             }
             if(request.Request.Nlu.Intents?.Answer != null)
             {
@@ -105,19 +100,40 @@ namespace VNQuiz.Alice.Scenes
             {
                 SetRandomSkillAnswer(response, _nextQuestionAnswers);
             }
-            var question = _questionsService.GetQuestion();
-            response.Response.SetText($"{response.Response.Text}\n{question.Text}");
-            foreach (var wrongAnswer in question.WrongAnswers)
+            var question = _questionsService.GetQuestion(request.State.Session.AnsweredQuestionsIds);
+            if(question == null)
             {
-                response.Response.Buttons.Add(new QuizButtonModel(wrongAnswer));
+                var winGameScene = _scenesProvider.Get(SceneType.WinGame);
+                return winGameScene.Reply(request);
             }
+            response.Response.SetText($"{response.Response.Text}\n{question.Text}");
+
+            List<string> answers = new List<string>(question.WrongAnswers);
             var random = new Random();
             int correctAnswerIndex = random.Next(0, 2);
-            response.Response.Buttons.Insert(correctAnswerIndex, new QuizButtonModel(question.CorrectAnswer));
+            answers.Insert(correctAnswerIndex, question.CorrectAnswer);
+            SetAnswers(response, answers.ToArray());
+
             response.SessionState.CurrentScene = SceneType.Question;
             response.SessionState.CurrentQuestionId = question.Id;
-            response.SessionState.CurrentQuestionAnswers = response.Response.Buttons.Select(x => x.Title).ToArray();
+            response.SessionState.CurrentQuestionAnswers = answers.ToArray();
             return response;
+        }
+
+        private static void SetAnswersFromSession(QuizRequest request, QuizResponse response)
+        {
+            SetAnswers(response, request.State.Session.CurrentQuestionAnswers);
+        }
+
+
+        private static void SetAnswers(QuizResponse response, string[] answers)
+        {
+            for (int i = 1; i <= answers.Length; i++)
+            {
+                response.Response.Buttons.Add(new QuizButtonModel(i.ToString(), i));
+                response.Response.AppendText($"\n{EmojiHelper.GetNumberEmoji(i)} {answers[i - 1]}", false);
+                response.Response.AppendTts($"\n{answers[i - 1]}");
+            }
         }
 
         public override QuizResponse Repeat(QuizRequest request)

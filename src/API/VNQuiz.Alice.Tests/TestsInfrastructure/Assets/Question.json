@@ -12,7 +12,7 @@
   },
   "session": {
     "message_id": 2,
-    "session_id": "bd6745d4-6162-4268-b331-678f800eb65e",
+    "session_id": "11302cf3-6c00-4f63-b6ec-faf4ec18d458",
     "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
     "user": {
       "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
@@ -27,11 +27,11 @@
   "state": {
     "session": {
       "incorrectAnswersCount": 0,
-      "currentQuestionId": 8,
+      "currentQuestionId": 2,
       "currentQuestionAnswers": [
-        "1",
-        "2",
-        "3"
+        "wrong answer 1",
+        "correct answer",
+        "wrong answer 2"
       ],
       "answeredQuestionsIds": [],
       "currentScene": 3,
