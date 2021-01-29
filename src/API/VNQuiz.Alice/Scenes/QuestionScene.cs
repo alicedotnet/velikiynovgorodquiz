@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using VNQuiz.Alice.Helpers;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Services;
+using VNQuiz.Core.Models;
 using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Scenes
@@ -16,6 +17,8 @@ namespace VNQuiz.Alice.Scenes
             "Попробуй еще раз",
             "Какой будет твой ответ на вопрос?"
         };
+        protected override SceneType CurrentScene => SceneType.Question;
+
 
         private readonly string[] _firstQuestionAnswers = new string[]
         {

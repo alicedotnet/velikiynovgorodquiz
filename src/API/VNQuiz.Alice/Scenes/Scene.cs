@@ -10,6 +10,7 @@ namespace VNQuiz.Alice.Scenes
     {
         private readonly string[] _fallbackVariants = new string[] { "Я вас не поняла.", "Не понимаю.", "Не могу разобрать." };
         protected abstract string[] FallbackQuestions { get; }
+        protected abstract SceneType CurrentScene { get; }
 
         public abstract Scene MoveToNextScene(QuizRequest request);
         public abstract QuizResponse Reply(QuizRequest request);
@@ -21,7 +22,7 @@ namespace VNQuiz.Alice.Scenes
         public virtual QuizResponse Fallback(QuizRequest request)
         {
             QuizResponse response;
-            if (request.State.Session.ConsecutiveFallbackAnswers < 2)
+            if (request.State.Session.ConsecutiveFallbackAnswers < 1)
             {
                 response = Fallback(request, FallbackQuestions);
                 SetFallbackButtons(request, response);

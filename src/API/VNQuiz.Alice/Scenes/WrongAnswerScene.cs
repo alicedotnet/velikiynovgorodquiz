@@ -9,7 +9,7 @@ namespace VNQuiz.Alice.Scenes
 {
     public class WrongAnswerScene : AnswerScene
     {
-        protected override string[] FallbackQuestions => Array.Empty<string>();
+        protected override SceneType CurrentScene => SceneType.WrongAnswer;
 
         protected override string[] AnswerTips { get; }
 
@@ -17,16 +17,6 @@ namespace VNQuiz.Alice.Scenes
             : base(questionsService, scenesProvider)
         {
             AnswerTips = new string[] { "Не совсем.", "Немножко не так." };
-        }
-
-        public override QuizResponse Fallback(QuizRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Scene MoveToNextScene(QuizRequest request)
-        {
-            throw new NotImplementedException();
         }
 
         public override QuizResponse Reply(QuizRequest request)
@@ -58,16 +48,6 @@ namespace VNQuiz.Alice.Scenes
                 return "Давай дальше без ошибок!";
             }
             return string.Empty;
-        }
-
-        public override QuizResponse Repeat(QuizRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override QuizResponse Help(QuizRequest request)
-        {
-            throw new NotImplementedException();
         }
     }
 }

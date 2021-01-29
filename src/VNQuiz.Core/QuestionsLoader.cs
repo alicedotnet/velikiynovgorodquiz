@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using VNQuiz.Core.Models;
 
@@ -17,9 +20,11 @@ namespace VNQuiz.Core
             var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
             {
                 ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true
+                AllowTrailingCommas = true,
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
             };
-            return JsonSerializer.Deserialize<List<Question>>(File.ReadAllText(path), options);
+            var text = File.ReadAllText(path, Encoding.UTF8);
+            return JsonSerializer.Deserialize<List<Question>>(text, options);
         }
     }
 }

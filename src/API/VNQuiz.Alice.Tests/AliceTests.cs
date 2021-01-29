@@ -35,6 +35,7 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.EndGame)]
         [InlineData(TestsConstants.Assets.Question)]
         [InlineData(TestsConstants.Assets.CorrectAnswer)]
+        [InlineData(TestsConstants.Assets.AdditionalInfo)]
         public async Task Alice_SendRequest_Success(string filePath)
         {
             string text = File.ReadAllText(filePath);

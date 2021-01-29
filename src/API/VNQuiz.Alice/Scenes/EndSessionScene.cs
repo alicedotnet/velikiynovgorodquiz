@@ -9,6 +9,7 @@ namespace VNQuiz.Alice.Scenes
     public class EndSessionScene : Scene
     {
         protected override string[] FallbackQuestions => Array.Empty<string>();
+        protected override SceneType CurrentScene => SceneType.EndSession;
 
         public override QuizResponse Fallback(QuizRequest request)
         {

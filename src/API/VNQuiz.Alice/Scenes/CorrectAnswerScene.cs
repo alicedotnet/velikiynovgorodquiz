@@ -11,7 +11,7 @@ namespace VNQuiz.Alice.Scenes
     {
         protected override string[] AnswerTips { get; }
 
-        protected override string[] FallbackQuestions => Array.Empty<string>();
+        protected override SceneType CurrentScene => SceneType.CorrectAnswer;
 
         public CorrectAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
             : base(questionsService, scenesProvider)
@@ -19,30 +19,9 @@ namespace VNQuiz.Alice.Scenes
             AnswerTips = new string[] { "Правильно!", "Верно.", "Вы правы." };
         }
 
-
-        public override QuizResponse Fallback(QuizRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Scene MoveToNextScene(QuizRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
         protected override string GetSupportText(QuizSessionState quizSessionState)
         {
             return string.Empty;
-        }
-
-        public override QuizResponse Repeat(QuizRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override QuizResponse Help(QuizRequest request)
-        {
-            throw new NotImplementedException();
         }
     }
 }

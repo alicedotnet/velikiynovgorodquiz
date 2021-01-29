@@ -17,6 +17,8 @@ namespace VNQuiz.Alice.Scenes
             "Начнем игру?"
         };
 
+        protected override SceneType CurrentScene => SceneType.Welcome;
+
         private readonly string[] _replyVariations = new string[]
         {
             "Предлагаю сыграть в викторину по истории Великого Новгорода. Я буду задавать тебе вопросы, а ты выбирать один из трех вариантов ответа. Игра закончится после трех неправильных ответов. Начнем?",

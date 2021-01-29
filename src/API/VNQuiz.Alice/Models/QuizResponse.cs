@@ -6,7 +6,7 @@ using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Models
 {
-    public class QuizResponse : AliceResponse<QuizSessionState, object>
+    public class QuizResponse : AliceImageResponse<QuizSessionState, object>
     {
         public QuizResponse(AliceRequestBase<QuizSessionState, object> request, string text) : base(request, text)
         {

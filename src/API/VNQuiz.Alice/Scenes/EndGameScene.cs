@@ -17,7 +17,6 @@ namespace VNQuiz.Alice.Scenes
 
         private readonly IScenesProvider _scenesProvider;
         protected abstract string[] ReplyVariations { get; }
-        protected abstract SceneType CurrentScene { get; }
 
 
         public EndGameScene(IScenesProvider scenesProvider)

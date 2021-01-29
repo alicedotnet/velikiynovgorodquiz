@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Scenes;
-using VNQuiz.Alice.Services;
-using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Controllers
 {
@@ -28,30 +23,39 @@ namespace VNQuiz.Alice.Controllers
         [HttpPost]
         public QuizResponse Post(QuizRequest request)
         {
-            Scene currentScene;
-            if (request.State.Session != null)
+            try
             {
-                currentScene = _scenesProvider.Get(request.State.Session.CurrentScene);
-            }
-            else
-            {
-                currentScene = _scenesProvider.Get();
-            }
-            var response = GetResponse(request, currentScene);
-            if(response != null)
-            {
-                response.SessionState.ConsecutiveFallbackAnswers = 0;
-            }
-            else
-            {
-                string sessionText = JsonSerializer.Serialize(request.State.Session);
-                _logger.LogInformation("Unknown request. Text: {0} Session: {1}", request.Request.Command, sessionText);
+                Scene currentScene;
+                if (request.State.Session != null)
+                {
+                    currentScene = _scenesProvider.Get(request.State.Session.CurrentScene);
+                }
+                else
+                {
+                    currentScene = _scenesProvider.Get();
+                }
+                var response = GetResponse(request, currentScene);
+                if (response != null)
+                {
+                    response.SessionState.ConsecutiveFallbackAnswers = 0;
+                }
+                else
+                {
+                    string sessionText = JsonSerializer.Serialize(request.State.Session);
+                    _logger.LogInformation("Unknown request. Text: {0} Session: {1}", request.Request.Command, sessionText);
 
-                response = currentScene.Fallback(request);
-                response.SessionState.ConsecutiveFallbackAnswers++;
-            }
+                    response = currentScene.Fallback(request);
+                    response.SessionState.ConsecutiveFallbackAnswers++;
+                }
 
-            return response;
+                return response;
+            }
+            catch(Exception e)
+            {
+                string requestValue = JsonSerializer.Serialize(request);
+                _logger.LogError(e, requestValue);
+                throw;
+            }
         }
 
         private static QuizResponse GetResponse(QuizRequest request, Scene currentScene)
