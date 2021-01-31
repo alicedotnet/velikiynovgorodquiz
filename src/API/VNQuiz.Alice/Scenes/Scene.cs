@@ -21,17 +21,7 @@ namespace VNQuiz.Alice.Scenes
 
         public virtual QuizResponse Fallback(QuizRequest request)
         {
-            QuizResponse response;
-            if (request.State.Session.ConsecutiveFallbackAnswers < 1)
-            {
-                response = Fallback(request, FallbackQuestions);
-                SetFallbackButtons(request, response);
-            }
-            else
-            {
-                response = Repeat(request);
-            }
-            return response;
+            return Fallback(request, FallbackQuestions);
         }
 
         protected virtual void SetFallbackButtons(QuizRequest request, QuizResponse response)
@@ -42,15 +32,21 @@ namespace VNQuiz.Alice.Scenes
         protected QuizResponse Fallback(QuizRequest request, string[] fallbackQuestions)
         {
             var response = new QuizResponse(request, string.Empty);
+            if (request.State.Session.ConsecutiveFallbackAnswers < 1)
+            {
+                SetRandomSkillAnswer(response, _fallbackVariants);
 
-            SetRandomSkillAnswer(response, _fallbackVariants);
+                var fallbackQuestionsRandom = new Random();
+                int fallbackQuestionIndex = fallbackQuestionsRandom.Next(fallbackQuestions.Length);
 
-            var fallbackQuestionsRandom = new Random();
-            int fallbackQuestionIndex = fallbackQuestionsRandom.Next(fallbackQuestions.Length);
-
-            string text = JoinString(' ', response.Response.Text, fallbackQuestions[fallbackQuestionIndex]);
-            response.Response.SetText(text);
-
+                string text = JoinString(' ', response.Response.Text, fallbackQuestions[fallbackQuestionIndex]);
+                response.Response.SetText(text);
+                SetFallbackButtons(request, response);
+            }
+            else
+            {
+                response = Repeat(request);
+            }
             return response;
         }
 
@@ -105,5 +101,20 @@ namespace VNQuiz.Alice.Scenes
             }
             return result;
         }
+
+        protected string GetSentence(string text)
+        {
+            string sentence = text;
+            if (!string.IsNullOrEmpty(sentence))
+            {
+                char lastSymbol = sentence.Last();
+                if (lastSymbol != '.')
+                {
+                    sentence += '.';
+                }
+            }
+            return sentence;
+        }
+
     }
 }

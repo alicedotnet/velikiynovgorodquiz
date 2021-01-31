@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Services;
+using VNQuiz.Core.Models;
 
 namespace VNQuiz.Alice.Scenes
 {
@@ -58,11 +59,12 @@ namespace VNQuiz.Alice.Scenes
             {
                 request.State.Session.RestorePreviousState = false;
             }
-            text = JoinString(' ', text, question.Explanation, supportText);
+            text = JoinString(' ', text, GetSentence(question.Explanation), supportText);
             response.Response.Text = JoinString(' ', text, response.Response.Text);
             response.Response.Tts = JoinString(' ', text, response.Response.Tts);
             return response;
         }
+
 
         public override Scene MoveToNextScene(QuizRequest request)
         {

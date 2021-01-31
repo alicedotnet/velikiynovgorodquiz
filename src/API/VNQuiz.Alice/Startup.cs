@@ -49,6 +49,7 @@ namespace VNQuiz.Alice
             services.AddScoped<WinGameScene>();
             services.AddScoped<LoseGameScene>();
             services.AddScoped<RequestEndSessionScene>();
+            services.AddScoped<RulesScene>();
             services.AddScoped<EndSessionScene>();
 
             services.AddSwaggerGen(c =>

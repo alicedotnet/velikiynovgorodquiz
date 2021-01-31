@@ -5,10 +5,10 @@ namespace VNQuiz.Core.Models
 {
     public class AdditionalFact
     {
-        public string? Title { get; }
+        public string Title { get; }
         public string Text { get; }
         public string? Link { get; }
-        public string? LinkText { get; }
+        public string LinkText { get; }
         public string? PictureId { get; }
 
         [JsonConstructor]
@@ -16,10 +16,10 @@ namespace VNQuiz.Core.Models
         {
             if (string.IsNullOrEmpty(text)) throw new ArgumentNullException(nameof(text));
 
-            Title = title;
+            Title = title ?? string.Empty;
             Text = text;
             Link = link;
-            LinkText = linkText;
+            LinkText = linkText ?? string.Empty;
             PictureId = pictureId;
         }
     }

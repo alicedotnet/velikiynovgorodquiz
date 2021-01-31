@@ -14,9 +14,10 @@ namespace VNQuiz.Alice.Scenes
         CorrectAnswer,
         WrongAnswer,
         AdditionalInfo,
+        RequestEndSession,
+        RulesScene,
         LoseGame,
         WinGame,
-        RequestEndSession,
         EndSession
     }
 }

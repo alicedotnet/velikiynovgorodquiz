@@ -57,7 +57,7 @@ namespace VNQuiz.Alice.Scenes
         public override QuizResponse Reply(QuizRequest request)
         {
             if(request.State.Session.CurrentScene >= SceneType.StartGame 
-                && request.State.Session.CurrentScene <= SceneType.AdditionalInfo)
+                && request.State.Session.CurrentScene <= SceneType.RulesScene)
             {
                 var response = new QuizResponse(request, string.Empty);
                 SetRandomSkillAnswer(response, FallbackQuestions);
@@ -67,15 +67,18 @@ namespace VNQuiz.Alice.Scenes
                     response.SessionState.RestorePreviousState = true;
                 }
 
-                if(request.State.Session.CurrentScene == SceneType.AdditionalInfo)
+                if(request.State.Session.CurrentScene != CurrentScene
+                    && request.State.Session.CurrentScene != SceneType.RulesScene)
                 {
-                    request.State.Session.NextScene = SceneType.Question;
+                    if (request.State.Session.CurrentScene == SceneType.AdditionalInfo)
+                    {
+                        request.State.Session.NextScene = SceneType.Question;
+                    }
+                    else
+                    {
+                        request.State.Session.NextScene = request.State.Session.CurrentScene;
+                    }
                 }
-                else
-                {
-                    request.State.Session.NextScene = request.State.Session.CurrentScene;
-                }
-
                 response.SessionState.CurrentScene = CurrentScene;
                 return response;
             }

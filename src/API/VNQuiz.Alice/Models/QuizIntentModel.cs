@@ -74,6 +74,28 @@ namespace VNQuiz.Alice.Models
             }
         }
 
+        [JsonPropertyName(AliceConstants.AliceIntents.WhatCanYouDo)]
+        public AliceIntentModel WhatCanYouDo { get; set; }
+
+        public bool IsWhatCanYouDo
+        {
+            get
+            {
+                return WhatCanYouDo != null;
+            }
+        }
+
+        [JsonPropertyName("rules")]
+        public AliceIntentModel Rules { get; set; }
+
+        public bool IsRules
+        {
+            get
+            {
+                return Rules != null;
+            }
+        }
+
         [JsonPropertyName("answer")]
         public AliceIntentModel<AnswerSlots> Answer { get; set; }
     }

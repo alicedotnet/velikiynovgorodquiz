@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Text.Json;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Scenes;
@@ -69,10 +70,20 @@ namespace VNQuiz.Alice.Controllers
                 {
                     return currentScene.Help(request);
                 }
+                if(request.Request.Nlu.Intents.IsWhatCanYouDo || request.Request.Nlu.Intents.IsRules)
+                {
+                    var rulesScene = _scenesProvider.Get(SceneType.RulesScene);
+                    return rulesScene.Reply(request);
+                }
                 if (request.Request.Nlu.Intents.IsExit)
                 {
                     var requestEndSessionScene = _scenesProvider.Get(SceneType.RequestEndSession);
                     return requestEndSessionScene.Reply(request);
+                }
+                var easterEggResponse = EasterEggResponse(request);
+                if(easterEggResponse != null)
+                {
+                    return easterEggResponse;
                 }
             }
 
@@ -80,6 +91,16 @@ namespace VNQuiz.Alice.Controllers
             if (nextScene != null)
             {
                 return nextScene.Reply(request);
+            }
+            return null;
+        }
+
+        private static QuizResponse EasterEggResponse(QuizRequest request)
+        {
+            if((request.Request.Nlu.Tokens.Contains("жыве") || request.Request.Nlu.Tokens.Contains("живе") || request.Request.Nlu.Tokens.Contains("живи"))
+                && request.Request.Nlu.Tokens.Contains("беларусь"))
+            {
+                return new QuizResponse(request, "Жыве вечна!");
             }
             return null;
         }

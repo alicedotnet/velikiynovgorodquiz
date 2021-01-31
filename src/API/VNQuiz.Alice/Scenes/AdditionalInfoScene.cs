@@ -57,7 +57,7 @@ namespace VNQuiz.Alice.Scenes
         {
             var question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
             var additionalInfo = question.AdditionalInfo;
-            var response = new QuizResponse(request, additionalInfo.Text);
+            var response = new QuizResponse(request, GetSentence(additionalInfo.Text));
             SetRandomSkillAnswer(response, FallbackQuestions);
             if(!string.IsNullOrEmpty(additionalInfo.PictureId))
             {

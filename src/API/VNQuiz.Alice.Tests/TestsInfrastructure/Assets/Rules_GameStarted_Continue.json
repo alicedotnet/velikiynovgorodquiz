@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "locale": "ru-RU",
+    "timezone": "UTC",
+    "client_id": "ru.yandex.searchplugin/7.16 (none none; android 4.4.2)",
+    "interfaces": {
+      "screen": {},
+      "payments": {},
+      "account_linking": {},
+      "geolocation_sharing": {}
+    }
+  },
+  "session": {
+    "message_id": 3,
+    "session_id": "efbe238f-d549-43bb-93d7-05b648223286",
+    "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
+    "user": {
+      "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
+    },
+    "application": {
+      "application_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57"
+    },
+    "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
+    "new": false
+  },
+  "version": "1.0",
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 0,
+      "currentQuestionId": 7,
+      "currentQuestionAnswers": [
+        "correct answer",
+        "wrong answer 1",
+        "wrong answer 2"
+      ],
+      "answeredQuestionsIds": [],
+      "currentScene": 8,
+      "nextScene": 3,
+      "restorePreviousState": true,
+      "lastRandomSkillAnswerIndex": 0,
+      "consecutiveFallbackAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1
+    },
+    "application": {}
+  },
+  "request": {
+    "nlu": {
+      "tokens": [
+        "да"
+      ],
+      "entities": [],
+      "intents": {
+        "YANDEX.CONFIRM": {
+          "slots": {}
+        },
+        "answer": {
+          "slots": {
+            "exactAnswer": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 0,
+                "end": 1
+              },
+              "value": "да"
+            }
+          }
+        }
+      }
+    },
+    "payload": "да",
+    "type": "ButtonPressed"
+  }
+}
