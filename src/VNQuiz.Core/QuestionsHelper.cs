@@ -18,7 +18,7 @@ namespace VNQuiz.Core
             _idQuestionMap = new Dictionary<int, Question>();
         }
 
-        public void Initialize(string path)
+        public int Initialize(string path)
         {
             var questions = QuestionsLoader.Load(path);
             if (questions != null)
@@ -29,7 +29,9 @@ namespace VNQuiz.Core
                 {
                     _idQuestionMap.Add(question.Id, question);
                 }
+                return _questions.Count;
             }
+            return 0;
         }
 
         public Question? GetQuestion(List<int> ids)

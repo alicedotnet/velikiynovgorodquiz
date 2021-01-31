@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Services;
 using VNQuiz.Core.Models;
+using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Scenes
 {
@@ -25,12 +26,27 @@ namespace VNQuiz.Alice.Scenes
             ScenesProvider = scenesProvider;
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
-            var question = QuestionsService.GetQuestion(request.State.Session.CurrentQuestionId);
-            request.State.Session.AnsweredQuestionsIds.Add(question.Id);
+            string text = string.Empty;
+            if (!request.State.Session.RestorePreviousState)
+            {
+                text = GetRandomSkillAnswer(request.State.Session, AnswerTips);
+            }
+            else
+            {
+                request.State.Session.RestorePreviousState = false;
+            }
 
-            QuizResponse response;
+
+            var question = QuestionsService.GetQuestion(request.State.Session.CurrentQuestionId);
+            if(request.State.UserOrApplication.AnsweredQuestionsIds.Count >= Settings.AnsweredQuestionsToKeep)
+            {
+                request.State.UserOrApplication.AnsweredQuestionsIds.Dequeue();
+            }
+            request.State.UserOrApplication.AnsweredQuestionsIds.Enqueue(question.Id);
+
+            QuizResponseBase response;
             string supportText = string.Empty;
             if (request.State.Session.IncorrectAnswersCount < 3)
             {
@@ -50,15 +66,6 @@ namespace VNQuiz.Alice.Scenes
                 response = new QuizResponse(request, string.Empty);
             }
 
-            string text = string.Empty;
-            if(!request.State.Session.RestorePreviousState)
-            {
-                text = GetRandomSkillAnswer(response.SessionState, AnswerTips);
-            }
-            else
-            {
-                request.State.Session.RestorePreviousState = false;
-            }
             text = JoinString(' ', text, GetSentence(question.Explanation), supportText);
             response.Response.Text = JoinString(' ', text, response.Response.Text);
             response.Response.Tts = JoinString(' ', text, response.Response.Tts);
@@ -66,7 +73,7 @@ namespace VNQuiz.Alice.Scenes
         }
 
 
-        public override Scene MoveToNextScene(QuizRequest request)
+        public override Scene? MoveToNextScene(QuizRequest request)
         {
             if(request.Request.Nlu.Intents != null)
             {
@@ -82,12 +89,12 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             return GetAdditionalInfo(request);
         }
 
-        public override QuizResponse Help(QuizRequest request)
+        public override QuizResponseBase Help(QuizRequest request)
         {
             return GetAdditionalInfo(request);
         }
@@ -99,12 +106,6 @@ namespace VNQuiz.Alice.Scenes
             SetFallbackButtons(request, response);
             response.SessionState.CurrentScene = CurrentScene;
             return response;
-        }
-
-        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
-        {
-            response.Response.Buttons.Add(new QuizButtonModel("да"));
-            response.Response.Buttons.Add(new QuizButtonModel("нет"));
         }
 
         protected abstract string GetSupportText(QuizSessionState quizSessionState);

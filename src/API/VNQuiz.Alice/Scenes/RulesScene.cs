@@ -36,12 +36,12 @@ namespace VNQuiz.Alice.Scenes
             _scenesProvider = scenesProvider;
         }
 
-        public override QuizResponse Help(QuizRequest request)
+        public override QuizResponseBase Help(QuizRequest request)
         {
             return Reply(request);
         }
 
-        public override Scene MoveToNextScene(QuizRequest request)
+        public override Scene? MoveToNextScene(QuizRequest request)
         {
             if(request.Request.Nlu.Intents != null)
             {
@@ -67,14 +67,14 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             return Reply(request);
         }
 
-        public override QuizResponse Fallback(QuizRequest request)
+        public override QuizResponseBase Fallback(QuizRequest request)
         {
-            QuizResponse response;
+            QuizResponseBase response;
             if (request.State.Session.NextScene <= SceneType.Welcome)
             {
                 response = Fallback(request, _gameNotStartedQuestions);
@@ -86,13 +86,7 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
-        {
-            response.Response.Buttons.Add(new QuizButtonModel("да"));
-            response.Response.Buttons.Add(new QuizButtonModel("нет"));
-        }
-
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
             if(request.State.Session.CurrentScene != CurrentScene
                 && request.State.Session.CurrentScene != SceneType.RequestEndSession)

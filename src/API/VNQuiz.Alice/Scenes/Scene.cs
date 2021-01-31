@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Models;
+using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Scenes
 {
@@ -12,26 +13,27 @@ namespace VNQuiz.Alice.Scenes
         protected abstract string[] FallbackQuestions { get; }
         protected abstract SceneType CurrentScene { get; }
 
-        public abstract Scene MoveToNextScene(QuizRequest request);
-        public abstract QuizResponse Reply(QuizRequest request);
+        public abstract Scene? MoveToNextScene(QuizRequest request);
+        public abstract QuizResponseBase Reply(QuizRequest request);
 
-        public abstract QuizResponse Repeat(QuizRequest request);
+        public abstract QuizResponseBase Repeat(QuizRequest request);
 
-        public abstract QuizResponse Help(QuizRequest request);
+        public abstract QuizResponseBase Help(QuizRequest request);
 
-        public virtual QuizResponse Fallback(QuizRequest request)
+        public virtual QuizResponseBase Fallback(QuizRequest request)
         {
             return Fallback(request, FallbackQuestions);
         }
 
-        protected virtual void SetFallbackButtons(QuizRequest request, QuizResponse response)
+        protected virtual void SetFallbackButtons(QuizRequest request, QuizResponseBase response)
         {
-
+            response.Response.Buttons.Add(new QuizButtonModel("да"));
+            response.Response.Buttons.Add(new QuizButtonModel("нет"));
         }
 
-        protected QuizResponse Fallback(QuizRequest request, string[] fallbackQuestions)
+        protected QuizResponseBase Fallback(QuizRequest request, string[] fallbackQuestions)
         {
-            var response = new QuizResponse(request, string.Empty);
+            var response = new QuizResponseBase(request, string.Empty);
             if (request.State.Session.ConsecutiveFallbackAnswers < 1)
             {
                 SetRandomSkillAnswer(response, _fallbackVariants);
@@ -50,9 +52,9 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        protected void SetRandomSkillAnswer(QuizResponse response, string[] values)
+        protected void SetRandomSkillAnswer(QuizResponseBase response, string[] values)
         {
-            string value = GetRandomSkillAnswer(response.SessionState, values);
+            string? value = GetRandomSkillAnswer(response.SessionState, values);
             response.Response.SetText(JoinString(' ', response.Response.Text, value));
         }
 
@@ -73,12 +75,28 @@ namespace VNQuiz.Alice.Scenes
             }
             else
             {
-                value = values.FirstOrDefault();
+                value = values.First();
             }
             return value;
         }
 
-        protected string JoinString(char separator, params string[] values)
+        protected string GetRandomSkillAnswer(string[] values)
+        {
+            string value;
+            if (values.Length > 1)
+            {
+                var random = new Random();
+                int index = random.Next(values.Length);
+                value = values[index];
+            }
+            else
+            {
+                value = values.First();
+            }
+            return value;
+        }
+
+        protected string JoinString(char separator, params string?[] values)
         {
             string result = string.Empty;
             foreach (var value in values)

@@ -5,6 +5,7 @@ namespace VNQuiz.Core.Interfaces
 {
     public interface IQuestionsHelper
     {
+        int Initialize(string path);
         Question? GetQuestion(List<int> ids);
         Question? GetQuestion(int id);
     }

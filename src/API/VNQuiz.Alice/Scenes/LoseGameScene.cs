@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VNQuiz.Alice.Services;
 
 namespace VNQuiz.Alice.Scenes
 {
@@ -14,7 +15,8 @@ namespace VNQuiz.Alice.Scenes
 
         protected override SceneType CurrentScene => SceneType.LoseGame;
 
-        public LoseGameScene(IScenesProvider scenesProvider) : base(scenesProvider)
+        public LoseGameScene(IScenesProvider scenesProvider, IAchievementsService achievementsService)
+            : base(scenesProvider, achievementsService)
         {
         }
     }

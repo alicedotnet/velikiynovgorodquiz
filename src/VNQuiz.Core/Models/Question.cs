@@ -12,11 +12,11 @@ namespace VNQuiz.Core.Models
         public string Text { get; }
         public string CorrectAnswer { get; }
         public List<string> WrongAnswers { get; }
-        public string? Explanation { get; }
+        public string Explanation { get; }
         public AdditionalFact? AdditionalInfo { get; }
 
         [JsonConstructor]
-        public Question(string text, string correctAnswer, List<string> wrongAnswers, string? explanation, AdditionalFact? additionalInfo)
+        public Question(string text, string correctAnswer, List<string> wrongAnswers, string explanation, AdditionalFact? additionalInfo)
         {
             if (wrongAnswers.Count < 1) throw new ArgumentException("Question must have at least one wrong answer");
 

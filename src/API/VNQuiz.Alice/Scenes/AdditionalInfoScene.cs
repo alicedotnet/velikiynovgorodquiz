@@ -27,12 +27,12 @@ namespace VNQuiz.Alice.Scenes
             _scenesProvider = scenesProvider;
         }
 
-        public override QuizResponse Help(QuizRequest request)
+        public override QuizResponseBase Help(QuizRequest request)
         {
             return Reply(request);
         }
 
-        public override Scene MoveToNextScene(QuizRequest request)
+        public override Scene? MoveToNextScene(QuizRequest request)
         {
             if (request.Request.Nlu.Intents != null)
             {
@@ -48,43 +48,44 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             return Reply(request);
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
             var question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
             var additionalInfo = question.AdditionalInfo;
-            var response = new QuizResponse(request, GetSentence(additionalInfo.Text));
-            SetRandomSkillAnswer(response, FallbackQuestions);
-            if(!string.IsNullOrEmpty(additionalInfo.PictureId))
+            QuizResponse response;
+            if(additionalInfo != null)
             {
-                response.Response.Card = new AliceImageCardModel()
+                response = new QuizResponse(request, GetSentence(additionalInfo.Text));
+                SetRandomSkillAnswer(response, FallbackQuestions);
+                if (!string.IsNullOrEmpty(additionalInfo.PictureId))
                 {
-                    ImageId = additionalInfo.PictureId,
-                    Title = additionalInfo.Title,
-                    Description = response.Response.Text,
-                    Button = new AliceImageCardButtonModel()
+                    response.Response.Card = new AliceImageCardModel()
                     {
-                        Text = additionalInfo.LinkText,
-                        Url = new Uri(additionalInfo.Link),
-                    }
-                };
+                        ImageId = additionalInfo.PictureId,
+                        Title = additionalInfo.Title,
+                        Description = response.Response.Text,
+                        Button = new AliceImageCardButtonModel()
+                        {
+                            Text = additionalInfo.LinkText,
+                            Url = additionalInfo.Link,
+                        }
+                    };
+
+                }
+                response.Response.Buttons.Add(new AliceButtonModel(additionalInfo.LinkText, false, null, additionalInfo.Link));
+            }
+            else
+            {
+                response = new QuizResponse(request, "По этому вопросу нет дополнительной информации.");
             }
             SetFallbackButtons(request, response);
             response.SessionState.CurrentScene = CurrentScene;
             return response;
-        }
-
-        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
-        {
-            var question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
-            var additionalInfo = question.AdditionalInfo;
-            response.Response.Buttons.Add(new AliceButtonModel(additionalInfo.LinkText, false, null, new Uri(additionalInfo.Link)));
-            response.Response.Buttons.Add(new QuizButtonModel("да"));
-            response.Response.Buttons.Add(new QuizButtonModel("нет"));
         }
     }
 }

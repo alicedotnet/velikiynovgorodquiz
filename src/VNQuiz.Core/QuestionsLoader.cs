@@ -14,17 +14,7 @@ namespace VNQuiz.Core
     {
         public static List<Question>? Load(string path)
         {
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
-            if (!File.Exists(path)) throw new ArgumentException($"File does not exist {path}");
-
-            var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
-            };
-            var text = File.ReadAllText(path, Encoding.UTF8);
-            return JsonSerializer.Deserialize<List<Question>>(text, options);
+            return Loader.Load<Question>(path);
         }
     }
 }

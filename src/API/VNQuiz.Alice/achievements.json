@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "title": "Первая игра",
+    "description": "Заверши первую игру",
+    "imageId": "997614/4da8d94482f67d087815",
+    "achievementUnlocker": "VNQuiz.Alice.Achievements.FirstGameAchievementUnlocker, VNQuiz.Alice",
+    "dependsOnAchievementId": 0
+  }
+]

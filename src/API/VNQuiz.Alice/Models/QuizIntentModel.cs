@@ -11,10 +11,10 @@ namespace VNQuiz.Alice.Models
     public class QuizIntentModel
     {
         [JsonPropertyName(AliceConstants.AliceIntents.Confirm)]
-        public AliceIntentModel YandexConfirm { get; set; }
+        public AliceIntentModel? YandexConfirm { get; set; }
 
         [JsonPropertyName("confirm")]
-        public AliceIntentModel Confirm { get; set; }
+        public AliceIntentModel? Confirm { get; set; }
 
         public bool IsConfirm
         {
@@ -25,10 +25,10 @@ namespace VNQuiz.Alice.Models
         }
 
         [JsonPropertyName(AliceConstants.AliceIntents.Reject)]
-        public AliceIntentModel YandexReject { get; set; }
+        public AliceIntentModel? YandexReject { get; set; }
 
         [JsonPropertyName("reject")]
-        public AliceIntentModel Reject { get; set; }
+        public AliceIntentModel? Reject { get; set; }
     
         public bool IsReject
         {
@@ -39,7 +39,7 @@ namespace VNQuiz.Alice.Models
         }
 
         [JsonPropertyName(AliceConstants.AliceIntents.Repeat)]
-        public AliceIntentModel YandexRepeat { get; set; }
+        public AliceIntentModel? YandexRepeat { get; set; }
 
         public bool IsRepeat
         {
@@ -50,10 +50,10 @@ namespace VNQuiz.Alice.Models
         }
 
         [JsonPropertyName(AliceConstants.AliceIntents.Help)]
-        public AliceIntentModel YandexHelp { get; set; }
+        public AliceIntentModel? YandexHelp { get; set; }
 
         [JsonPropertyName("help")]
-        public AliceIntentModel Help { get; set; }
+        public AliceIntentModel? Help { get; set; }
 
         public bool IsHelp
         {
@@ -64,7 +64,7 @@ namespace VNQuiz.Alice.Models
         }
 
         [JsonPropertyName("exit")]
-        public AliceIntentModel Exit { get; set; }
+        public AliceIntentModel? Exit { get; set; }
 
         public bool IsExit
         {
@@ -75,7 +75,7 @@ namespace VNQuiz.Alice.Models
         }
 
         [JsonPropertyName(AliceConstants.AliceIntents.WhatCanYouDo)]
-        public AliceIntentModel WhatCanYouDo { get; set; }
+        public AliceIntentModel? WhatCanYouDo { get; set; }
 
         public bool IsWhatCanYouDo
         {
@@ -86,7 +86,7 @@ namespace VNQuiz.Alice.Models
         }
 
         [JsonPropertyName("rules")]
-        public AliceIntentModel Rules { get; set; }
+        public AliceIntentModel? Rules { get; set; }
 
         public bool IsRules
         {
@@ -97,15 +97,15 @@ namespace VNQuiz.Alice.Models
         }
 
         [JsonPropertyName("answer")]
-        public AliceIntentModel<AnswerSlots> Answer { get; set; }
+        public AliceIntentModel<AnswerSlots>? Answer { get; set; }
     }
 
     public class AnswerSlots
     {
         [JsonPropertyName("number")]
-        public AliceEntityNumberModel Number { get; set; }
+        public AliceEntityNumberModel? Number { get; set; }
 
         [JsonPropertyName("exactAnswer")]
-        public AliceEntityStringModel ExactAnswer { get; set; }
+        public AliceEntityStringModel? ExactAnswer { get; set; }
     }
 }

@@ -36,8 +36,9 @@ namespace VNQuiz.Alice.Scenes
         }
 
         private T Get<T>()
+            where T : notnull
         {
-            return _serviceProvider.GetRequiredService<T>();
+            return _serviceProvider.GetRequiredService<T>()!;
         }
     }
 }

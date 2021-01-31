@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using VNQuiz.Alice.Achievements;
 using VNQuiz.Alice.Scenes;
 using VNQuiz.Alice.Services;
 using VNQuiz.Core;
@@ -34,11 +35,12 @@ namespace VNQuiz.Alice
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
 
-            var helper = new QuestionsHelper();
-            helper.Initialize(Path.Combine(Environment.CurrentDirectory, "questions.json"));
+            services.AddSingleton<IQuestionsHelper, QuestionsHelper>();
+            services.AddSingleton<IAchievementsHelper, AchievementsHelper>();
 
-            services.AddSingleton<IQuestionsHelper>(helper);
             services.AddScoped<IQuestionsService, QuestionsService>();
+            services.AddScoped<IAchievementsService, AchievementsService>();
+
             services.AddScoped<IScenesProvider, ScenesProvider>();
             services.AddScoped<WelcomeScene>();
             services.AddScoped<StartGameScene>();
@@ -52,6 +54,8 @@ namespace VNQuiz.Alice
             services.AddScoped<RulesScene>();
             services.AddScoped<EndSessionScene>();
 
+            services.AddScoped<FirstGameAchievementUnlocker>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VNQuiz.Alice", Version = "v1" });
@@ -59,8 +63,13 @@ namespace VNQuiz.Alice
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env
+            , IQuestionsHelper questionsHelper, IAchievementsHelper achievementsHelper)
         {
+            int questions = questionsHelper.Initialize(Path.Combine(Environment.CurrentDirectory, "questions.json"));
+            Settings.AnsweredQuestionsToKeep = (int) (questions * 0.5);
+            achievementsHelper.Initialize(Path.Combine(Environment.CurrentDirectory, "achievements.json"));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

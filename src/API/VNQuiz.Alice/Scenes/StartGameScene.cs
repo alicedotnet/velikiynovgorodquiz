@@ -18,7 +18,7 @@ namespace VNQuiz.Alice.Scenes
             _scenesProvider = scenesProvider;
         }
 
-        public override QuizResponse Fallback(QuizRequest request)
+        public override QuizResponseBase Fallback(QuizRequest request)
         {
             throw new NotImplementedException();
         }
@@ -28,21 +28,21 @@ namespace VNQuiz.Alice.Scenes
             throw new NotImplementedException();
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
             var questionScene = _scenesProvider.Get(SceneType.Question);
-            request.State.Session.AnsweredQuestionsIds.Clear();
+            request.State.Session.UnlockedAchievements.Clear();
             request.State.Session.CurrentQuestionId = 0;
             request.State.Session.IncorrectAnswersCount = 0;
             return questionScene.Reply(request);
         }
 
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public override QuizResponse Help(QuizRequest request)
+        public override QuizResponseBase Help(QuizRequest request)
         {
             throw new NotImplementedException();
         }

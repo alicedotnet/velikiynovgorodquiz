@@ -11,7 +11,7 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure.Models
     class AliceResponseWrapper : QuizResponse
     {
         public AliceResponseWrapper()
-            : base(new AliceRequestBase<QuizSessionState, object>() { State = new AliceStateModel<QuizSessionState, object>()}, string.Empty)
+            : base(new AliceRequestBase<QuizSessionState, QuizUserState>() { State = new AliceStateModel<QuizSessionState, QuizUserState>()}, string.Empty)
         {
 
         }

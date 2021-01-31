@@ -19,16 +19,16 @@ namespace VNQuiz.Alice.Scenes
             AnswerTips = new string[] { "Не совсем.", "Немножко не так." };
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
-            QuizResponse response;
+            QuizResponseBase response;
             request.State.Session.IncorrectAnswersCount++;
             if (request.State.Session.IncorrectAnswersCount >= 3)
             {
-                var wrongAnswerResponse = base.Reply(request);
                 var loseGameScene = ScenesProvider.Get(SceneType.LoseGame);
                 response = loseGameScene.Reply(request);
-                response.Response.SetText(JoinString('\n', wrongAnswerResponse.Response.Text, response.Response.Text));
+                //var wrongAnswerResponse = base.Reply(request);
+                //response.Response.SetText(JoinString('\n', wrongAnswerResponse.Response.Text, response.Response.Text));
             }
             else
             {

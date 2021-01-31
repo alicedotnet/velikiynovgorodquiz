@@ -6,7 +6,7 @@ using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Models
 {
-    public class QuizRequest : AliceRequest<QuizIntentModel, QuizSessionState, object>
+    public class QuizRequest : AliceRequest<QuizIntentModel, QuizSessionState, QuizUserState>
     {
     }
 }

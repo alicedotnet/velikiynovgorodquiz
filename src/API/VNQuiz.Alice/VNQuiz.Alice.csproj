@@ -4,13 +4,18 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>198ab730-346c-41c9-b816-58005a7a7d6e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="achievements.json" />
     <Content Remove="questions.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="achievements.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="questions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

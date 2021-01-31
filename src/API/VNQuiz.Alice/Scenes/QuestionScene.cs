@@ -49,12 +49,12 @@ namespace VNQuiz.Alice.Scenes
             _scenesProvider = scenesProvider;
         }
 
-        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
+        protected override void SetFallbackButtons(QuizRequest request, QuizResponseBase response)
         {
             SetAnswersFromSession(request, response);
         }
 
-        public override Scene MoveToNextScene(QuizRequest request)
+        public override Scene? MoveToNextScene(QuizRequest request)
         {
             int currentQuestionId = request.State.Session.CurrentQuestionId;
             var question = _questionsService.GetQuestion(currentQuestionId);
@@ -81,27 +81,27 @@ namespace VNQuiz.Alice.Scenes
             {
                 if(request.Request.Nlu.Intents.Answer.Slots.Number != null)
                 {
-                    int index = (int)request.Request.Nlu.Intents.Answer.Slots.Number.Value - 1;
+                    int index = (int)request.Request.Nlu.Intents.Answer.Slots.Number!.Value - 1;
                     return request.State.Session.CurrentQuestionAnswers[index];
                 }
                 if (request.Request.Nlu.Intents.Answer.Slots.ExactAnswer != null)
                 {
-                    return request.Request.Nlu.Intents.Answer.Slots.ExactAnswer.Value;
+                    return request.Request.Nlu.Intents.Answer.Slots.ExactAnswer!.Value;
                 }
             }
             return request.Request.Command;
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
-            Question question;
+            Question? question;
             if (request.State.Session.RestorePreviousState)
             {
                 question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
             }
             else
             {
-                question = _questionsService.GetQuestion(request.State.Session.AnsweredQuestionsIds);
+                question = _questionsService.GetQuestion(request.State.UserOrApplication.AnsweredQuestionsIds.ToList());
                 if (question == null)
                 {
                     var winGameScene = _scenesProvider.Get(SceneType.WinGame);
@@ -109,21 +109,21 @@ namespace VNQuiz.Alice.Scenes
                 }
             }
 
-            string text = string.Empty;
+            string? text = string.Empty;
             if(!request.State.Session.RestorePreviousState)
             {
                 if (request.State.Session.CurrentQuestionId == 0)
                 {
-                    text = GetRandomSkillAnswer(request.State.Session, _firstQuestionAnswers);
+                    text = GetRandomSkillAnswer(_firstQuestionAnswers);
                 }
                 else
                 {
-                    text = GetRandomSkillAnswer(request.State.Session, _nextQuestionAnswers);
+                    text = GetRandomSkillAnswer(_nextQuestionAnswers);
                 }
             }
             request.State.Session.RestorePreviousState = false;
 
-            var response = new QuizResponse(request, text);
+            var response = new QuizResponseBase(request, text);
             response.Response.SetText($"{response.Response.Text}\n{question.Text}");
 
             List<string> answers = new List<string>(question.WrongAnswers);
@@ -138,13 +138,13 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        private static void SetAnswersFromSession(QuizRequest request, QuizResponse response)
+        private static void SetAnswersFromSession(QuizRequest request, QuizResponseBase response)
         {
             SetAnswers(response, request.State.Session.CurrentQuestionAnswers);
         }
 
 
-        private static void SetAnswers(QuizResponse response, string[] answers)
+        private static void SetAnswers(QuizResponseBase response, string[] answers)
         {
             for (int i = 1; i <= answers.Length; i++)
             {
@@ -154,7 +154,7 @@ namespace VNQuiz.Alice.Scenes
             }
         }
 
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             var response = new QuizResponse(
                 request,
@@ -166,7 +166,7 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        public override QuizResponse Help(QuizRequest request)
+        public override QuizResponseBase Help(QuizRequest request)
         {
             return Repeat(request);
         }

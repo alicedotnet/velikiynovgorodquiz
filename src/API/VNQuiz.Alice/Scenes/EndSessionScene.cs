@@ -11,12 +11,12 @@ namespace VNQuiz.Alice.Scenes
         protected override string[] FallbackQuestions => Array.Empty<string>();
         protected override SceneType CurrentScene => SceneType.EndSession;
 
-        public override QuizResponse Fallback(QuizRequest request)
+        public override QuizResponseBase Fallback(QuizRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public override QuizResponse Help(QuizRequest request)
+        public override QuizResponseBase Help(QuizRequest request)
         {
             throw new NotImplementedException();
         }
@@ -26,12 +26,12 @@ namespace VNQuiz.Alice.Scenes
             throw new NotImplementedException();
         }
 
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
             var response = new QuizResponse(
                 request,

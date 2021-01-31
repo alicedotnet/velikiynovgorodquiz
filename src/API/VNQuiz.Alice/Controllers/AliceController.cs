@@ -22,10 +22,11 @@ namespace VNQuiz.Alice.Controllers
         }
 
         [HttpPost]
-        public QuizResponse Post(QuizRequest request)
+        public QuizResponseBaseReturn Post(QuizRequest request)
         {
             try
             {
+                PreprocessRequest(request);
                 Scene currentScene;
                 if (request.State.Session != null)
                 {
@@ -48,7 +49,8 @@ namespace VNQuiz.Alice.Controllers
                     response = currentScene.Fallback(request);
                     response.SessionState.ConsecutiveFallbackAnswers++;
                 }
-                return response;
+                QuizResponseBaseReturn quizReturn = response;
+                return quizReturn;
             }
             catch(Exception e)
             {
@@ -58,7 +60,22 @@ namespace VNQuiz.Alice.Controllers
             }
         }
 
-        private QuizResponse GetResponse(QuizRequest request, Scene currentScene)
+        private static void PreprocessRequest(QuizRequest request)
+        {
+            if(request.Request.OriginalUtterance == "/reset")
+            {
+                if(request.State.Application != null)
+                {
+                    request.State.Application = new QuizUserState();
+                }
+                if(request.State.User != null)
+                {
+                    request.State.User = new QuizUserState();
+                }
+            }
+        }
+
+        private QuizResponseBase? GetResponse(QuizRequest request, Scene currentScene)
         {
             if (request.Request.Nlu.Intents != null)
             {
@@ -95,7 +112,7 @@ namespace VNQuiz.Alice.Controllers
             return null;
         }
 
-        private static QuizResponse EasterEggResponse(QuizRequest request)
+        private static QuizResponse? EasterEggResponse(QuizRequest request)
         {
             if((request.Request.Nlu.Tokens.Contains("жыве") || request.Request.Nlu.Tokens.Contains("живе") || request.Request.Nlu.Tokens.Contains("живи"))
                 && request.Request.Nlu.Tokens.Contains("беларусь"))

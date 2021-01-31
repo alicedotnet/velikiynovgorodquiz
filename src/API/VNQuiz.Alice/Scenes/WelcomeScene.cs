@@ -30,7 +30,7 @@ namespace VNQuiz.Alice.Scenes
             _scenesProvider = scenesProvider;
         }
 
-        public override Scene MoveToNextScene(QuizRequest request)
+        public override Scene? MoveToNextScene(QuizRequest request)
         {
             if(request.Session.New)
             {
@@ -50,7 +50,7 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
             var response = new QuizResponse(
                 request,
@@ -67,13 +67,7 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
-        {
-            response.Response.Buttons.Add(new QuizButtonModel("да"));
-            response.Response.Buttons.Add(new QuizButtonModel("нет"));
-        }
-
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             var response = new QuizResponse(
                 request,
@@ -87,9 +81,8 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        //TODO::probably need to have separate screen for rules (should also go there when user asks что ты умеешь?)
-        //TODO::think how to show question with additional info at least once per gamse
-        public override QuizResponse Help(QuizRequest request)
+        //TODO::think how to show question with additional info at least once per game
+        public override QuizResponseBase Help(QuizRequest request)
         {
             return Repeat(request);
         }

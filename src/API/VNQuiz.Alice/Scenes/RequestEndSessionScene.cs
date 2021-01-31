@@ -28,12 +28,12 @@ namespace VNQuiz.Alice.Scenes
             SceneType.AdditionalInfo
         };
 
-        public override QuizResponse Help(QuizRequest request)
+        public override QuizResponseBase Help(QuizRequest request)
         {
             return Reply(request);
         }
 
-        public override Scene MoveToNextScene(QuizRequest request)
+        public override Scene? MoveToNextScene(QuizRequest request)
         {
             if(request.Request.Nlu.Intents != null)
             {
@@ -49,12 +49,12 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        public override QuizResponse Repeat(QuizRequest request)
+        public override QuizResponseBase Repeat(QuizRequest request)
         {
             return Reply(request);
         }
 
-        public override QuizResponse Reply(QuizRequest request)
+        public override QuizResponseBase Reply(QuizRequest request)
         {
             if(request.State.Session.CurrentScene >= SceneType.StartGame 
                 && request.State.Session.CurrentScene <= SceneType.RulesScene)
@@ -84,12 +84,6 @@ namespace VNQuiz.Alice.Scenes
             }
             var endSessionScene = _scenesProvider.Get(SceneType.EndSession);
             return endSessionScene.Reply(request);
-        }
-
-        protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
-        {
-            response.Response.Buttons.Add(new QuizButtonModel("да"));
-            response.Response.Buttons.Add(new QuizButtonModel("нет"));
         }
     }
 }
