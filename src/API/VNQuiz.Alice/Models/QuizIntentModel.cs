@@ -63,6 +63,17 @@ namespace VNQuiz.Alice.Models
             }
         }
 
+        [JsonPropertyName("exit")]
+        public AliceIntentModel Exit { get; set; }
+
+        public bool IsExit
+        {
+            get
+            {
+                return Exit != null;
+            }
+        }
+
         [JsonPropertyName("answer")]
         public AliceIntentModel<AnswerSlots> Answer { get; set; }
     }

@@ -52,8 +52,8 @@ namespace VNQuiz.Alice.Scenes
 
         protected override void SetFallbackButtons(QuizRequest request, QuizResponse response)
         {
-            response.Response.Buttons.Add(new AliceButtonModel("да"));
-            response.Response.Buttons.Add(new AliceButtonModel("нет"));
+            response.Response.Buttons.Add(new QuizButtonModel("да"));
+            response.Response.Buttons.Add(new QuizButtonModel("нет"));
         }
 
         public override QuizResponse Repeat(QuizRequest request)

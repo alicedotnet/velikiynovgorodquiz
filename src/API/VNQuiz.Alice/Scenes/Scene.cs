@@ -56,11 +56,11 @@ namespace VNQuiz.Alice.Scenes
 
         protected void SetRandomSkillAnswer(QuizResponse response, string[] values)
         {
-            string value = GetRandomSkillAnswer(response, values);
+            string value = GetRandomSkillAnswer(response.SessionState, values);
             response.Response.SetText(JoinString(' ', response.Response.Text, value));
         }
 
-        protected string GetRandomSkillAnswer(QuizResponse response, string[] values)
+        protected string GetRandomSkillAnswer(QuizSessionState sessionState, string[] values)
         {
             string value;
             if (values.Length > 1)
@@ -70,9 +70,9 @@ namespace VNQuiz.Alice.Scenes
                 do
                 {
                     index = random.Next(values.Length);
-                } while (response.SessionState.LastRandomSkillAnswerIndex != null &&
-                    index == response.SessionState.LastRandomSkillAnswerIndex);
-                response.SessionState.LastRandomSkillAnswerIndex = index;
+                } while (sessionState.LastRandomSkillAnswerIndex != null &&
+                    index == sessionState.LastRandomSkillAnswerIndex);
+                sessionState.LastRandomSkillAnswerIndex = index;
                 value = values[index];
             }
             else

@@ -49,7 +49,16 @@ namespace VNQuiz.Alice.Scenes
                 response = new QuizResponse(request, string.Empty);
             }
 
-            string text = JoinString(' ', GetRandomSkillAnswer(response, AnswerTips), question.Explanation, supportText);
+            string text = string.Empty;
+            if(!request.State.Session.RestorePreviousState)
+            {
+                text = GetRandomSkillAnswer(response.SessionState, AnswerTips);
+            }
+            else
+            {
+                request.State.Session.RestorePreviousState = false;
+            }
+            text = JoinString(' ', text, question.Explanation, supportText);
             response.Response.Text = JoinString(' ', text, response.Response.Text);
             response.Response.Tts = JoinString(' ', text, response.Response.Tts);
             return response;

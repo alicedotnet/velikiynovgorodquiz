@@ -87,8 +87,8 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        //TODO::probably need to have separate screen for rules
-        //TODO::add possibility to end session at any time
+        //TODO::probably need to have separate screen for rules (should also go there when user asks что ты умеешь?)
+        //TODO::think how to show question with additional info at least once per gamse
         public override QuizResponse Help(QuizRequest request)
         {
             return Repeat(request);

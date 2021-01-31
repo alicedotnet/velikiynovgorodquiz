@@ -41,13 +41,12 @@ namespace VNQuiz.Alice.Controllers
                 }
                 else
                 {
-                    string sessionText = JsonSerializer.Serialize(request.State.Session);
-                    _logger.LogInformation("Unknown request. Text: {0} Session: {1}", request.Request.Command, sessionText);
+                    string requestValue = JsonSerializer.Serialize(request);
+                    _logger.LogInformation("FALLBACK. Request: {0}", requestValue);
 
                     response = currentScene.Fallback(request);
                     response.SessionState.ConsecutiveFallbackAnswers++;
                 }
-
                 return response;
             }
             catch(Exception e)
@@ -58,7 +57,7 @@ namespace VNQuiz.Alice.Controllers
             }
         }
 
-        private static QuizResponse GetResponse(QuizRequest request, Scene currentScene)
+        private QuizResponse GetResponse(QuizRequest request, Scene currentScene)
         {
             if (request.Request.Nlu.Intents != null)
             {
@@ -69,6 +68,11 @@ namespace VNQuiz.Alice.Controllers
                 if (request.Request.Nlu.Intents.IsHelp)
                 {
                     return currentScene.Help(request);
+                }
+                if (request.Request.Nlu.Intents.IsExit)
+                {
+                    var requestEndSessionScene = _scenesProvider.Get(SceneType.RequestEndSession);
+                    return requestEndSessionScene.Reply(request);
                 }
             }
 

@@ -42,7 +42,7 @@ namespace VNQuiz.Alice.Scenes
                 }
                 else if(request.Request.Nlu.Intents.IsReject)
                 {
-                    throw new NotImplementedException();
+                    return _scenesProvider.Get(SceneType.RequestEndSession);
                 }
             }
             return null;

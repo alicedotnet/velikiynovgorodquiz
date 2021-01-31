@@ -13,6 +13,8 @@ namespace VNQuiz.Alice.Models
         public string[] CurrentQuestionAnswers { get; set; }
         public List<int> AnsweredQuestionsIds { get; set; }
         public SceneType CurrentScene { get; set; }
+        public SceneType NextScene { get; set; }
+        public bool RestorePreviousState { get; set; }
         public int? LastRandomSkillAnswerIndex { get; set; }
         public int ConsecutiveFallbackAnswers { get; set; }
 

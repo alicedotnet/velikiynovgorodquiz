@@ -28,6 +28,7 @@ namespace VNQuiz.Alice.Scenes
                 SceneType.AdditionalInfo => Get<AdditionalInfoScene>(),
                 SceneType.WinGame => Get<WinGameScene>(),
                 SceneType.LoseGame => Get<LoseGameScene>(),
+                SceneType.RequestEndSession => Get<RequestEndSessionScene>(),
                 SceneType.EndSession => Get<EndSessionScene>(),
                 _ => throw new Exception("Unknown scene"),
             };

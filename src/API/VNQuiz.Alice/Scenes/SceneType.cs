@@ -16,6 +16,7 @@ namespace VNQuiz.Alice.Scenes
         AdditionalInfo,
         LoseGame,
         WinGame,
+        RequestEndSession,
         EndSession
     }
 }

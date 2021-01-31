@@ -94,21 +94,36 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponse Reply(QuizRequest request)
         {
-            var response = new QuizResponse(request, string.Empty);
-            if(response.SessionState.CurrentQuestionId == 0)
+            Question question;
+            if (request.State.Session.RestorePreviousState)
             {
-                SetRandomSkillAnswer(response, _firstQuestionAnswers);
+                question = _questionsService.GetQuestion(request.State.Session.CurrentQuestionId);
             }
             else
             {
-                SetRandomSkillAnswer(response, _nextQuestionAnswers);
+                question = _questionsService.GetQuestion(request.State.Session.AnsweredQuestionsIds);
+                if (question == null)
+                {
+                    var winGameScene = _scenesProvider.Get(SceneType.WinGame);
+                    return winGameScene.Reply(request);
+                }
             }
-            var question = _questionsService.GetQuestion(request.State.Session.AnsweredQuestionsIds);
-            if(question == null)
+
+            string text = string.Empty;
+            if(!request.State.Session.RestorePreviousState)
             {
-                var winGameScene = _scenesProvider.Get(SceneType.WinGame);
-                return winGameScene.Reply(request);
+                if (request.State.Session.CurrentQuestionId == 0)
+                {
+                    text = GetRandomSkillAnswer(request.State.Session, _firstQuestionAnswers);
+                }
+                else
+                {
+                    text = GetRandomSkillAnswer(request.State.Session, _nextQuestionAnswers);
+                }
             }
+            request.State.Session.RestorePreviousState = false;
+
+            var response = new QuizResponse(request, text);
             response.Response.SetText($"{response.Response.Text}\n{question.Text}");
 
             List<string> answers = new List<string>(question.WrongAnswers);
