@@ -52,9 +52,16 @@ namespace VNQuiz.Alice
             services.AddScoped<LoseGameScene>();
             services.AddScoped<RequestEndSessionScene>();
             services.AddScoped<RulesScene>();
+            services.AddScoped<ProgressScene>();
             services.AddScoped<EndSessionScene>();
 
             services.AddScoped<FirstGameAchievementUnlocker>();
+            services.AddScoped<CuriousAchievementUnlocker>();
+            services.AddScoped<ThreeConsecutiveAnswersAchievementUnlocker>();
+            services.AddScoped<FiveConsecutiveAnswersAchievementUnlocker>();
+            services.AddScoped<SevenConsecutiveAnswersAchievementUnlocker>();
+            services.AddScoped<TenConsecutiveAnswersAchievementUnlocker>();
+            services.AddScoped<WinGameAchievementUnlocker>();
 
             services.AddSwaggerGen(c =>
             {

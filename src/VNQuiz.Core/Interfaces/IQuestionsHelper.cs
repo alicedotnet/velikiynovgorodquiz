@@ -8,5 +8,6 @@ namespace VNQuiz.Core.Interfaces
         int Initialize(string path);
         Question? GetQuestion(List<int> ids);
         Question? GetQuestion(int id);
+        List<Question> GetQuestions();
     }
 }

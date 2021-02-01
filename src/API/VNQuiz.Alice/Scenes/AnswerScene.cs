@@ -45,6 +45,7 @@ namespace VNQuiz.Alice.Scenes
                 request.State.UserOrApplication.AnsweredQuestionsIds.Dequeue();
             }
             request.State.UserOrApplication.AnsweredQuestionsIds.Enqueue(question.Id);
+            request.State.Session.UnansweredQuestionsIds.Remove(question.Id);
 
             QuizResponseBase response;
             string supportText = string.Empty;

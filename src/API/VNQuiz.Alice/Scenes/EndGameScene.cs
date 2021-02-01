@@ -30,6 +30,12 @@ namespace VNQuiz.Alice.Scenes
             "Поздравляю! Вы разблокировали достижения!"
         };
 
+        private readonly string[] _unlockedAllTexts = new string[]
+        {
+            "Ура! Вы разблокировали все достижения!",
+            "Поздравляю! Вы разблокировали все достижения!"
+        };
+
         private readonly IScenesProvider _scenesProvider;
         private readonly IAchievementsService _achievementsService;
 
@@ -60,6 +66,8 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponseBase Reply(QuizRequest request)
         {
+            request.State.Session.CurrentScene = CurrentScene;
+
             var response = new QuizGalleryResponse(request, string.Empty);
             SetRandomSkillAnswer(response, ReplyVariations);
             SetRandomSkillAnswer(response, FallbackQuestions);
@@ -79,8 +87,13 @@ namespace VNQuiz.Alice.Scenes
             }
             if (response.SessionState.UnlockedAchievements.Any())
             {
+                var remainingAchievements = _achievementsService.GetAchievements(request.State.UserOrApplication.UnlockedAchievementsIds);
                 string headerText;
-                if(response.SessionState.UnlockedAchievements.Count > 1)
+                if(remainingAchievements.Length == 0)
+                {
+                    headerText = GetRandomSkillAnswer(response.SessionState, _unlockedAllTexts);
+                }
+                else if(response.SessionState.UnlockedAchievements.Count > 1)
                 {
                     headerText = GetRandomSkillAnswer(response.SessionState, _achievementsTexts);
                 }
@@ -88,15 +101,18 @@ namespace VNQuiz.Alice.Scenes
                 {
                     headerText = GetRandomSkillAnswer(response.SessionState, _achievementTexts);
                 }
+
                 response.Response.Card = new AliceGalleryCardModel()
                 {
                     Header = new AliceGalleryCardHeaderModel(headerText),
-                    Items = response.SessionState.UnlockedAchievements.Select(x => new AliceGalleryCardItem()
-                    {
-                        Title = x.Title,
-                        Description = x.Description,
-                        ImageId = x.ImageId
-                    }).ToList(),
+                    Items = response.SessionState.UnlockedAchievements
+                        .Take(5)
+                        .Select(x => new AliceGalleryCardItem()
+                        {
+                            Title = x.Title,
+                            Description = x.Description,
+                            ImageId = x.ImageId
+                        }).ToList(),
                     Footer = new AliceGalleryCardFooterModel(GetRandomSkillAnswer(response.SessionState, FallbackQuestions))
                 };
 
@@ -109,7 +125,6 @@ namespace VNQuiz.Alice.Scenes
                 response.Response.SetText(text);
             }
 
-            response.SessionState.CurrentScene = CurrentScene;
             return response;
         }
 
@@ -121,6 +136,12 @@ namespace VNQuiz.Alice.Scenes
         public override QuizResponseBase Help(QuizRequest request)
         {
             return Reply(request);
+        }
+
+        protected override void SetFallbackButtons(QuizRequest request, QuizResponseBase response)
+        {
+            base.SetFallbackButtons(request, response);
+            response.Response.Buttons.Add(new QuizButtonModel("прогресс"));
         }
     }
 }

@@ -19,6 +19,13 @@ namespace VNQuiz.Alice.Scenes
             AnswerTips = new string[] { "Правильно!", "Верно.", "Вы правы." };
         }
 
+        public override QuizResponseBase Reply(QuizRequest request)
+        {
+            var response = base.Reply(request);
+            response.SessionState.CurrentConsecutiveCorrectAnswers++;
+            return response;
+        }
+
         protected override string GetSupportText(QuizSessionState quizSessionState)
         {
             return string.Empty;

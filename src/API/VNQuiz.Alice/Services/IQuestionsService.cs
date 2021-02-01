@@ -10,6 +10,8 @@ namespace VNQuiz.Alice.Services
     public interface IQuestionsService
     {
         Question? GetQuestion(List<int> excludeIds);
+        Question? GetQuestion(QuizRequest request);
         Question GetQuestion(int id);
+        List<int> GetQuestionsIds();
     }
 }

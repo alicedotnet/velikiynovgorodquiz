@@ -78,6 +78,7 @@ namespace VNQuiz.Alice.Scenes
 
                 }
                 response.Response.Buttons.Add(new AliceButtonModel(additionalInfo.LinkText, false, null, additionalInfo.Link));
+                response.SessionState.IsOpenedAdditionalInfo = true;
             }
             else
             {

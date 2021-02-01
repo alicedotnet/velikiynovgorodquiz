@@ -52,9 +52,14 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponseBase Reply(QuizRequest request)
         {
+            string text = string.Empty;
+            if(!request.State.Session.RestorePreviousState)
+            {
+                text = "Привет!";
+            }
             var response = new QuizResponse(
                 request,
-                "Привет!",
+                text,
                 new List<QuizButtonModel>()
                 {
                     new QuizButtonModel("да"),

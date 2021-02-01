@@ -68,7 +68,8 @@ namespace VNQuiz.Alice.Scenes
                 }
 
                 if(request.State.Session.CurrentScene != CurrentScene
-                    && request.State.Session.CurrentScene != SceneType.RulesScene)
+                    && request.State.Session.CurrentScene != SceneType.RulesScene
+                    && request.State.Session.CurrentScene != SceneType.ProgressScene)
                 {
                     if (request.State.Session.CurrentScene == SceneType.AdditionalInfo)
                     {

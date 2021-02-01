@@ -65,5 +65,10 @@ namespace VNQuiz.Core
             var index = _questions.BinarySearch(id, (x) => x.Id);
             return index >= 0 ? _questions[index] : null;
         }
+
+        public List<Question> GetQuestions()
+        {
+            return _questions;
+        }
     }
 }

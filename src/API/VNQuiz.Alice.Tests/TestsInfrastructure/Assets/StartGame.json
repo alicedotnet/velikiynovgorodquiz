@@ -11,8 +11,8 @@
     }
   },
   "session": {
-    "message_id": 1,
-    "session_id": "89d8a043-e639-4df9-82c1-f71fff4aec3f",
+    "message_id": 20,
+    "session_id": "aa56e28e-6e4f-4ed4-939f-1e5ae23244e1",
     "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
     "user": {
       "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
@@ -23,9 +23,53 @@
     "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
     "new": false
   },
+  "version": "1.0",
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 3,
+      "currentQuestionId": 9,
+      "currentQuestionAnswers": [
+        "correct answer",
+        "wrong answer 1",
+        "wrong answer 2"
+      ],
+      "currentScene": 10,
+      "nextScene": 10,
+      "restorePreviousState": true,
+      "lastRandomSkillAnswerIndex": 0,
+      "consecutiveFallbackAnswers": 0,
+      "unlockedAchievements": [
+        {
+          "title": "Любопытный",
+          "description": "Посмотри дополнительную информацию по вопросу",
+          "imageId": "997614/4da8d94482f67d087815"
+        }
+      ],
+      "isOpenedAdditionalInfo": true,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [
+        1,
+        2
+      ],
+      "answeredQuestionsIds": [
+        3,
+        5,
+        8,
+        2,
+        12,
+        6
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
   "request": {
-    "command": "да",
-    "original_utterance": "да",
     "nlu": {
       "tokens": [
         "да"
@@ -34,25 +78,22 @@
       "intents": {
         "YANDEX.CONFIRM": {
           "slots": {}
+        },
+        "answer": {
+          "slots": {
+            "exactAnswer": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 0,
+                "end": 1
+              },
+              "value": "да"
+            }
+          }
         }
       }
     },
-    "markup": {
-      "dangerous_context": false
-    },
-    "type": "SimpleUtterance"
-  },
-  "state": {
-    "session": {
-      "incorrectAnswersCount": 0,
-      "currentQuestionId": 0,
-      "answeredQuestionsIds": [],
-      "currentScene": 0
-    },
-    "user": {
-      "requestNumber": 1
-    },
-    "application": {}
-  },
-  "version": "1.0"
+    "payload": "да",
+    "type": "ButtonPressed"
+  }
 }

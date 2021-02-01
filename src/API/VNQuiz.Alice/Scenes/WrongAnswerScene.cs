@@ -27,13 +27,16 @@ namespace VNQuiz.Alice.Scenes
             {
                 var loseGameScene = ScenesProvider.Get(SceneType.LoseGame);
                 response = loseGameScene.Reply(request);
-                //var wrongAnswerResponse = base.Reply(request);
-                //response.Response.SetText(JoinString('\n', wrongAnswerResponse.Response.Text, response.Response.Text));
             }
             else
             {
                 response = base.Reply(request);
             }
+            if(response.SessionState.CurrentConsecutiveCorrectAnswers > response.SessionState.MaxConsecutiveCorrectAnswers)
+            {
+                response.SessionState.MaxConsecutiveCorrectAnswers = response.SessionState.CurrentConsecutiveCorrectAnswers;
+            }
+            response.SessionState.CurrentConsecutiveCorrectAnswers = 0;
             return response;
         }
 

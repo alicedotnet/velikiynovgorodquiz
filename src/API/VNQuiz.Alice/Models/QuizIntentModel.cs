@@ -16,6 +16,7 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName("confirm")]
         public AliceIntentModel? Confirm { get; set; }
 
+        [JsonIgnore]
         public bool IsConfirm
         {
             get
@@ -29,7 +30,8 @@ namespace VNQuiz.Alice.Models
 
         [JsonPropertyName("reject")]
         public AliceIntentModel? Reject { get; set; }
-    
+
+        [JsonIgnore]
         public bool IsReject
         {
             get
@@ -41,6 +43,7 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName(AliceConstants.AliceIntents.Repeat)]
         public AliceIntentModel? YandexRepeat { get; set; }
 
+        [JsonIgnore]
         public bool IsRepeat
         {
             get
@@ -55,6 +58,7 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName("help")]
         public AliceIntentModel? Help { get; set; }
 
+        [JsonIgnore]
         public bool IsHelp
         {
             get
@@ -66,6 +70,7 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName("exit")]
         public AliceIntentModel? Exit { get; set; }
 
+        [JsonIgnore]
         public bool IsExit
         {
             get
@@ -77,6 +82,7 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName(AliceConstants.AliceIntents.WhatCanYouDo)]
         public AliceIntentModel? WhatCanYouDo { get; set; }
 
+        [JsonIgnore]
         public bool IsWhatCanYouDo
         {
             get
@@ -88,11 +94,36 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName("rules")]
         public AliceIntentModel? Rules { get; set; }
 
+        [JsonIgnore]
         public bool IsRules
         {
             get
             {
                 return Rules != null;
+            }
+        }
+
+        [JsonPropertyName("progress")]
+        public AliceIntentModel? Progress { get; set; }
+
+        [JsonIgnore]
+        public bool IsProgress
+        {
+            get
+            {
+                return Progress != null;
+            }
+        }
+
+        [JsonPropertyName("back")]
+        public AliceIntentModel? Back { get; set; }
+
+        [JsonIgnore]
+        public bool IsBack
+        {
+            get
+            {
+                return Back != null;
             }
         }
 

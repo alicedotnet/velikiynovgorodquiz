@@ -101,7 +101,7 @@ namespace VNQuiz.Alice.Scenes
             }
             else
             {
-                question = _questionsService.GetQuestion(request.State.UserOrApplication.AnsweredQuestionsIds.ToList());
+                question = _questionsService.GetQuestion(request);
                 if (question == null)
                 {
                     var winGameScene = _scenesProvider.Get(SceneType.WinGame);
@@ -124,7 +124,7 @@ namespace VNQuiz.Alice.Scenes
             request.State.Session.RestorePreviousState = false;
 
             var response = new QuizResponseBase(request, text);
-            response.Response.SetText($"{response.Response.Text}\n{question.Text}");
+            response.Response.SetText(JoinString('\n', response.Response.Text, question.Text));
 
             List<string> answers = new List<string>(question.WrongAnswers);
             var random = new Random();

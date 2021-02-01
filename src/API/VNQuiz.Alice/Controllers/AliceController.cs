@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Scenes;
 
@@ -43,8 +45,7 @@ namespace VNQuiz.Alice.Controllers
                 }
                 else
                 {
-                    string requestValue = JsonSerializer.Serialize(request);
-                    _logger.LogInformation("FALLBACK. Request: {0}", requestValue);
+                    _logger.LogInformation("FALLBACK. Request: {0}", Serialize(request));
 
                     response = currentScene.Fallback(request);
                     response.SessionState.ConsecutiveFallbackAnswers++;
@@ -54,10 +55,19 @@ namespace VNQuiz.Alice.Controllers
             }
             catch(Exception e)
             {
-                string requestValue = JsonSerializer.Serialize(request);
-                _logger.LogError(e, requestValue);
+                _logger.LogError(e, Serialize(request));
                 throw;
             }
+        }
+
+        private static string Serialize<T>(T value)
+        {
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+            };
+            string result = JsonSerializer.Serialize(value, options);
+            return result;
         }
 
         private static void PreprocessRequest(QuizRequest request)
@@ -91,6 +101,11 @@ namespace VNQuiz.Alice.Controllers
                 {
                     var rulesScene = _scenesProvider.Get(SceneType.RulesScene);
                     return rulesScene.Reply(request);
+                }
+                if(request.Request.Nlu.Intents.IsProgress)
+                {
+                    var progressScene = _scenesProvider.Get(SceneType.ProgressScene);
+                    return progressScene.Reply(request);
                 }
                 if (request.Request.Nlu.Intents.IsExit)
                 {

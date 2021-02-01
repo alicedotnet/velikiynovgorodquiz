@@ -11,7 +11,7 @@
     }
   },
   "session": {
-    "message_id": 98,
+    "message_id": 99,
     "session_id": "7da1e1dc-b5a0-49c0-b204-52d05be01aa0",
     "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
     "user": {
@@ -23,14 +23,44 @@
     "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
     "new": false
   },
-  "version": "1.0",
+  "request": {
+    "command": "ты не поймешь меня",
+    "original_utterance": "ты не поймешь меня",
+    "nlu": {
+      "tokens": [
+        "ты",
+        "не",
+        "поймешь",
+        "меня"
+      ],
+      "entities": [],
+      "intents": {
+        "answer": {
+          "slots": {
+            "exactAnswer": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 0,
+                "end": 1
+              },
+              "value": "ты"
+            }
+          }
+        }
+      }
+    },
+    "markup": {
+      "dangerous_context": false
+    },
+    "type": "SimpleUtterance"
+  },
   "state": {
     "session": {
       "incorrectAnswersCount": 0,
       "currentQuestionId": 2,
       "currentQuestionAnswers": [
-        "wrong answer 1",
         "correct answer",
+        "wrong answer 1",
         "wrong answer 2"
       ],
       "unansweredQuestionsIds": [
@@ -45,9 +75,9 @@
         12,
         1
       ],
-      "currentScene": 8,
+      "currentScene": 3,
       "nextScene": 3,
-      "restorePreviousState": true,
+      "restorePreviousState": false,
       "lastRandomSkillAnswerIndex": 1,
       "consecutiveFallbackAnswers": 0,
       "unlockedAchievements": [],
@@ -63,15 +93,16 @@
         4,
         5,
         6,
-        7
+        7,
+        2
       ],
       "answeredQuestionsIds": [
-        6,
-        9,
-        1,
-        5,
         3,
-        10
+        10,
+        11,
+        12,
+        7,
+        2
       ]
     },
     "application": {
@@ -79,31 +110,5 @@
       "answeredQuestionsIds": []
     }
   },
-  "request": {
-    "nlu": {
-      "tokens": [
-        "�����"
-      ],
-      "entities": [],
-      "intents": {
-        "answer": {
-          "slots": {
-            "exactAnswer": {
-              "type": "YANDEX.STRING",
-              "tokens": {
-                "start": 0,
-                "end": 1
-              },
-              "value": "�����"
-            }
-          }
-        },
-        "back": {
-          "slots": {}
-        }
-      }
-    },
-    "payload": "�����",
-    "type": "ButtonPressed"
-  }
+  "version": "1.0"
 }

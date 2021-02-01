@@ -10,8 +10,6 @@ using VNQuiz.Alice.Tests.TestsInfrastructure;
 using VNQuiz.Alice.Tests.TestsInfrastructure.Models;
 using Xunit;
 using Xunit.Abstractions;
-using Yandex.Alice.Sdk.Models;
-using static VNQuiz.Alice.Controllers.AliceController;
 
 namespace VNQuiz.Alice.Tests
 {
@@ -33,11 +31,13 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.WrongAnswerFilePath)]
         [InlineData(TestsConstants.Assets.LastWrongAnswerFilePath)]
         [InlineData(TestsConstants.Assets.EndGame)]
+        [InlineData(TestsConstants.Assets.WinGame)]
         [InlineData(TestsConstants.Assets.Question)]
         [InlineData(TestsConstants.Assets.CorrectAnswer)]
         [InlineData(TestsConstants.Assets.AdditionalInfo)]
         [InlineData(TestsConstants.Assets.Rules_GameStarted_Continue)]
         [InlineData(TestsConstants.Assets.Rules_NewSession_StartGame)]
+        [InlineData(TestsConstants.Assets.Fallback)]
         public async Task Alice_SendRequest_Success(string filePath)
         {
             string text = File.ReadAllText(filePath);
