@@ -13,6 +13,18 @@ namespace VNQuiz.Alice.Scenes
 
         protected override SceneType CurrentScene => SceneType.CorrectAnswer;
 
+        private readonly string[] _supportTexts = new string[]
+        {
+            string.Empty,
+            "Так держать!",
+            string.Empty,
+            "Вы молодец.",
+            string.Empty,
+            string.Empty,
+            "У вас отлично получается!",
+            string.Empty,
+        };
+
         public CorrectAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
             : base(questionsService, scenesProvider)
         {
@@ -28,7 +40,7 @@ namespace VNQuiz.Alice.Scenes
 
         protected override string GetSupportText(QuizSessionState quizSessionState)
         {
-            return string.Empty;
+            return GetRandomSkillAnswer(_supportTexts);
         }
     }
 }

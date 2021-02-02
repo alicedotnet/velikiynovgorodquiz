@@ -13,6 +13,18 @@ namespace VNQuiz.Alice.Scenes
 
         protected override string[] AnswerTips { get; }
 
+        private readonly string[] _twoErrorsLeftTexts = new string[]
+        {
+            "Вы можете сделать еще одну ошибку.",
+            "Вы можете ошибиться еще один раз."
+        };
+
+        private readonly string[] _oneErrorLeftTexts = new string[]
+        {
+            "Давай дальше без ошибок!",
+            "Повнимательнее! Больше ошибаться нельзя."
+        };
+
         public WrongAnswerScene(IQuestionsService questionsService, IScenesProvider scenesProvider)
             : base(questionsService, scenesProvider)
         {
@@ -44,11 +56,11 @@ namespace VNQuiz.Alice.Scenes
         {
             if(quizSessionState.IncorrectAnswersCount == 1)
             {
-                return "Вы можете сделать еще две ошибки.";
+                return GetRandomSkillAnswer(_twoErrorsLeftTexts);
             }
             else if(quizSessionState.IncorrectAnswersCount == 2)
             {
-                return "Давай дальше без ошибок!";
+                return GetRandomSkillAnswer(_oneErrorLeftTexts);
             }
             return string.Empty;
         }

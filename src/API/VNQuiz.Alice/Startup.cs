@@ -74,7 +74,7 @@ namespace VNQuiz.Alice
             , IQuestionsHelper questionsHelper, IAchievementsHelper achievementsHelper)
         {
             int questions = questionsHelper.Initialize(Path.Combine(Environment.CurrentDirectory, "questions.json"));
-            Settings.AnsweredQuestionsToKeep = (int) (questions * 0.5);
+            Settings.AnsweredQuestionsToKeep = (int) (questions * 0.7);
             achievementsHelper.Initialize(Path.Combine(Environment.CurrentDirectory, "achievements.json"));
 
             if (env.IsDevelopment())

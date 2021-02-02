@@ -1,89 +1,75 @@
 [
   {
-    "text": "question 1",
-    "correctAnswer": "correct answer",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ],
-    "explanation": "some smart explanation about answer",
-    "additionalInfo": {
-      "title": "Кремль",
-      "text": "some bonus fact about question",
-      "pictureId": "1652229/fa05b34dac64ad7c8852",
-      "link": "http://www.google.com",
-      "linkText": "Экскурсии"
-    }
+    "text": "В каком году возник Великий Новгород согласно летописи?",
+    "correctAnswer": "859-м",
+    "wrongAnswers": [ "959-м", "1059-м" ],
+    "explanation": "859-й год впервые был предложен академиком М.Н. Тихомировым в конце 1950-х годов",
+    "shuffle": false
   },
   {
-    "correctAnswer": "correct answer",
-    "text": "question 2",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ],
-    "explanation": "some smart explanation about answer",
-    "additionalInfo": {
-      "title": "Кремль",
-      "text": "look. this place is awesome",
-      "pictureId": "1652229/fa05b34dac64ad7c8852",
-      "link": "http://www.google.com",
-      "linkText": "Экскурсии"
-    }
+    "text": "На каком торговом пути лежал Великий Новгород?",
+    "correctAnswer": "Балтийско-Волжский",
+    "wrongAnswers": [ "Из немец в хазары", "Шелковый путь" ],
+    "explanation": "Варяги стремились добиться движения торговых экспедиций из Балтийского региона на арабский Восток сформировав Балтийско-Волжский путь, проходивший через Ладожское озеро, Волхов, +Ильмень и Мсту"
   },
   {
-    "text": "question 3",
-    "correctAnswer": "correct answer",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "Как звали новгородского князя, основавшего первую династию правителей России?",
+    "correctAnswer": "Рюрик",
+    "wrongAnswers": [ "Роман", "Олег" ],
+    "explanation": "Князь Рюрик основал первую династию правителей России, закончившуюся на Иване Грозном в XVI веке."
   },
   {
-    "correctAnswer": "correct answer",
-    "text": "question 4",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ],
-    "additionalInfo": {
-      "text": "some bonus fact about question",
-      "pictureId": "1652229/fa05b34dac64ad7c8852",
-      "link": "http://www.google.com"
-    }
+    "text": "Какой город захватил князь Олег и сделал столицей Руси?",
+    "correctAnswer": "Киев",
+    "wrongAnswers": [ "Москва", "Минск" ],
+    "explanation": "В 882 году Олег совершил поход из Новгорода на юг. В Киеве Олег убил правивших там Аскольда и Дира, явив киевлянам законного наследника киевского престола — Игоря Рюриковича. «И рече Олег: здесь будет мать градом русским», — сообщается в летописи"
   },
   {
-    "text": "question 5",
-    "correctAnswer": "correct answer",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "Какого новгородского князя воспел А. С. Пушкин в своём произведении?",
+    "correctAnswer": "Олег",
+    "wrongAnswers": [ "Рюрик", "Владимир" ],
+    "explanation": "Князь Олег. «Песнь о вещем Олеге» — историческая баллада (стихотворение, стихотворная повесть), написанная А. С. Пушкиным в 1822 году."
   },
   {
-    "correctAnswer": "correct answer",
-    "text": "question 6",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ],
-    "explanation": "some smart explanation about answer",
-    "additionalInfo": {
-      "text": "some bonus fact about question",
-      "pictureId": "1652229/fa05b34dac64ad7c8852",
-      "link": "http://www.google.com"
-    }
+    "text": "Как назывался предшественник Великого Новгорода?",
+    "correctAnswer": "Рюриково городище",
+    "wrongAnswers": [ "Олегов град", "С+елище Ярослава" ],
+    "explanation": "После начала раскопок Новгорода встал вопрос о «старом городе» т.к. стал очевиден разрыв между летописным упоминанием новгородцев (859-й год) и археологическими следами их жизни (930-е годы). На сегодняшний день практически единодушно историки признают Рюриково городище предшественником Новгорода."
   },
   {
-    "text": "question 7",
-    "correctAnswer": "correct answer",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "Из какой летописи было взято много информации о ранней истории Великого Новгорода?",
+    "correctAnswer": "Повесть временных лет",
+    "wrongAnswers": [ "Летописи Северо-Восточной Руси", "Московские летописи" ],
+    "explanation": "«Повесть временных лет» — наиболее ранняя из сохранившихся в полном объёме русских летописей. Создана в Киеве в 1110-х годах. Составила основу большинства более поздних русских летописей."
   },
   {
-    "correctAnswer": "correct answer",
-    "text": "question 8",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "На какой реке расположен Великий Новгород?",
+    "correctAnswer": "Волхов",
+    "wrongAnswers": [ "Нева", "Волга" ],
+    "explanation": "Новгород расположен на реке Волхов. Волхов — большая река на северо-западе Европейской части России, в Новгородской и Ленинградской областях. Ее длина составляет 224 км."
   },
   {
-    "text": "question 9",
-    "correctAnswer": "correct answer",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "Возле какого озера расположен Великий Новгород?",
+    "correctAnswer": "+Ильмень",
+    "wrongAnswers": [ "Ладожское", "Онежское" ],
+    "explanation": "+Ильмень — озеро в западной части Новгородской области. Относится к водосборному бассейну Балтийского моря. Площадь зеркала — 982 км²"
   },
   {
-    "correctAnswer": "correct answer",
-    "text": "question 10",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "Какое прозвище получила княгиня Ольга, отомстив древлянам за смерть ее мужа Игоря?",
+    "correctAnswer": "Огненная княгиня",
+    "wrongAnswers": [ "Снежная королева", "Бурерожденная" ],
+    "explanation": "После годичной осады Коростени Ольга предложила древлянам заплатить дань городскими голубями. Когда птицы были собраны и переданы киевской княгине, по ее приказу к их лапкам привязали зажженную паклю. Вернувшиеся под родные крыши голуби запалили весь город."
   },
   {
-    "text": "question 11",
-    "correctAnswer": "correct answer",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "Почему у Новгорода создалась слава «Русских Помпей»?",
+    "correctAnswer": "Законсервированные находки в торфянистой почве",
+    "wrongAnswers": [ "Извержение вулкана", "Город был разрушен какое-то время из-за природного катаклизма" ],
+    "explanation": "Если под слоем лавы Везувия мы видим последний день гибнущих Помпей, то в Новгороде археологи имеют возможность раскапывать всю последовательность жизни города в ее бесконечном разнообразии. Ведь все, что попадало в торфянистую городскую почву, пропитывалось водой и консервировалось на столетия."
   },
   {
-    "correctAnswer": "correct answer",
-    "text": "question 12",
-    "wrongAnswers": [ "wrong answer 1", "wrong answer 2" ]
+    "text": "Какая традиция началась с князя Святослава?",
+    "correctAnswer": "Сажать на новгородский престол сына Киевского князя",
+    "wrongAnswers": [ "Строить новую крепость для князя", "Захватывать соседние земли" ],
+    "explanation": "Сын Игоря Святослав какое-то время княжил в Новгороде. Начиная со Святослава Новгород на многие десятилетия становится «кузницей кадров» для киевского престола. Сажать на новгородский престол сына великого киевского князя становится традицией"
   }
 ]

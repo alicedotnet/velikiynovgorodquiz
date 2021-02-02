@@ -10,6 +10,9 @@ slots:
         type: YANDEX.NUMBER
     exactAnswer:
         source: $ExactAnswer
+    exactNumber:
+        source: $ExactAnswer
+        type: YANDEX.NUMBER
 filler:
     %lemma
     пускай
@@ -21,7 +24,10 @@ filler:
     номер
     ну
     правильный
-    давай  
+    давай
+    для
+    разнообразия
+    год
 $Number:
     1
     2

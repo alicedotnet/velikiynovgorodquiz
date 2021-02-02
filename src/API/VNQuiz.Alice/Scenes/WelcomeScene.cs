@@ -86,6 +86,7 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
+        //TODO::add possibility to start game from the beginning
         //TODO::think how to show question with additional info at least once per game
         public override QuizResponseBase Help(QuizRequest request)
         {

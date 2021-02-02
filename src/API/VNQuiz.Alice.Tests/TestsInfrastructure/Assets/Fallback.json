@@ -59,9 +59,18 @@
       "incorrectAnswersCount": 0,
       "currentQuestionId": 2,
       "currentQuestionAnswers": [
-        "correct answer",
-        "wrong answer 1",
-        "wrong answer 2"
+        {
+          "key": "Ладожское",
+          "value": "Ладожское"
+        },
+        {
+          "key": "Ильмень",
+          "value": "+Ильмень"
+        },
+        {
+          "key": "Онежское",
+          "value": "Онежское"
+        }
       ],
       "unansweredQuestionsIds": [
         6,

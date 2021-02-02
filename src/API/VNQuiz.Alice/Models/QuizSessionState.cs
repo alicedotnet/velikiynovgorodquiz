@@ -12,7 +12,7 @@ namespace VNQuiz.Alice.Models
     {
         public int IncorrectAnswersCount { get; set; }
         public int CurrentQuestionId { get; set; }
-        public string[] CurrentQuestionAnswers { get; set; }
+        public AnswersModel CurrentQuestionAnswers { get; set; }
         [JsonPropertyName("unansweredQuestionsIds")]
         public List<int> UnansweredQuestionsIds { get; set; }
         public SceneType CurrentScene { get; set; }
@@ -27,7 +27,7 @@ namespace VNQuiz.Alice.Models
 
         public QuizSessionState()
         {
-            CurrentQuestionAnswers = Array.Empty<string>();
+            CurrentQuestionAnswers = new AnswersModel();
             UnlockedAchievements = new List<AchievementModel>();
             UnansweredQuestionsIds = new List<int>();
         }

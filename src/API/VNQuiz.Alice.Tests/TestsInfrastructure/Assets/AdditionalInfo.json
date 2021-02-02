@@ -29,9 +29,18 @@
       "incorrectAnswersCount": 1,
       "currentQuestionId": 1,
       "currentQuestionAnswers": [
-        "wrong answer 1",
-        "correct answer",
-        "wrong answer 2"
+        {
+          "key": "Ладожское",
+          "value": "Ладожское"
+        },
+        {
+          "key": "Ильмень",
+          "value": "+Ильмень"
+        },
+        {
+          "key": "Онежское",
+          "value": "Онежское"
+        }
       ],
       "answeredQuestionsIds": [
         1

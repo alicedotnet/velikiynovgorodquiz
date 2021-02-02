@@ -6,6 +6,7 @@ using VNQuiz.Alice.Helpers;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Services;
 using VNQuiz.Core.Models;
+using Yandex.Alice.Sdk.Helpers;
 using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Scenes
@@ -29,7 +30,7 @@ namespace VNQuiz.Alice.Scenes
         private readonly string[] _nextQuestionAnswers = new string[]
         {
             "Вот следующий вопрос:",
-            "Идем дальше.",
+            "Продолжаем.",
             "Следующий вопрос:"
         };
 
@@ -59,11 +60,11 @@ namespace VNQuiz.Alice.Scenes
             int currentQuestionId = request.State.Session.CurrentQuestionId;
             var question = _questionsService.GetQuestion(currentQuestionId);
             string answer = GetAnswer(request);
-            if (question.CorrectAnswer == answer)
+            if (new AnswerComparer().Equals(question.CorrectAnswer,answer))
             {
                 return _scenesProvider.Get(SceneType.CorrectAnswer);
             }
-            else if (question.WrongAnswers.Contains(answer))
+            else if (question.WrongAnswers.Contains(answer, new AnswerComparer()))
             {
                 return _scenesProvider.Get(SceneType.WrongAnswer);
             }
@@ -75,14 +76,18 @@ namespace VNQuiz.Alice.Scenes
             if(request.Request.Type == AliceRequestType.ButtonPressed)
             {
                 int index = request.Request.GetPayload<int>() - 1;
-                return request.State.Session.CurrentQuestionAnswers[index];
+                return request.State.Session.CurrentQuestionAnswers.ElementAt(index).Key;
             }
             if(request.Request.Nlu.Intents?.Answer != null)
             {
                 if(request.Request.Nlu.Intents.Answer.Slots.Number != null)
                 {
                     int index = (int)request.Request.Nlu.Intents.Answer.Slots.Number!.Value - 1;
-                    return request.State.Session.CurrentQuestionAnswers[index];
+                    return request.State.Session.CurrentQuestionAnswers.ElementAt(index).Key;
+                }
+                if(request.Request.Nlu.Intents.Answer.Slots.ExactNumber != null)
+                {
+                    return request.Request.Nlu.Intents.Answer.Slots.ExactNumber!.Value.ToString();
                 }
                 if (request.Request.Nlu.Intents.Answer.Slots.ExactAnswer != null)
                 {
@@ -124,17 +129,22 @@ namespace VNQuiz.Alice.Scenes
             request.State.Session.RestorePreviousState = false;
 
             var response = new QuizResponseBase(request, text);
-            response.Response.SetText(JoinString('\n', response.Response.Text, question.Text));
+            response.Response.SetText(
+                JoinString('\n', response.Response.Text, question.Text) + AliceHelper.SilenceString500);
 
-            List<string> answers = new List<string>(question.WrongAnswers);
+            var answers = new AnswersModel();
+            foreach (string? wrongAnswer in question.WrongAnswers)
+            {
+                answers.Add(wrongAnswer);
+            }
             var random = new Random();
-            int correctAnswerIndex = random.Next(0, 2);
+            int correctAnswerIndex = question.Shuffle.GetValueOrDefault(true) ? random.Next(0, 2) : 0;
             answers.Insert(correctAnswerIndex, question.CorrectAnswer);
-            SetAnswers(response, answers.ToArray());
+            SetAnswers(response, answers);
 
             response.SessionState.CurrentScene = SceneType.Question;
             response.SessionState.CurrentQuestionId = question.Id;
-            response.SessionState.CurrentQuestionAnswers = answers.ToArray();
+            response.SessionState.CurrentQuestionAnswers = answers;
             return response;
         }
 
@@ -144,13 +154,14 @@ namespace VNQuiz.Alice.Scenes
         }
 
 
-        private static void SetAnswers(QuizResponseBase response, string[] answers)
+
+        private static void SetAnswers(QuizResponseBase response, AnswersModel answers)
         {
-            for (int i = 1; i <= answers.Length; i++)
+            for (int i = 1; i <= answers.Count; i++)
             {
                 response.Response.Buttons.Add(new QuizButtonModel(i.ToString(), i));
-                response.Response.AppendText($"\n{EmojiHelper.GetNumberEmoji(i)} {answers[i - 1]}", false);
-                response.Response.AppendTts($"\n{answers[i - 1]}");
+                response.Response.AppendText($"\n{i}. {answers[i - 1].Key}", false);
+                response.Response.AppendTts($"\n{answers[i - 1].Value}{AliceHelper.SilenceString500}");
             }
         }
 

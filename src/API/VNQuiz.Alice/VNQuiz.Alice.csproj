@@ -9,11 +9,15 @@
 
   <ItemGroup>
     <Content Remove="achievements.json" />
+    <Content Remove="dummyQuestions.json" />
     <Content Remove="questions.json" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="achievements.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dummyQuestions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="questions.json">
@@ -31,5 +35,7 @@
     <ProjectReference Include="..\..\sdk\src\Yandex.Alice.Sdk\Yandex.Alice.Sdk.csproj" />
     <ProjectReference Include="..\..\VNQuiz.Core\VNQuiz.Core.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

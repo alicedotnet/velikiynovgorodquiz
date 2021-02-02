@@ -40,7 +40,8 @@ namespace VNQuiz.Alice.Scenes
 
 
             var question = QuestionsService.GetQuestion(request.State.Session.CurrentQuestionId);
-            if(request.State.UserOrApplication.AnsweredQuestionsIds.Count >= Settings.AnsweredQuestionsToKeep)
+            if(request.State.UserOrApplication.AnsweredQuestionsIds.Count >= Settings.AnsweredQuestionsToKeep
+                && request.State.UserOrApplication.AnsweredQuestionsIds.Count > 0)
             {
                 request.State.UserOrApplication.AnsweredQuestionsIds.Dequeue();
             }
@@ -67,9 +68,10 @@ namespace VNQuiz.Alice.Scenes
                 response = new QuizResponse(request, string.Empty);
             }
 
-            text = JoinString(' ', text, GetSentence(question.Explanation), supportText);
-            response.Response.Text = JoinString(' ', text, response.Response.Text);
-            response.Response.Tts = JoinString(' ', text, response.Response.Tts);
+            text = JoinString(' ', text, GetSentence(question.Explanation));
+            text = JoinString('\n', text, supportText);
+            response.Response.SetText(JoinString(' ', text, response.Response.Text), false);
+            response.Response.SetTts(JoinString(' ', text, response.Response.Tts));
             return response;
         }
 

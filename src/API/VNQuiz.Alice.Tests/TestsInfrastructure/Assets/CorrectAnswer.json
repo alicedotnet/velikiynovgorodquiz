@@ -11,48 +11,24 @@
     }
   },
   "session": {
-    "message_id": 65,
-    "session_id": "b96cb27b-08fa-46ab-8c4f-df0772f1329b",
+    "message_id": 2,
+    "session_id": "f6a0892c-2001-4a5e-9bd2-cbc63fa70352",
     "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
+    "user": {
+      "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
+    },
     "application": {
       "application_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57"
     },
     "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
     "new": false
   },
-  "version": "1.0",
-  "state": {
-    "session": {
-      "incorrectAnswersCount": 0,
-      "currentQuestionId": 4,
-      "currentQuestionAnswers": [
-        "wrong answer 1",
-        "correct answer",
-        "wrong answer 2"
-      ],
-      "currentScene": 3,
-      "nextScene": 0,
-      "restorePreviousState": false,
-      "lastRandomSkillAnswerIndex": 2,
-      "consecutiveFallbackAnswers": 0,
-      "unlockedAchievements": []
-    },
-    "application": {
-      "unlockedAchievementsIds": [
-        1
-      ],
-      "answeredQuestionsIds": [
-        3,
-        11,
-        8,
-        5
-      ]
-    }
-  },
   "request": {
+    "command": "859",
+    "original_utterance": "859",
     "nlu": {
       "tokens": [
-        "2"
+        "859"
       ],
       "entities": [
         {
@@ -61,25 +37,84 @@
             "start": 0,
             "end": 1
           },
-          "value": 2
+          "value": 859
         }
       ],
       "intents": {
         "answer": {
           "slots": {
-            "number": {
-              "type": "YANDEX.NUMBER",
+            "exactAnswer": {
+              "type": "YANDEX.STRING",
               "tokens": {
                 "start": 0,
                 "end": 1
               },
-              "value": 2
+              "value": "859"
             }
           }
         }
       }
     },
-    "payload": 2,
-    "type": "ButtonPressed"
-  }
+    "markup": {
+      "dangerous_context": false
+    },
+    "type": "SimpleUtterance"
+  },
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 0,
+      "currentQuestionId": 1,
+      "currentQuestionAnswers": [
+        {
+          "key": "859",
+          "value": "859-м"
+        },
+        {
+          "key": "959",
+          "value": "959-м"
+        },
+        {
+          "key": "1059",
+          "value": "1059-м"
+        }
+      ],
+      "unansweredQuestionsIds": [
+        1
+      ],
+      "currentScene": 3,
+      "nextScene": 0,
+      "restorePreviousState": false,
+      "lastRandomSkillAnswerIndex": 0,
+      "consecutiveFallbackAnswers": 0,
+      "unlockedAchievements": [],
+      "isOpenedAdditionalInfo": false,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        2
+      ],
+      "answeredQuestionsIds": [
+        10,
+        12,
+        3,
+        4,
+        7,
+        9
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
+  "version": "1.0"
 }

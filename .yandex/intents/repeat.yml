@@ -1,0 +1,21 @@
+root:
+    [$Repeat $Question]
+    $Repeat $Question $Repeat
+    $Repeat
+slots:
+    question:
+        source: $Question
+filler:
+    %lemma
+    можно
+    можете
+$Repeat:
+    %lemma
+    повтори
+    повторить
+    еще раз повторить
+    еще раз
+    еще разок
+$Question:
+    %lemma
+    вопрос
