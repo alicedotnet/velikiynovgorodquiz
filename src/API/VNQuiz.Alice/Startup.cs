@@ -51,6 +51,7 @@ namespace VNQuiz.Alice
             services.AddScoped<WinGameScene>();
             services.AddScoped<LoseGameScene>();
             services.AddScoped<RequestEndSessionScene>();
+            services.AddScoped<RequestRestartScene>();
             services.AddScoped<RulesScene>();
             services.AddScoped<ProgressScene>();
             services.AddScoped<EndSessionScene>();

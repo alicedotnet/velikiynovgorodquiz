@@ -130,6 +130,18 @@ namespace VNQuiz.Alice.Models
             }
         }
 
+        [JsonPropertyName("restart")]
+        public AliceIntentModel? Restart { get; set; }
+
+        [JsonIgnore]
+        public bool IsRestart
+        {
+            get
+            {
+                return Restart != null;
+            }
+        }
+
         [JsonPropertyName("answer")]
         public AliceIntentModel<AnswerSlots>? Answer { get; set; }
     }

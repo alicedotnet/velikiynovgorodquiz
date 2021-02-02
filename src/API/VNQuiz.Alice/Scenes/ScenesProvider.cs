@@ -29,6 +29,7 @@ namespace VNQuiz.Alice.Scenes
                 SceneType.WinGame => Get<WinGameScene>(),
                 SceneType.LoseGame => Get<LoseGameScene>(),
                 SceneType.RequestEndSession => Get<RequestEndSessionScene>(),
+                SceneType.RequestRestart => Get<RequestRestartScene>(),
                 SceneType.ProgressScene => Get<ProgressScene>(),
                 SceneType.RulesScene => Get<RulesScene>(),
                 SceneType.EndSession => Get<EndSessionScene>(),

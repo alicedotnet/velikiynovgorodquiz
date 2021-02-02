@@ -15,6 +15,7 @@ namespace VNQuiz.Alice.Scenes
         WrongAnswer,
         AdditionalInfo,
         RequestEndSession,
+        RequestRestart,
         ProgressScene,
         RulesScene,
         LoseGame,

@@ -107,6 +107,11 @@ namespace VNQuiz.Alice.Controllers
                     var progressScene = _scenesProvider.Get(SceneType.ProgressScene);
                     return progressScene.Reply(request);
                 }
+                if(request.Request.Nlu.Intents.IsRestart)
+                {
+                    var restartScene = _scenesProvider.Get(SceneType.RequestRestart);
+                    return restartScene.Repeat(request);
+                }
                 if (request.Request.Nlu.Intents.IsExit)
                 {
                     var requestEndSessionScene = _scenesProvider.Get(SceneType.RequestEndSession);
