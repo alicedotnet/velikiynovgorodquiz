@@ -1,9 +1,7 @@
 root:
     %lemma
-    $Number
-    [$Number $VariantText]
+    $Number    
     $ExactAnswer
-    [$ExactAnswer $VariantText]
 slots:
     number:
         source: $Number
@@ -15,11 +13,18 @@ slots:
         type: YANDEX.NUMBER
 filler:
     %lemma
+    вариант
+    варик
+    ответ
+    фраза
     пускай
     пусть
     будет
+    был
+    была
     мне 
     кажется
+    думаю
     это
     номер
     ну
@@ -28,13 +33,15 @@ filler:
     для
     разнообразия
     год
+    он
+    она
+    на
+    из
+    за
+    что
 $Number:
     1
     2
     3
 $ExactAnswer:
     .+
-$VariantText:
-    вариант
-    варик
-    ответ

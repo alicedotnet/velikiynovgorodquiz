@@ -75,10 +75,8 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        private readonly string[] _excludeWords = new string[]
-        {
-            "он", "она", "его", "ее", "из", "из-за"
-        };
+        //TODO::improve fuzzy comparison
+        private readonly string[] _excludeWords = Array.Empty<string>();
 
         public bool? IsCorrectAnswer(QuizRequest request, Question question)
         {

@@ -36,7 +36,7 @@ namespace VNQuiz.Alice.Models
         {
             get
             {
-                return (YandexReject != null || Reject != null) && !IsHelp;
+                return (YandexReject != null || Reject != null) && !IsHelp && !IsNext;
             }
         }
 
@@ -67,6 +67,18 @@ namespace VNQuiz.Alice.Models
             get
             {
                 return YandexHelp != null || Help != null;
+            }
+        }
+
+        [JsonPropertyName("more")]
+        public AliceIntentModel? More { get; set; }
+
+        [JsonIgnore]
+        public bool IsMore
+        {
+            get
+            {
+                return More != null;
             }
         }
 
@@ -127,6 +139,18 @@ namespace VNQuiz.Alice.Models
             get
             {
                 return Back != null;
+            }
+        }
+
+        [JsonPropertyName("next")]
+        public AliceIntentModel? Next { get; set; }
+
+        [JsonIgnore]
+        public bool IsNext
+        {
+            get
+            {
+                return Next != null;
             }
         }
 

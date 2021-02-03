@@ -80,11 +80,11 @@ namespace VNQuiz.Alice.Scenes
         {
             if(request.Request.Nlu.Intents != null)
             {
-                if(request.Request.Nlu.Intents.IsConfirm)
+                if(request.Request.Nlu.Intents.IsConfirm || request.Request.Nlu.Intents.IsMore)
                 {
                     return ScenesProvider.Get(SceneType.AdditionalInfo);
                 }
-                else if(request.Request.Nlu.Intents.IsReject)
+                else if(request.Request.Nlu.Intents.IsReject || request.Request.Nlu.Intents.IsNext)
                 {
                     return ScenesProvider.Get(SceneType.Question);
                 }

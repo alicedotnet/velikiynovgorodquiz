@@ -1,0 +1,14 @@
+root:
+    %lemma
+    $More
+    [$More $More]
+filler:
+    давай
+    хочу
+    можно
+$More:
+    %lemma
+    подробней
+    расскажи
+    еще
+    

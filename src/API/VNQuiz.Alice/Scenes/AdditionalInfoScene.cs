@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Services;
+using Yandex.Alice.Sdk.Helpers;
 using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Scenes
@@ -36,7 +37,7 @@ namespace VNQuiz.Alice.Scenes
         {
             if (request.Request.Nlu.Intents != null)
             {
-                if(request.Request.Nlu.Intents.IsConfirm)
+                if(request.Request.Nlu.Intents.IsConfirm || request.Request.Nlu.Intents.IsNext)
                 {
                     return _scenesProvider.Get(SceneType.Question);
                 }
@@ -75,7 +76,8 @@ namespace VNQuiz.Alice.Scenes
                             Url = additionalInfo.Link,
                         }
                     };
-
+                    response.Response.SetTts(additionalInfo.Title + AliceHelper.SilenceString1000 + response.Response.Text);
+                    response.Response.SetText(JoinString(' ', GetSentence(additionalInfo.Title), response.Response.Text), false);
                 }
                 response.Response.Buttons.Add(new AliceButtonModel(additionalInfo.LinkText, false, null, additionalInfo.Link));
                 response.SessionState.IsOpenedAdditionalInfo = true;
