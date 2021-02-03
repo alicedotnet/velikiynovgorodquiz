@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "title": "Любопытный",
+    "title": "Любопытство",
     "description": "Посмотри дополнительную информацию по вопросу",
     "imageId": "1521359/86c93e028aa44f90af99",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.CuriousAchievementUnlocker, VNQuiz.Alice",
