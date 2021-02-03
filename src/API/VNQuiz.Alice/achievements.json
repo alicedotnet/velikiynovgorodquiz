@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Первая игра",
     "description": "Заверши первую игру",
-    "imageId": "997614/4da8d94482f67d087815",
+    "imageId": "965417/147fec8c2bc17af13272",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.FirstGameAchievementUnlocker, VNQuiz.Alice",
     "dependsOnAchievementId": 0
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "title": "Любопытный",
     "description": "Посмотри дополнительную информацию по вопросу",
-    "imageId": "997614/4da8d94482f67d087815",
+    "imageId": "1521359/86c93e028aa44f90af99",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.CuriousAchievementUnlocker, VNQuiz.Alice",
     "dependsOnAchievementId": 0
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "title": "Три в ряд",
     "description": "Ответь правильно на 3 вопроса подряд",
-    "imageId": "997614/4da8d94482f67d087815",
+    "imageId": "213044/81d4c22fbebc67810512",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.ThreeConsecutiveAnswersAchievementUnlocker, VNQuiz.Alice",
     "dependsOnAchievementId": 0
   },
@@ -27,7 +27,7 @@
     "id": 4,
     "title": "Пять подряд",
     "description": "Ответь правильно на 5 вопросов подряд",
-    "imageId": "997614/4da8d94482f67d087815",
+    "imageId": "937455/76d2de1a314c62966878",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.FiveConsecutiveAnswersAchievementUnlocker, VNQuiz.Alice",
     "dependsOnAchievementId": 3
   },
@@ -35,7 +35,7 @@
     "id": 5,
     "title": "Семь подряд",
     "description": "Ответь правильно на 7 вопросов подряд",
-    "imageId": "997614/4da8d94482f67d087815",
+    "imageId": "1540737/c184b84b7742db4fedca",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.SevenConsecutiveAnswersAchievementUnlocker, VNQuiz.Alice",
     "dependsOnAchievementId": 4
   },
@@ -43,7 +43,7 @@
     "id": 6,
     "title": "Десять подряд",
     "description": "Ответь правильно на 10 вопросов подряд",
-    "imageId": "997614/4da8d94482f67d087815",
+    "imageId": "1521359/de177357b182f0e8c729",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.TenConsecutiveAnswersAchievementUnlocker, VNQuiz.Alice",
     "dependsOnAchievementId": 5
   },
@@ -51,7 +51,7 @@
     "id": 7,
     "title": "До конца",
     "description": "Ответь на все вопросы игры",
-    "imageId": "997614/4da8d94482f67d087815",
+    "imageId": "1652229/307b924379e98bb67c1c",
     "achievementUnlocker": "VNQuiz.Alice.Achievements.WinGameAchievementUnlocker, VNQuiz.Alice",
     "dependsOnAchievementId": 0
   }
