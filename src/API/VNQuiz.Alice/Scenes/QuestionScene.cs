@@ -157,7 +157,21 @@ namespace VNQuiz.Alice.Scenes
 
         private static string? Preprocess(string? value)
         {
-            return AnswersModel.PrepareText(value)?.ToLower();
+            return PrepareText(value)?.ToLower();
+        }
+
+        private static string? PrepareText(string? value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            value = value.Replace("+", string.Empty);
+            if (value.EndsWith("-м"))
+            {
+                value = value.TrimEnd('м').TrimEnd('-');
+            }
+            return value;
         }
 
         private static string GetAnswerText(QuizRequest request)
@@ -165,14 +179,14 @@ namespace VNQuiz.Alice.Scenes
             if(request.Request.Type == AliceRequestType.ButtonPressed)
             {
                 int index = request.Request.GetPayload<int>() - 1;
-                return request.State.Session.CurrentQuestionAnswers.ElementAt(index).Key;
+                return request.State.Session.CurrentQuestionAnswers.ElementAt(index);
             }
             if(request.Request.Nlu.Intents?.Answer != null)
             {
                 if(request.Request.Nlu.Intents.Answer.Slots.Number != null)
                 {
                     int index = (int)request.Request.Nlu.Intents.Answer.Slots.Number!.Value - 1;
-                    return request.State.Session.CurrentQuestionAnswers.ElementAt(index).Key;
+                    return request.State.Session.CurrentQuestionAnswers.ElementAt(index);
                 }
                 if(request.Request.Nlu.Intents.Answer.Slots.ExactNumber != null)
                 {
@@ -221,7 +235,7 @@ namespace VNQuiz.Alice.Scenes
             response.Response.SetText(
                 JoinString('\n', response.Response.Text, question.Text) + AliceHelper.SilenceString500);
 
-            var answers = new AnswersModel();
+            var answers = new List<string>();
             foreach (string? wrongAnswer in question.WrongAnswers)
             {
                 answers.Add(wrongAnswer);
@@ -244,13 +258,13 @@ namespace VNQuiz.Alice.Scenes
 
 
 
-        private static void SetAnswers(QuizResponseBase response, AnswersModel answers)
+        private static void SetAnswers(QuizResponseBase response, List<string> answers)
         {
             for (int i = 1; i <= answers.Count; i++)
             {
                 response.Response.Buttons.Add(new QuizButtonModel(i.ToString(), i));
-                response.Response.AppendText($"\n{i}. {answers[i - 1].Key}", false);
-                response.Response.AppendTts($"\n{answers[i - 1].Value}{AliceHelper.SilenceString500}");
+                response.Response.AppendText($"\n{i}. {PrepareText(answers[i - 1])}", false);
+                response.Response.AppendTts($"\n{answers[i - 1]}{AliceHelper.SilenceString500}");
             }
         }
 

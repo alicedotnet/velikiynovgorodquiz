@@ -40,7 +40,7 @@ namespace VNQuiz.Alice.Tests.Scenes
                     }
                 }
             };
-            var question = new Question(questionText, correctAnswer, new List<string>() { "синева"}, string.Empty, false, null);
+            var question = new Question(1, questionText, correctAnswer, new List<string>() { "синева"}, string.Empty, false, null);
             var result = questionScene.IsCorrectAnswer(request, question);
             Assert.NotNull(result);
             Assert.True(result);

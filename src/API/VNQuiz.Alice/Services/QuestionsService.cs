@@ -34,7 +34,8 @@ namespace VNQuiz.Alice.Services
                 {
                     questionId = request.State.Session.UnansweredQuestionsIds[i];
                     i++;
-                } while (request.State.UserOrApplication.AnsweredQuestionsIds.Contains(questionId));
+                } while (request.State.UserOrApplication.AnsweredQuestionsIds.Contains(questionId)
+                    && i < request.State.Session.UnansweredQuestionsIds.Count);
                 return GetQuestion(questionId);
             }
             return null;

@@ -65,18 +65,9 @@
       "incorrectAnswersCount": 0,
       "currentQuestionId": 1,
       "currentQuestionAnswers": [
-        {
-          "key": "859",
-          "value": "859-м"
-        },
-        {
-          "key": "959",
-          "value": "959-м"
-        },
-        {
-          "key": "1059",
-          "value": "1059-м"
-        }
+        "Нет худа без добра",
+        "Где святая София, там и Новгород!",
+        "Дело не сдвинется с места, если ничего не предпринимать"
       ],
       "unansweredQuestionsIds": [
         1

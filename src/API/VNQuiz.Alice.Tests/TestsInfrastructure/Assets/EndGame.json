@@ -26,18 +26,9 @@
       "incorrectAnswersCount": 2,
       "currentQuestionId": 8,
       "currentQuestionAnswers": [
-        {
-          "key": "Ладожское",
-          "value": "Ладожское"
-        },
-        {
-          "key": "Ильмень",
-          "value": "+Ильмень"
-        },
-        {
-          "key": "Онежское",
-          "value": "Онежское"
-        }
+        "Нет худа без добра",
+        "Где святая София, там и Новгород!",
+        "Дело не сдвинется с места, если ничего не предпринимать"
       ],
       "answeredQuestionsIds": [
         1,

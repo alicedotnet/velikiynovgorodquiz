@@ -62,13 +62,13 @@ namespace VNQuiz.Core
 
         public Question? GetQuestion(int id)
         {
-            var index = _questions.BinarySearch(id, (x) => x.Id);
-            return index >= 0 ? _questions[index] : null;
+            _idQuestionMap.TryGetValue(id, out Question? question);
+            return question;
         }
 
         public List<Question> GetQuestions()
         {
-            return _questions;
+            return new List<Question>(_questions);
         }
     }
 }
