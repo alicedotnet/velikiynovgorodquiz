@@ -86,8 +86,6 @@ namespace VNQuiz.Alice.Scenes
             return response;
         }
 
-        //TODO::show explanation in the end if user answered incorrectly on last question
-        //TODO::check that answer variants don't have the same words
         public override QuizResponseBase Help(QuizRequest request)
         {
             return Repeat(request);

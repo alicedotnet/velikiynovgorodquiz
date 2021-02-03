@@ -6,6 +6,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Tests.TestsInfrastructure;
 using VNQuiz.Alice.Tests.TestsInfrastructure.Models;
 using Xunit;
@@ -30,6 +31,7 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.StartGameFilePath)]
         [InlineData(TestsConstants.Assets.WrongAnswerFilePath)]
         [InlineData(TestsConstants.Assets.LastWrongAnswerFilePath)]
+        [InlineData(TestsConstants.Assets.LastWrongAnswerAchievementUnlockedFilePath)]
         [InlineData(TestsConstants.Assets.EndGame)]
         [InlineData(TestsConstants.Assets.WinGame)]
         [InlineData(TestsConstants.Assets.Question)]
@@ -45,7 +47,7 @@ namespace VNQuiz.Alice.Tests
             var response = await _httpClient.PostAsync("/alice", requestContent);
             string responseContent = await response.Content.ReadAsStringAsync();
             Assert.True(response.IsSuccessStatusCode, responseContent);
-            var aliceResponse = JsonSerializer.Deserialize<AliceResponseWrapper>(responseContent);
+            var aliceResponse = JsonSerializer.Deserialize<QuizResponseBaseReturn>(responseContent);
             Assert.NotNull(aliceResponse);
             var options = new JsonSerializerOptions
             {

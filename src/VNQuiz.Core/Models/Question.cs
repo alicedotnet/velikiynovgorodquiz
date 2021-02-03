@@ -23,6 +23,11 @@ namespace VNQuiz.Core.Models
             if (wrongAnswers.Count < 1) throw new ArgumentException("Question must have at least one wrong answer");
             if (string.IsNullOrEmpty(text)) throw new ArgumentException("Text is required");
             if (explanation.Length > 300) throw new ArgumentException($"Explanation '{explanation.Substring(0, 20)}' has {explanation.Length} symbols which is longer then 300 symbols", nameof(explanation));
+            if (correctAnswer.Length <= 3) throw new ArgumentException($"Answer '{correctAnswer}' must be longer then 3 symbols", nameof(correctAnswer));
+            foreach (string? wrongAnswer in wrongAnswers)
+            {
+                if (wrongAnswer.Length <= 3) throw new Exception($"Wrong answer '{wrongAnswer}' must be longer then 3 symbols");
+            }
 
             Id = ++_nextId;
             Text = text;

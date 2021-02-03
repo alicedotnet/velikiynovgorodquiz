@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "locale": "ru-RU",
+    "timezone": "UTC",
+    "client_id": "ru.yandex.searchplugin/7.16 (none none; android 4.4.2)",
+    "interfaces": {
+      "screen": {},
+      "payments": {},
+      "account_linking": {},
+      "geolocation_sharing": {}
+    }
+  },
+  "session": {
+    "message_id": 9,
+    "session_id": "7db71c42-dc58-4a27-9858-4ccb82046a6c",
+    "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
+    "user": {
+      "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
+    },
+    "application": {
+      "application_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57"
+    },
+    "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
+    "new": false
+  },
+  "version": "1.0",
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 2,
+      "currentQuestionId": 11,
+      "currentQuestionAnswers": [
+        {
+          "key": "Законсервированные находки в торфянистой почве",
+          "value": "Законсервированные находки в торфянистой почве"
+        },
+        {
+          "key": "Извержение вулкана",
+          "value": "Извержение вулкана"
+        },
+        {
+          "key": "Город был разрушен какое-то время из-за природного катаклизма",
+          "value": "Город был разрушен какое-то время из-за природного катаклизма"
+        }
+      ],
+      "unansweredQuestionsIds": [
+        11,
+        9,
+        8,
+        3,
+        7,
+        12,
+        2,
+        6,
+        1,
+        5
+      ],
+      "currentScene": 3,
+      "nextScene": 0,
+      "restorePreviousState": false,
+      "lastRandomSkillAnswerIndex": 0,
+      "consecutiveFallbackAnswers": 0,
+      "unlockedAchievements": [],
+      "isOpenedAdditionalInfo": false,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": [
+        10,
+        4
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
+  "request": {
+    "nlu": {
+      "tokens": [
+        "3"
+      ],
+      "entities": [
+        {
+          "type": "YANDEX.NUMBER",
+          "tokens": {
+            "start": 0,
+            "end": 1
+          },
+          "value": 3
+        }
+      ],
+      "intents": {
+        "answer": {
+          "slots": {
+            "number": {
+              "type": "YANDEX.NUMBER",
+              "tokens": {
+                "start": 0,
+                "end": 1
+              },
+              "value": 3
+            }
+          }
+        }
+      }
+    },
+    "payload": 3,
+    "type": "ButtonPressed"
+  }
+}

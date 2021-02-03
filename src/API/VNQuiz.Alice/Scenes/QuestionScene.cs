@@ -77,7 +77,7 @@ namespace VNQuiz.Alice.Scenes
 
         private readonly string[] _excludeWords = new string[]
         {
-            "он", "она", "его", "ее"
+            "он", "она", "его", "ее", "из", "из-за"
         };
 
         public bool? IsCorrectAnswer(QuizRequest request, Question question)
@@ -147,7 +147,7 @@ namespace VNQuiz.Alice.Scenes
             foreach (var item in collection)
             {
                 int similarity = Fuzz.Ratio(value, item);
-                if(similarity >= 80)
+                if((similarity >= 75 && item.Length == 4) || similarity >= 80)
                 {
                     return true;
                 }

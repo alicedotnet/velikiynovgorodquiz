@@ -20,13 +20,13 @@ namespace VNQuiz.Alice.Scenes
 
         private readonly string[] _achievementTexts = new string[]
         {
-            "Ура! Вы разблокировали достижение!",
+            "Вы разблокировали новое достижение!",
             "Поздравляю! Вы разблокировали достижение!"
         };
 
         private readonly string[] _achievementsTexts = new string[]
         {
-            "Ура! Вы разблокировали достижения!",
+            "Вы разблокировали новые достижения!",
             "Поздравляю! Вы разблокировали достижения!"
         };
 
@@ -69,9 +69,7 @@ namespace VNQuiz.Alice.Scenes
             request.State.Session.CurrentScene = CurrentScene;
 
             var response = new QuizGalleryResponse(request, string.Empty);
-            SetRandomSkillAnswer(response, ReplyVariations);
-            SetRandomSkillAnswer(response, FallbackQuestions);
-            SetFallbackButtons(request, response);
+
             var achievements = _achievementsService.GetAchievements(request.State.UserOrApplication.UnlockedAchievementsIds);
             if(response.SessionState.UnlockedAchievements.Count == 0)
             {
@@ -85,22 +83,26 @@ namespace VNQuiz.Alice.Scenes
                     }
                 }
             }
+
+            string? replyVariationText = GetRandomSkillAnswer(response.SessionState, ReplyVariations);
             if (response.SessionState.UnlockedAchievements.Any())
             {
                 var remainingAchievements = _achievementsService.GetAchievements(request.State.UserOrApplication.UnlockedAchievementsIds);
-                string headerText;
+                string headerText = replyVariationText;
+                string headerAchievementText;
                 if(remainingAchievements.Length == 0)
                 {
-                    headerText = GetRandomSkillAnswer(response.SessionState, _unlockedAllTexts);
+                    headerAchievementText = GetRandomSkillAnswer(response.SessionState, _unlockedAllTexts);
                 }
                 else if(response.SessionState.UnlockedAchievements.Count > 1)
                 {
-                    headerText = GetRandomSkillAnswer(response.SessionState, _achievementsTexts);
+                    headerAchievementText = GetRandomSkillAnswer(response.SessionState, _achievementsTexts);
                 }
                 else
                 {
-                    headerText = GetRandomSkillAnswer(response.SessionState, _achievementTexts);
+                    headerAchievementText = GetRandomSkillAnswer(response.SessionState, _achievementTexts);
                 }
+                headerText = JoinString(' ', headerText, headerAchievementText);
 
                 response.Response.Card = new AliceGalleryCardModel()
                 {
@@ -121,10 +123,16 @@ namespace VNQuiz.Alice.Scenes
                 {
                     text += JoinString(' ', item.Title + ".", item.Description + ".") + AliceHelper.SilenceString500;
                 }
-                text += response.Response.Text;
                 response.Response.SetText(text);
             }
+            else
+            {
+                response.Response.SetText(JoinString(' ', response.Response.Text, replyVariationText));
+            }
 
+            string questionText = GetRandomSkillAnswer(FallbackQuestions);
+            response.Response.AppendText(' ' + questionText);
+            SetFallbackButtons(request, response);
             return response;
         }
 
