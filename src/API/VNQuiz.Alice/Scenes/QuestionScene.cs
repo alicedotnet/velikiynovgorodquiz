@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuzzySharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,19 +60,107 @@ namespace VNQuiz.Alice.Scenes
         {
             int currentQuestionId = request.State.Session.CurrentQuestionId;
             var question = _questionsService.GetQuestion(currentQuestionId);
-            string answer = GetAnswer(request);
-            if (new AnswerComparer().Equals(question.CorrectAnswer,answer))
+            bool? isCorrectAnswer = IsCorrectAnswer(request, question);
+            if(isCorrectAnswer != null)
             {
-                return _scenesProvider.Get(SceneType.CorrectAnswer);
-            }
-            else if (question.WrongAnswers.Contains(answer, new AnswerComparer()))
-            {
-                return _scenesProvider.Get(SceneType.WrongAnswer);
+                if (isCorrectAnswer.Value)
+                {
+                    return _scenesProvider.Get(SceneType.CorrectAnswer);
+                }
+                else
+                {
+                    return _scenesProvider.Get(SceneType.WrongAnswer);
+                }
             }
             return null;
         }
 
-        private static string GetAnswer(QuizRequest request)
+        private readonly string[] _excludeWords = new string[]
+        {
+            "он", "она", "его", "ее"
+        };
+
+        public bool? IsCorrectAnswer(QuizRequest request, Question question)
+        {
+            string answer = GetAnswerText(request);
+            answer = Preprocess(answer)!;
+            string? correctAnswer = Preprocess(question.CorrectAnswer);
+            if(answer == correctAnswer)
+            {
+                return true;
+            }
+
+            List<string?> preProcessedAnswers = new List<string?>()
+            {
+                correctAnswer
+            };
+
+            foreach (string wrongAnswer in question.WrongAnswers)
+            {
+                string? preProcessedWrongAnswer = Preprocess(wrongAnswer);
+                if(answer == preProcessedWrongAnswer)
+                {
+                    return false;
+                }
+                preProcessedAnswers.Add(preProcessedWrongAnswer);
+            }
+
+            var wordsInAnswers = new List<string>();
+            foreach (var preProcessedAnswer in preProcessedAnswers)
+            {
+                wordsInAnswers.AddRange(preProcessedAnswer!.Split(' '));
+            }
+
+            string[] inputParts = answer.Split(' ');
+            var remainingParts = new List<string>();
+
+            foreach (string? inputPart in inputParts)
+            {
+                if ((FuzzyContains(inputPart, question.Text.ToLower().Split(' ', ','))
+                        || FuzzyContains(inputPart, _excludeWords))
+                    && !FuzzyContains(inputPart, wordsInAnswers))
+                {
+                    continue;
+                }
+                remainingParts.Add(inputPart);
+            }
+            string postProcessedInput = string.Join(' ', remainingParts);
+
+            for (int i = 0; i < preProcessedAnswers.Count; i++)
+            {
+                int similarity = Fuzz.Ratio(postProcessedInput, preProcessedAnswers[i]);
+                if (similarity >= 75)
+                {
+                    if(i == 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+
+            return null;
+        }
+
+        private static bool FuzzyContains(string value, IEnumerable<string> collection)
+        {
+            foreach (var item in collection)
+            {
+                int similarity = Fuzz.Ratio(value, item);
+                if(similarity >= 80)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static string? Preprocess(string? value)
+        {
+            return AnswersModel.PrepareText(value)?.ToLower();
+        }
+
+        private static string GetAnswerText(QuizRequest request)
         {
             if(request.Request.Type == AliceRequestType.ButtonPressed)
             {
