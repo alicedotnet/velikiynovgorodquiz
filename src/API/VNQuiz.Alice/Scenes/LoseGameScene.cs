@@ -10,7 +10,8 @@ namespace VNQuiz.Alice.Scenes
     {
         protected override string[] ReplyVariations => new string[]
         {
-            "К сожалению, наша игра подошла к концу."
+            "К сожалению, наша игра подошла к концу.",
+            "Игра подошла к концу."
         };
 
         protected override SceneType CurrentScene => SceneType.LoseGame;

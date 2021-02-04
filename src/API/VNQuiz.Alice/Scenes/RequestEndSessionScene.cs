@@ -57,7 +57,8 @@ namespace VNQuiz.Alice.Scenes
         public override QuizResponseBase Reply(QuizRequest request)
         {
             if(request.State.Session.CurrentScene >= SceneType.StartGame 
-                && request.State.Session.CurrentScene <= SceneType.RulesScene)
+                && request.State.Session.CurrentScene <= SceneType.RulesScene
+                && request.State.Session.CurrentScene != CurrentScene)
             {
                 var response = new QuizResponse(request, string.Empty);
                 SetRandomSkillAnswer(response, FallbackQuestions);

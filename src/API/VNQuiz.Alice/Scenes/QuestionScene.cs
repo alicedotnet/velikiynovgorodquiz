@@ -17,7 +17,7 @@ namespace VNQuiz.Alice.Scenes
         protected override string[] FallbackQuestions => new string[]
         {
             "Попробуй еще раз",
-            "Какой будет твой ответ на вопрос?"
+            "Какой будет ваш ответ на вопрос?"
         };
         protected override SceneType CurrentScene => SceneType.Question;
 

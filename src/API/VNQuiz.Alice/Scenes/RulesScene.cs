@@ -14,7 +14,7 @@ namespace VNQuiz.Alice.Scenes
 
         private readonly string[] _replyVariations = new string[]
         {
-            "Игра-викторина по истории Великого Новгорода. Я буду задавать тебе вопросы, а ты выбирать один из трех вариантов ответа. Игра закончится после трех неправильных ответов.",
+            "Игра-викторина по истории Великого Новгорода. Я буду задавать вопросы, а вы выбирать один из трех вариантов ответа. Игра закончится после трех неправильных ответов.",
             "Играем викторину по истории Великого Новгорода. Для каждого вопроса будут три варианта ответа. Игра закончится после трех ошибок."
         };
 
@@ -45,7 +45,7 @@ namespace VNQuiz.Alice.Scenes
         {
             if(request.Request.Nlu.Intents != null)
             {
-                if(request.Request.Nlu.Intents.IsConfirm)
+                if(request.Request.Nlu.Intents.IsConfirm || request.Request.Nlu.Intents.IsNext)
                 {
                     if (request.State.Session.NextScene <= SceneType.Welcome)
                     {
