@@ -32,13 +32,18 @@ namespace VNQuiz.Alice.Scenes
 
         public override Scene? MoveToNextScene(QuizRequest request)
         {
-            if(request.Session.New)
+            if (request.Session.New)
             {
+                if (request.Request.Nlu.Intents != null
+                    && request.Request.Nlu.Intents.IsStart)
+                {
+                    return _scenesProvider.Get(SceneType.StartGame);
+                }
                 return this;
             }
             if (request.Request.Nlu.Intents != null)
             {
-                if (request.Request.Nlu.Intents.IsConfirm)
+                if (request.Request.Nlu.Intents.IsConfirm || request.Request.Nlu.Intents.IsStart)
                 {
                     return _scenesProvider.Get(SceneType.StartGame);
                 }

@@ -1,9 +1,16 @@
-root:
+root:    
+    $Next
+    $Next $Next
+filler:
+    %lemma
+    давай
+    вопрос
+    к
+$Next:
     %lemma
     дальше
     идем
     пошли
     следующий
-filler:
-    давай
-    вопрос
+    переходим    
+    продолжим  

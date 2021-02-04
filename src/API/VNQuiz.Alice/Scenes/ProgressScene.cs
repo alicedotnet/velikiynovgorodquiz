@@ -20,13 +20,21 @@ namespace VNQuiz.Alice.Scenes
             _scenesProvider = scenesProvider;
         }
 
-        protected override string[] FallbackQuestions => new string[]
-        {
-            "Идем назад?",
-            "Возвращаемся назад?"
-        };
+        protected override string[] FallbackQuestions => Array.Empty<string>();
 
         protected override SceneType CurrentScene => SceneType.ProgressScene;
+
+        private readonly string[] _gameNotStartedQuestions = new string[]
+        {
+            "Сыграем?",
+            "Начнем игру?"
+        };
+
+        private readonly string[] _gameStartedQuestions = new string[]
+        {
+            "Продолжаем?",
+            "Продолжим?"
+        };
 
         public override QuizResponseBase Help(QuizRequest request)
         {
@@ -37,12 +45,23 @@ namespace VNQuiz.Alice.Scenes
         {
             if(request.Request.Nlu.Intents != null)
             {
-                if(request.Request.Nlu.Intents.IsBack || request.Request.Nlu.Intents.IsConfirm)
+                if(request.Request.Nlu.Intents.IsNext || request.Request.Nlu.Intents.IsConfirm)
                 {
+                    if (request.State.Session.NextScene <= SceneType.Welcome 
+                        || request.State.Session.NextScene >= SceneType.LoseGame)
+                    {
+                        request.State.Session.RestorePreviousState = false;
+                        return _scenesProvider.Get(SceneType.StartGame);
+                    }
                     return _scenesProvider.Get(request.State.Session.NextScene);
                 }
-                if(request.Request.Nlu.Intents.IsReject)
+                if (request.Request.Nlu.Intents.IsReject)
                 {
+                    if (request.State.Session.NextScene <= SceneType.Welcome
+                        || request.State.Session.NextScene >= SceneType.LoseGame)
+                    {
+                        return _scenesProvider.Get(SceneType.EndSession);
+                    }
                     return _scenesProvider.Get(SceneType.RequestEndSession);
                 }
             }
@@ -54,6 +73,22 @@ namespace VNQuiz.Alice.Scenes
             return Reply(request);
         }
 
+        public override QuizResponseBase Fallback(QuizRequest request)
+        {
+            QuizResponseBase response;
+            if (request.State.Session.NextScene <= SceneType.Welcome
+                || request.State.Session.NextScene >= SceneType.LoseGame)
+            {
+                response = Fallback(request, _gameNotStartedQuestions);
+            }
+            else
+            {
+                response = Fallback(request, _gameStartedQuestions);
+            }
+            return response;
+        }
+
+
         public override QuizResponseBase Reply(QuizRequest request)
         {
             var lockedAchievements = _achievementsService.GetAchievements(request.State.UserOrApplication.UnlockedAchievementsIds);
@@ -61,13 +96,38 @@ namespace VNQuiz.Alice.Scenes
             percentage *= 100;
             int percent = (int)Math.Ceiling(percentage);
 
-            var response = new QuizGalleryResponse(request, $"Вы разблокировали {percent}% достижений");
-            if(lockedAchievements.Any())
+            string progressText = $"Вы разблокировали {percent}% достижений.";
+            var response = new QuizGalleryResponse(request, progressText);
+            if (response.SessionState.CurrentScene != CurrentScene)
+            {
+                if (response.SessionState.CurrentScene != SceneType.RequestEndSession)
+                {
+                    response.SessionState.NextScene = response.SessionState.CurrentScene;
+                }
+                response.SessionState.CurrentScene = CurrentScene;
+            }
+            response.SessionState.RestorePreviousState = true;
+
+            string questionText;
+            if (response.SessionState.NextScene <= SceneType.Welcome
+                || response.SessionState.NextScene >= SceneType.LoseGame)
+            {
+                questionText = GetRandomSkillAnswer(response.SessionState, _gameNotStartedQuestions);
+            }
+            else
+            {
+                questionText = GetRandomSkillAnswer(response.SessionState, _gameStartedQuestions);
+            }
+
+            if (lockedAchievements.Any())
             {
                 var lockedAchievement = lockedAchievements.First();
+                string nextAchievementText = "Следующее достижение:";
+                string headerText = response.Response.Text + ' ' + nextAchievementText;
+                string footerText = questionText;
                 response.Response.Card = new AliceGalleryCardModel()
                 {
-                    Header = new AliceGalleryCardHeaderModel("Следующее достижение"),
+                    Header = new AliceGalleryCardHeaderModel(headerText),
                     Items = new List<AliceGalleryCardItem>()
                     {
                         new AliceGalleryCardItem()
@@ -77,23 +137,16 @@ namespace VNQuiz.Alice.Scenes
                             ImageId = lockedAchievement.ImageId
                         }
                     },
-                    Footer = new AliceGalleryCardFooterModel(response.Response.Text)
+                    Footer = new AliceGalleryCardFooterModel(footerText)
                 };
                 string text = response.Response.Text + AliceHelper.SilenceString500
-                    + response.Response.Card.Header.Text + AliceHelper.SilenceString500
+                    + nextAchievementText + AliceHelper.SilenceString500
                     + lockedAchievement.Title + AliceHelper.SilenceString500 + lockedAchievement.Description;
                 response.Response.SetText(text);
             }
-            if(response.SessionState.CurrentScene != CurrentScene)
-            {
-                if(response.SessionState.CurrentScene != SceneType.RequestEndSession)
-                {
-                    response.SessionState.NextScene = response.SessionState.CurrentScene;
-                }
-                response.SessionState.CurrentScene = CurrentScene;
-            }
-            response.SessionState.RestorePreviousState = true;
-            response.Response.Buttons.Add(new QuizButtonModel("назад"));
+            response.Response.AppendText(AliceHelper.SilenceString1000 + questionText);
+
+            SetFallbackButtons(request, response);
             return response;
         }
     }

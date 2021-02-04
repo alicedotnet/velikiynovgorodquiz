@@ -62,7 +62,9 @@ namespace VNQuiz.Alice.Scenes
             if(additionalInfo != null)
             {
                 response = new QuizResponse(request, GetSentence(additionalInfo.Text));
-                SetRandomSkillAnswer(response, FallbackQuestions);
+                string questionText = GetRandomSkillAnswer(response.SessionState, FallbackQuestions);
+                response.Response.AppendText("\n" + questionText, false);
+                response.Response.AppendTts(AliceHelper.SilenceString1000 + questionText);
                 if (!string.IsNullOrEmpty(additionalInfo.PictureId))
                 {
                     response.Response.Card = new AliceImageCardModel()

@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "locale": "ru-RU",
+    "timezone": "UTC",
+    "client_id": "ru.yandex.searchplugin/7.16 (none none; android 4.4.2)",
+    "interfaces": {
+      "screen": {},
+      "payments": {},
+      "account_linking": {},
+      "geolocation_sharing": {}
+    }
+  },
+  "session": {
+    "message_id": 22,
+    "session_id": "bf6dbd66-558f-4f0a-8ac3-1dc524c29c77",
+    "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
+    "user": {
+      "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
+    },
+    "application": {
+      "application_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57"
+    },
+    "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
+    "new": false
+  },
+  "request": {
+    "command": "прогресс",
+    "original_utterance": "прогресс",
+    "nlu": {
+      "tokens": [
+        "прогресс"
+      ],
+      "entities": [],
+      "intents": {
+        "answer": {
+          "slots": {
+            "exactAnswer": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 0,
+                "end": 1
+              },
+              "value": "прогресс"
+            }
+          }
+        },
+        "progress": {
+          "slots": {}
+        }
+      }
+    },
+    "markup": {
+      "dangerous_context": false
+    },
+    "type": "SimpleUtterance"
+  },
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 0,
+      "currentQuestionId": 8,
+      "currentQuestionAnswers": [
+        "Нева",
+        "Волхов",
+        "Лена"
+      ],
+      "unansweredQuestionsIds": [
+        10,
+        18,
+        33,
+        20,
+        16,
+        27,
+        37,
+        28,
+        8,
+        17,
+        22,
+        15,
+        35,
+        32,
+        19,
+        4,
+        31,
+        12,
+        14,
+        29,
+        24,
+        30,
+        1,
+        23
+      ],
+      "currentScene": 3,
+      "nextScene": 0,
+      "restorePreviousState": false,
+      "lastRandomSkillAnswerIndex": 0,
+      "consecutiveFallbackAnswers": 0,
+      "unlockedAchievements": [],
+      "isOpenedAdditionalInfo": true,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 13
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "answeredQuestionsIds": [
+        10,
+        20,
+        1,
+        28,
+        32,
+        37,
+        33,
+        27,
+        16,
+        18,
+        19,
+        22,
+        3,
+        7,
+        21,
+        26,
+        6,
+        13,
+        9,
+        2,
+        11,
+        5,
+        36,
+        25,
+        34
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
+  "version": "1.0"
+}

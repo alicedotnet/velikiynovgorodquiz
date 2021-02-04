@@ -24,6 +24,7 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure
             public const string Rules_GameStarted_Continue = _assetsFolder + "Rules_GameStarted_Continue.json";
             public const string Rules_NewSession_StartGame = _assetsFolder + "Rules_NewSession_StartGame.json";
             public const string Fallback = _assetsFolder + "Fallback.json";
+            public const string Progress = _assetsFolder + "Progress.json";
         }
     }
 }

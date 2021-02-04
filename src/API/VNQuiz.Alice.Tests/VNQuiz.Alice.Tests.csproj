@@ -23,6 +23,9 @@
     <None Update="TestsInfrastructure\Assets\LastWrongAnswer_AchievementUnlocked.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestsInfrastructure\Assets\Progress.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestsInfrastructure\Assets\WinGame.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

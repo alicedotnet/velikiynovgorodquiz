@@ -40,6 +40,7 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.Rules_GameStarted_Continue)]
         [InlineData(TestsConstants.Assets.Rules_NewSession_StartGame)]
         [InlineData(TestsConstants.Assets.Fallback)]
+        [InlineData(TestsConstants.Assets.Progress)]
         public async Task Alice_SendRequest_Success(string filePath)
         {
             string text = File.ReadAllText(filePath);

@@ -130,18 +130,6 @@ namespace VNQuiz.Alice.Models
             }
         }
 
-        [JsonPropertyName("back")]
-        public AliceIntentModel? Back { get; set; }
-
-        [JsonIgnore]
-        public bool IsBack
-        {
-            get
-            {
-                return Back != null;
-            }
-        }
-
         [JsonPropertyName("next")]
         public AliceIntentModel? Next { get; set; }
 
@@ -151,6 +139,18 @@ namespace VNQuiz.Alice.Models
             get
             {
                 return Next != null;
+            }
+        }
+
+        [JsonPropertyName("start")]
+        public AliceIntentModel? Start { get; set; }
+
+        [JsonIgnore]
+        public bool IsStart
+        {
+            get
+            {
+                return Start != null;
             }
         }
 
