@@ -32,7 +32,7 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.WrongAnswerFilePath)]
         [InlineData(TestsConstants.Assets.LastWrongAnswerFilePath)]
         [InlineData(TestsConstants.Assets.LastWrongAnswerAchievementUnlockedFilePath)]
-        [InlineData(TestsConstants.Assets.EndGame)]
+        [InlineData(TestsConstants.Assets.LoseGame_StartNew)]
         [InlineData(TestsConstants.Assets.WinGame)]
         [InlineData(TestsConstants.Assets.Question)]
         [InlineData(TestsConstants.Assets.CorrectAnswer)]

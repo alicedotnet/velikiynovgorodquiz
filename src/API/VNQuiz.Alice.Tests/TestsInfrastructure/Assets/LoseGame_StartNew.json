@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "locale": "ru-RU",
+    "timezone": "UTC",
+    "client_id": "ru.yandex.searchplugin/7.16 (none none; android 4.4.2)",
+    "interfaces": {
+      "screen": {},
+      "payments": {},
+      "account_linking": {},
+      "geolocation_sharing": {}
+    }
+  },
+  "session": {
+    "message_id": 12,
+    "session_id": "b5635dad-b5f3-4244-a633-bb82af49dc1a",
+    "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
+    "user": {
+      "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
+    },
+    "application": {
+      "application_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57"
+    },
+    "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
+    "new": false
+  },
+  "request": {
+    "command": "повторим игру",
+    "original_utterance": "повторим игру",
+    "nlu": {
+      "tokens": [
+        "повторим",
+        "игру"
+      ],
+      "entities": [],
+      "intents": {
+        "answer": {
+          "slots": {
+            "exactAnswer": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 0,
+                "end": 2
+              },
+              "value": "повторим игру"
+            }
+          }
+        },
+        "repeat": {
+          "slots": {
+            "game": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 1,
+                "end": 2
+              },
+              "value": "игру"
+            }
+          }
+        }
+      }
+    },
+    "markup": {
+      "dangerous_context": false
+    },
+    "type": "SimpleUtterance"
+  },
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 3,
+      "currentQuestionId": 9,
+      "currentQuestionAnswers": [
+        "+Ильмень",
+        "Ладожское",
+        "Онежское"
+      ],
+      "unansweredQuestionsIds": [
+        28,
+        9,
+        14,
+        16,
+        21,
+        22,
+        37,
+        6,
+        5,
+        26,
+        25,
+        18,
+        24,
+        17,
+        31,
+        7,
+        3,
+        12,
+        15,
+        20,
+        32,
+        34,
+        33,
+        11,
+        1,
+        8,
+        30,
+        4,
+        10,
+        36,
+        23,
+        27,
+        13,
+        2,
+        35
+      ],
+      "currentScene": 11,
+      "nextScene": 11,
+      "restorePreviousState": false,
+      "lastRandomSkillAnswerIndex": 1,
+      "consecutiveFallbackAnswers": 0,
+      "unlockedAchievements": [],
+      "isOpenedAdditionalInfo": false,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        2
+      ],
+      "answeredQuestionsIds": [
+        36,
+        25,
+        34,
+        35,
+        14,
+        17,
+        24,
+        20,
+        12,
+        15,
+        10,
+        4,
+        33,
+        18,
+        8,
+        22,
+        3,
+        30,
+        31,
+        26,
+        28,
+        32,
+        16,
+        29,
+        19
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
+  "version": "1.0"
+}

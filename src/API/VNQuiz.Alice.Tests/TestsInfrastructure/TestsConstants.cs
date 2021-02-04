@@ -16,7 +16,7 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure
             public const string WrongAnswerFilePath = _assetsFolder + "WrongAnswer.json";
             public const string LastWrongAnswerFilePath = _assetsFolder + "LastWrongAnswer.json";
             public const string LastWrongAnswerAchievementUnlockedFilePath = _assetsFolder + "LastWrongAnswer_AchievementUnlocked.json";
-            public const string EndGame = _assetsFolder + "EndGame.json";
+            public const string LoseGame_StartNew = _assetsFolder + "LoseGame_StartNew.json";
             public const string WinGame = _assetsFolder + "WinGame.json";
             public const string Question = _assetsFolder + "Question.json";
             public const string CorrectAnswer = _assetsFolder + "CorrectAnswer.json";

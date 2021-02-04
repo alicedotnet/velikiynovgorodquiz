@@ -44,7 +44,7 @@ namespace VNQuiz.Alice.Models
         public AliceIntentModel? YandexRepeat { get; set; }
 
         [JsonPropertyName("repeat")]
-        public AliceIntentModel? Repeat { get; set; }
+        public AliceIntentModel<RepeatSlots>? Repeat { get; set; }
 
         [JsonIgnore]
         public bool IsRepeat
@@ -180,5 +180,11 @@ namespace VNQuiz.Alice.Models
 
         [JsonPropertyName("exactNumber")]
         public AliceEntityNumberModel? ExactNumber { get; set; }
+    }
+
+    public class RepeatSlots
+    {
+        [JsonPropertyName("game")]
+        public AliceEntityStringModel? Game { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VNQuiz.Alice.Achievements;
+using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Scenes;
 using VNQuiz.Alice.Services;
 using VNQuiz.Core;
@@ -33,7 +34,18 @@ namespace VNQuiz.Alice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddControllers();
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = actionContext =>
+                    {
+                        var modelState = actionContext.ModelState;
+                        var loggerFactory = actionContext.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
+                        var logger = loggerFactory.CreateLogger("Logger From Invalid Model");
+                        logger.LogError("Request model is invalid: {0}", modelState);                        
+                        return new BadRequestObjectResult(modelState);
+                    };
+                });
 
             services.AddSingleton<IQuestionsHelper, QuestionsHelper>();
             services.AddSingleton<IAchievementsHelper, AchievementsHelper>();

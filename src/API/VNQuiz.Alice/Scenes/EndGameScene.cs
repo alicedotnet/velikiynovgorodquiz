@@ -14,8 +14,8 @@ namespace VNQuiz.Alice.Scenes
     {
         protected override string[] FallbackQuestions => new string[]
         {
-            "Может сыграем еще раз?",
-            "Повторим игру?"
+            "Хотите сыграть еще?",
+            "Начнем игру сначала?"
         };
 
         private readonly string[] _achievementTexts = new string[]
@@ -52,7 +52,8 @@ namespace VNQuiz.Alice.Scenes
         {
             if (request.Request.Nlu.Intents != null)
             {
-                if (request.Request.Nlu.Intents.IsConfirm)
+                if (request.Request.Nlu.Intents.IsConfirm
+                    || request.Request.Nlu.Intents.IsStart)
                 {
                     return _scenesProvider.Get(SceneType.StartGame);
                 }
@@ -138,6 +139,17 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponseBase Repeat(QuizRequest request)
         {
+            if (request.Request.Nlu.Intents != null)
+            {
+                if (request.Request.Nlu.Intents.IsRepeat
+                    && request.Request.Nlu.Intents.Repeat != null
+                    && request.Request.Nlu.Intents.Repeat.Slots != null
+                    && request.Request.Nlu.Intents.Repeat.Slots.Game != null)
+                {
+                    var startGameScene = _scenesProvider.Get(SceneType.StartGame);
+                    return startGameScene.Reply(request);
+                }
+            }
             return Reply(request);
         }
 

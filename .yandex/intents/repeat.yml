@@ -1,10 +1,14 @@
 root:
-    [$Repeat $Question]
-    $Repeat $Question $Repeat
     $Repeat
+    [$Repeat $Game]
+    $Repeat $Game $Repeat
+    [$Repeat $Question]
+    $Repeat $Question $Repeat    
 slots:
     question:
         source: $Question
+    game:
+        source: $Game
 filler:
     %lemma
     можно
@@ -14,10 +18,12 @@ filler:
 $Repeat:
     %lemma
     повтори
-    повторить
     еще раз повторить
     еще раз
     еще разок
 $Question:
     %lemma
     вопрос
+$Game:
+    %lemma
+    игра
