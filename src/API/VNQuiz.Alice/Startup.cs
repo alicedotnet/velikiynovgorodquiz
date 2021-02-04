@@ -34,18 +34,7 @@ namespace VNQuiz.Alice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddControllers()
-                .ConfigureApiBehaviorOptions(options =>
-                {
-                    options.InvalidModelStateResponseFactory = actionContext =>
-                    {
-                        var modelState = actionContext.ModelState;
-                        var loggerFactory = actionContext.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
-                        var logger = loggerFactory.CreateLogger("Logger From Invalid Model");
-                        logger.LogError("Request model is invalid: {0}", modelState);                        
-                        return new BadRequestObjectResult(modelState);
-                    };
-                });
+            services.AddControllers();
 
             services.AddSingleton<IQuestionsHelper, QuestionsHelper>();
             services.AddSingleton<IAchievementsHelper, AchievementsHelper>();
@@ -102,6 +91,8 @@ namespace VNQuiz.Alice
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<HandleFailedRequestsMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

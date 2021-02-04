@@ -26,6 +26,7 @@ namespace VNQuiz.Alice.Controllers
         [HttpPost]
         public QuizResponseBaseReturn Post(QuizRequest request)
         {
+            QuizResponseBaseReturn quizReturn;
             try
             {
                 PreprocessRequest(request);
@@ -50,14 +51,15 @@ namespace VNQuiz.Alice.Controllers
                     response = currentScene.Fallback(request);
                     response.SessionState.ConsecutiveFallbackAnswers++;
                 }
-                QuizResponseBaseReturn quizReturn = response;
-                return quizReturn;
+                quizReturn = response;
             }
             catch(Exception e)
             {
+                QuizResponseBase response = new QuizResponse(request, "Кажется у меня что-то сломалось. Не переживайте, мой создатель скоро это увидит и все исправит!");
+                quizReturn = response;
                 _logger.LogError(e, Serialize(request));
-                throw;
             }
+            return quizReturn;
         }
 
         private static string Serialize<T>(T value)

@@ -75,7 +75,6 @@ namespace VNQuiz.Alice.Scenes
             return null;
         }
 
-        //TODO::improve fuzzy comparison
         private readonly string[] _excludeWords = Array.Empty<string>();
 
         public bool? IsCorrectAnswer(QuizRequest request, Question question)
@@ -124,20 +123,48 @@ namespace VNQuiz.Alice.Scenes
             }
             string postProcessedInput = string.Join(' ', remainingParts);
 
+            var answersMatches = new Dictionary<int, bool>();
             for (int i = 0; i < preProcessedAnswers.Count; i++)
             {
-                int similarity = Fuzz.Ratio(postProcessedInput, preProcessedAnswers[i]);
-                if (similarity >= 75)
+                answersMatches.Add(i, IsAnswerMatch(postProcessedInput, preProcessedAnswers[i]!));
+            }
+
+            if(answersMatches.Values.Count(x => x == true) == 1)
+            {
+                var answerMatch = answersMatches.First(x => x.Value == true);
+                if(answerMatch.Key == 0)
                 {
-                    if(i == 0)
-                    {
-                        return true;
-                    }
-                    return false;
+                    return true;
                 }
+                return false;
             }
 
             return null;
+        }
+
+        private static bool IsAnswerMatch(string userValue, string answer)
+        {
+            int similarity = Fuzz.Ratio(userValue, answer);
+            if (similarity >= 75)
+            {
+                return true;
+            }
+
+            var userWords = userValue.Split(' ');
+            if(userWords.Length > 0 && userWords.Length <= 2)
+            {
+                var answerWords = answer.Split(' ');
+                foreach (var userWord in userWords)
+                {
+                    if(!FuzzyContains(userWord, answerWords))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return false;
         }
 
         private static bool FuzzyContains(string value, IEnumerable<string> collection)

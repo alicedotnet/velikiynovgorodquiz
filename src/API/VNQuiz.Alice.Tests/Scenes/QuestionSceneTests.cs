@@ -13,8 +13,9 @@ namespace VNQuiz.Alice.Tests.Scenes
         [InlineData("возле какого озера", "возле ильмени", "Ильмень")]
         [InlineData("На какой реке расположен", "на реке волхов", "Волхов")]
         [InlineData("Как звали новгородского князя", "князь звали рюрик", "Рюрик")]
-        [InlineData("Почему у Новгорода", "из-за находок", "находки")]
+        [InlineData("Почему у Новгорода", "находок", "находки")]
         [InlineData("На каком пути", "на шелковом пути", "Шелковый путь")]
+        [InlineData("любой вопрос", "законсервированные находки", "Законсервированные находки в торфянистой почве")]
         public void FuzzyComparison_CorrectAnswer(string questionText, string userAnswer, string correctAnswer)
         {
             var questionScene = new QuestionScene(null, null);
