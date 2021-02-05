@@ -28,6 +28,7 @@ namespace VNQuiz.Alice.Tests
 
         [Theory]        
         [InlineData(TestsConstants.Assets.AlicePingFilePath)]
+        [InlineData(TestsConstants.Assets.AllAchievementsUnlockedFilePath)]
         [InlineData(TestsConstants.Assets.StartGameFilePath)]
         [InlineData(TestsConstants.Assets.WrongAnswerFilePath)]
         [InlineData(TestsConstants.Assets.LastWrongAnswerFilePath)]

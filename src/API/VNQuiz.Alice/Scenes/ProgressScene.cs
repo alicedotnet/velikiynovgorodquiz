@@ -142,9 +142,11 @@ namespace VNQuiz.Alice.Scenes
                 string text = response.Response.Text + AliceHelper.SilenceString500
                     + nextAchievementText + AliceHelper.SilenceString500
                     + lockedAchievement.Title + AliceHelper.SilenceString500 + lockedAchievement.Description;
-                response.Response.SetText(text);
+                response.Response.SetText(text.Replace(AliceHelper.SilenceString500, "\n"), false);
+                response.Response.SetTts(text);
             }
-            response.Response.AppendText(AliceHelper.SilenceString1000 + questionText);
+            response.Response.AppendText('\n' + questionText, false);
+            response.Response.AppendTts(AliceHelper.SilenceString1000 + questionText);
 
             SetFallbackButtons(request, response);
             return response;
