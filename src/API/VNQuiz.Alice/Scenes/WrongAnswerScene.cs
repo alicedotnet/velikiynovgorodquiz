@@ -15,8 +15,8 @@ namespace VNQuiz.Alice.Scenes
 
         private readonly string[] _twoErrorsLeftTexts = new string[]
         {
-            "Вы можете сделать еще одну ошибку.",
-            "Вы можете ошибиться еще один раз."
+            "Вы можете сделать еще две ошибки.",
+            "Вы можете ошибиться еще два раза."
         };
 
         private readonly string[] _oneErrorLeftTexts = new string[]
