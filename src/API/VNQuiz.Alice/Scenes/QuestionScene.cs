@@ -153,7 +153,7 @@ namespace VNQuiz.Alice.Scenes
             var userWords = userValue.Split(' ');
             if(userWords.Length > 0 && userWords.Length <= 2)
             {
-                var answerWords = answer.Split(' ');
+                var answerWords = answer.Split(' ', '-');
                 foreach (var userWord in userWords)
                 {
                     if(!FuzzyContains(userWord, answerWords))
