@@ -89,7 +89,9 @@ namespace VNQuiz.Alice.Scenes
         public override QuizResponseBase Reply(QuizRequest request)
         {
             if(request.State.Session.CurrentScene != CurrentScene
-                && request.State.Session.CurrentScene != SceneType.RequestEndSession)
+                && request.State.Session.CurrentScene != SceneType.RequestEndSession
+                && request.State.Session.CurrentScene != SceneType.RequestRestart
+                && request.State.Session.CurrentScene != SceneType.ProgressScene)
             {
                 request.State.Session.NextScene = request.State.Session.CurrentScene;
             }
@@ -97,11 +99,11 @@ namespace VNQuiz.Alice.Scenes
             SetRandomSkillAnswer(response, _replyVariations);
             if (request.State.Session.NextScene <= SceneType.Welcome)
             {
-                SetRandomSkillAnswer(response, _gameNotStartedQuestions);
+                SetRandomSkillAnswer(response, '\n', _gameNotStartedQuestions);
             }
             else
             {
-                SetRandomSkillAnswer(response, _gameStartedQuestions);
+                SetRandomSkillAnswer(response, '\n', _gameStartedQuestions);
             }
             SetFallbackButtons(request, response);
             response.SessionState.CurrentScene = CurrentScene;

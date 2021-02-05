@@ -41,7 +41,7 @@ namespace VNQuiz.Alice.Scenes
                 var fallbackQuestionsRandom = new Random();
                 int fallbackQuestionIndex = fallbackQuestionsRandom.Next(fallbackQuestions.Length);
 
-                string text = JoinString(' ', response.Response.Text, fallbackQuestions[fallbackQuestionIndex]);
+                string text = JoinString('\n', response.Response.Text, fallbackQuestions[fallbackQuestionIndex]);
                 response.Response.SetText(text);
                 SetFallbackButtons(request, response);
             }
@@ -54,8 +54,13 @@ namespace VNQuiz.Alice.Scenes
 
         protected void SetRandomSkillAnswer(QuizResponseBase response, string[] values)
         {
+            SetRandomSkillAnswer(response, ' ', values);
+        }
+
+        protected void SetRandomSkillAnswer(QuizResponseBase response, char separator, string[] values)
+        {
             string? value = GetRandomSkillAnswer(response.SessionState, values);
-            response.Response.SetText(JoinString(' ', response.Response.Text, value));
+            response.Response.SetText(JoinString(separator, response.Response.Text, value));
         }
 
         protected string GetRandomSkillAnswer(QuizSessionState sessionState, string[] values)

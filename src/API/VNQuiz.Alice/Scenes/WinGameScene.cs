@@ -10,7 +10,7 @@ namespace VNQuiz.Alice.Scenes
     {
         protected override string[] ReplyVariations => new string[]
         {
-            "Поздравляю! Вы ответили на все вопросы викторины!"
+            "Вау! Вы ответили на все вопросы викторины!"
         };
         protected override SceneType CurrentScene => SceneType.WinGame;
 

@@ -1,2 +1,11 @@
 root:
+    $NoAnswer
+    [$NoAnswer $NoAnswer]
+filler:
+    так
+$NoAnswer:
+    %lemma
     неа
+    нет
+    не хочу
+    пока нет  

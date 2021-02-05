@@ -132,7 +132,7 @@ namespace VNQuiz.Alice.Scenes
             }
 
             string questionText = GetRandomSkillAnswer(FallbackQuestions);
-            response.Response.AppendText(' ' + questionText);
+            response.Response.AppendText('\n' + questionText);
             SetFallbackButtons(request, response);
             return response;
         }

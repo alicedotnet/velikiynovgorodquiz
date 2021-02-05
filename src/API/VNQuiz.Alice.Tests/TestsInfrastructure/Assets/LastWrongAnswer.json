@@ -11,8 +11,8 @@
     }
   },
   "session": {
-    "message_id": 4,
-    "session_id": "af340a9a-3cf4-4436-8142-a6d099da3134",
+    "message_id": 5,
+    "session_id": "32f13c73-eac6-4d31-a986-7afefe25e653",
     "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
     "user": {
       "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
@@ -23,12 +23,92 @@
     "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
     "new": false
   },
+  "version": "1.0",
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 2,
+      "currentQuestionId": 27,
+      "currentQuestionAnswers": [
+        "Санкт-Петербург",
+        "Москва",
+        "Казань"
+      ],
+      "unansweredQuestionsIds": [
+        22,
+        27,
+        9,
+        1,
+        32,
+        15,
+        28,
+        39,
+        17,
+        5,
+        8,
+        3,
+        16,
+        10,
+        2,
+        4,
+        36,
+        26,
+        14,
+        24,
+        37,
+        18,
+        31,
+        19,
+        6,
+        34,
+        7,
+        21,
+        33,
+        35,
+        12,
+        25,
+        38,
+        30,
+        20,
+        13,
+        11
+      ],
+      "currentScene": 3,
+      "nextScene": 0,
+      "restorePreviousState": false,
+      "lastRandomSkillAnswerIndex": 0,
+      "consecutiveFallbackAnswers": 0,
+      "unlockedAchievements": [],
+      "isOpenedAdditionalInfo": false,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [
+        1,
+        7
+      ],
+      "answeredQuestionsIds": [
+        24,
+        1,
+        1,
+        1,
+        1,
+        13,
+        22,
+        29,
+        23
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
   "request": {
-    "command": "987",
-    "original_utterance": "987",
     "nlu": {
       "tokens": [
-        "987"
+        "3"
       ],
       "entities": [
         {
@@ -37,30 +117,25 @@
             "start": 0,
             "end": 1
           },
-          "value": 987
+          "value": 3
         }
       ],
-      "intents": {}
+      "intents": {
+        "answer": {
+          "slots": {
+            "number": {
+              "type": "YANDEX.NUMBER",
+              "tokens": {
+                "start": 0,
+                "end": 1
+              },
+              "value": 3
+            }
+          }
+        }
+      }
     },
-    "markup": {
-      "dangerous_context": false
-    },
-    "type": "SimpleUtterance"
-  },
-  "state": {
-    "session": {
-      "incorrectAnswersCount": 2,
-      "currentQuestionId": 1,
-      "answeredQuestionsIds": [
-        1,
-        1
-      ],
-      "currentScene": 3
-    },
-    "user": {
-      "requestNumber": 1
-    },
-    "application": {}
-  },
-  "version": "1.0"
+    "payload": 3,
+    "type": "ButtonPressed"
+  }
 }

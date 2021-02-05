@@ -100,7 +100,9 @@ namespace VNQuiz.Alice.Scenes
             var response = new QuizGalleryResponse(request, progressText);
             if (response.SessionState.CurrentScene != CurrentScene)
             {
-                if (response.SessionState.CurrentScene != SceneType.RequestEndSession)
+                if (response.SessionState.CurrentScene != SceneType.RequestEndSession
+                    && response.SessionState.CurrentScene != SceneType.RulesScene
+                    && response.SessionState.CurrentScene != SceneType.RequestEndSession)
                 {
                     response.SessionState.NextScene = response.SessionState.CurrentScene;
                 }

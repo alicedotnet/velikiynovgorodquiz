@@ -72,16 +72,22 @@ namespace VNQuiz.Alice.Scenes
                         ImageId = additionalInfo.PictureId,
                         Title = additionalInfo.Title,
                         Description = response.Response.Text,
-                        Button = new AliceImageCardButtonModel()
+                    };
+                    if(additionalInfo.Link != null)
+                    {
+                        response.Response.Card.Button = new AliceImageCardButtonModel()
                         {
                             Text = additionalInfo.LinkText,
                             Url = additionalInfo.Link,
-                        }
-                    };
+                        };
+                    }
                     response.Response.SetTts(additionalInfo.Title + AliceHelper.SilenceString1000 + response.Response.Text);
                     response.Response.SetText(JoinString(' ', GetSentence(additionalInfo.Title), response.Response.Text), false);
                 }
-                response.Response.Buttons.Add(new AliceButtonModel(additionalInfo.LinkText, false, null, additionalInfo.Link));
+                if (additionalInfo.Link != null)
+                {
+                    response.Response.Buttons.Add(new AliceButtonModel(additionalInfo.LinkText, false, null, additionalInfo.Link));
+                }
                 response.SessionState.IsOpenedAdditionalInfo = true;
             }
             else

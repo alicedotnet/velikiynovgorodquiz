@@ -61,7 +61,7 @@ namespace VNQuiz.Alice.Scenes
                 && request.State.Session.CurrentScene != CurrentScene)
             {
                 var response = new QuizResponse(request, string.Empty);
-                SetRandomSkillAnswer(response, FallbackQuestions);
+                SetRandomSkillAnswer(response, '\n', FallbackQuestions);
                 SetFallbackButtons(request, response);
                 if(!_excludePreviousStateRestore.Contains(response.SessionState.CurrentScene))
                 {

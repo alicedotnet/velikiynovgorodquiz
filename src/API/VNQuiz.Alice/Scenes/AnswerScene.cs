@@ -55,6 +55,7 @@ namespace VNQuiz.Alice.Scenes
                 if(question.AdditionalInfo != null)
                 {
                     response = GetAdditionalInfo(request);
+                    response.Response.Text = "\n" + response.Response.Text;
                 }
                 else
                 {

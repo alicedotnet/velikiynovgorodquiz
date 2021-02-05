@@ -1,7 +1,9 @@
 root:
     %lemma
-    $Number    
+    $Number 
     $ExactAnswer
+    [$Person $Number]
+    [$Person $ExactAnswer]
 slots:
     number:
         source: $Number
@@ -22,9 +24,14 @@ filler:
     будет
     был
     была
-    мне 
+    мне
+    мой 
     кажется
+    может
+    может быть
     думаю
+    наверно
+    наверное
     это
     номер
     ну
@@ -45,3 +52,11 @@ $Number:
     3
 $ExactAnswer:
     .+
+$Person:
+    %lemma
+    муж
+    жена
+    друг
+    подруга
+    дочь
+    сын

@@ -39,6 +39,10 @@ namespace VNQuiz.Alice.Scenes
             {
                 var loseGameScene = ScenesProvider.Get(SceneType.LoseGame);
                 response = loseGameScene.Reply(request);
+
+                var wrongAnswerResponse = base.Reply(request);
+                response.Response.Text = wrongAnswerResponse.Response.Text + '\n' + response.Response.Text;
+                response.Response.SetTts(JoinString(' ', wrongAnswerResponse.Response.Tts, response.Response.Tts));
             }
             else
             {
