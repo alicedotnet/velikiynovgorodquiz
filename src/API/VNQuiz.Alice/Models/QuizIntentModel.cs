@@ -21,7 +21,7 @@ namespace VNQuiz.Alice.Models
         {
             get
             {
-                return YandexConfirm != null || Confirm != null;
+                return (YandexConfirm != null || Confirm != null) && !IsReject;
             }
         }
 
@@ -102,7 +102,7 @@ namespace VNQuiz.Alice.Models
         {
             get
             {
-                return WhatCanYouDo != null;
+                return WhatCanYouDo != null && YandexConfirm == null;
             }
         }
 

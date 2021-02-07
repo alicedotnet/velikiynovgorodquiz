@@ -2,10 +2,17 @@ root:
     $NoAnswer
     [$NoAnswer $NoAnswer]
 filler:
+    %lemma
     так
+    может
+    может быть
+    играть
+    поиграть
+    сыграть
 $NoAnswer:
     %lemma
     неа
     нет
     не хочу
-    пока нет  
+    пока нет
+    позже

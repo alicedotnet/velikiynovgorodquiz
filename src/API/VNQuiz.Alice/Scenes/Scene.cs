@@ -9,7 +9,7 @@ namespace VNQuiz.Alice.Scenes
 {
     public abstract class Scene
     {
-        private readonly string[] _fallbackVariants = new string[] { "Я вас не поняла.", "Не понимаю.", "Не могу разобрать." };
+        private readonly string[] _fallbackVariants = new string[] { "Я вас не понимаю.", "Не понимаю.", "Не могу разобрать." };
         protected abstract string[] FallbackQuestions { get; }
         protected abstract SceneType CurrentScene { get; }
 

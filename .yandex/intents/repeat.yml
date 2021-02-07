@@ -25,6 +25,9 @@ $Repeat:
 $Question:
     %lemma
     вопрос
+    вариант
+    ответ
+    варианты ответов
 $Game:
     %lemma
     игра
