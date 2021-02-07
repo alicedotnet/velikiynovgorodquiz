@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="TestsInfrastructure\Assets\Answer_NeedMoreInfo.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestsInfrastructure\Assets\AllAchievementsUnlocked.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -41,6 +41,14 @@ namespace VNQuiz.Alice.Scenes
             "Вот вопрос:"
         };
 
+        private readonly string[] _needMoreInfoVariations = new string[]
+        {
+            "Уточните, пожалуйста.",
+            "Уточните, пожалуйста, ответ."
+        };
+
+        private bool _isNeedMoreInfo = false;
+
 
         private readonly IQuestionsService _questionsService;
         private readonly IScenesProvider _scenesProvider;
@@ -71,6 +79,9 @@ namespace VNQuiz.Alice.Scenes
                 {
                     return _scenesProvider.Get(SceneType.WrongAnswer);
                 }
+            } else if(_isNeedMoreInfo)
+            {
+                return this;
             }
             return null;
         }
@@ -79,6 +90,7 @@ namespace VNQuiz.Alice.Scenes
 
         public bool? IsCorrectAnswer(QuizRequest request, Question question)
         {
+            _isNeedMoreInfo = false;
             string answer = GetAnswerText(request);
             answer = Preprocess(answer)!;
             string? correctAnswer = Preprocess(question.CorrectAnswer);
@@ -129,7 +141,8 @@ namespace VNQuiz.Alice.Scenes
                 answersMatches.Add(i, IsAnswerMatch(postProcessedInput, preProcessedAnswers[i]!));
             }
 
-            if(answersMatches.Values.Count(x => x == true) == 1)
+            int matchedAnswersCount = answersMatches.Values.Count(x => x == true);
+            if (matchedAnswersCount == 1)
             {
                 var answerMatch = answersMatches.First(x => x.Value == true);
                 if(answerMatch.Key == 0)
@@ -137,6 +150,10 @@ namespace VNQuiz.Alice.Scenes
                     return true;
                 }
                 return false;
+            }
+            else if(matchedAnswersCount > 1)
+            {
+                _isNeedMoreInfo = true;
             }
 
             return null;
@@ -227,6 +244,11 @@ namespace VNQuiz.Alice.Scenes
 
         public override QuizResponseBase Reply(QuizRequest request)
         {
+            if(_isNeedMoreInfo)
+            {
+                return NeedMoreInfo(request);
+            }
+
             Question? question;
             if (request.State.Session.RestorePreviousState)
             {
@@ -291,6 +313,17 @@ namespace VNQuiz.Alice.Scenes
                 response.Response.AppendText($"\n{i}. {PrepareText(answers[i - 1])}", false);
                 response.Response.AppendTts($"\n{answers[i - 1]}{AliceHelper.SilenceString500}");
             }
+        }
+
+        public QuizResponseBase NeedMoreInfo(QuizRequest request)
+        {
+            _isNeedMoreInfo = false;
+            var response = new QuizResponse(
+                request,
+                string.Empty);
+            SetRandomSkillAnswer(response, _needMoreInfoVariations);
+            SetAnswersFromSession(request, response);
+            return response;
         }
 
         public override QuizResponseBase Repeat(QuizRequest request)
