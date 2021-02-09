@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\VNQuiz.Core\VNQuiz.Core.csproj" />
+    <ProjectReference Include="..\..\Core\VNQuiz.Core\VNQuiz.Core.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
