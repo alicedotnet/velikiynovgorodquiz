@@ -1,3 +1,0 @@
-[submodule "src/sdk"]
-	path = src/sdk
-	url = https://github.com/alexvolchetsky/yandex.alice.sdk
