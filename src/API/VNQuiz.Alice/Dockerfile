@@ -7,10 +7,15 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["VNQuiz.Alice/VNQuiz.Alice.csproj", "VNQuiz.Alice/"]
-RUN dotnet restore "VNQuiz.Alice/VNQuiz.Alice.csproj"
+
+COPY ["Core/VNQuiz.Core/VNQuiz.Core.csproj", "Core/VNQuiz.Core/"]
+RUN dotnet restore "Core/VNQuiz.Core/VNQuiz.Core.csproj"
+
+COPY ["API/VNQuiz.Alice/VNQuiz.Alice.csproj", "API/VNQuiz.Alice/"]
+RUN dotnet restore "API/VNQuiz.Alice/VNQuiz.Alice.csproj"
+
 COPY . .
-WORKDIR "/src/VNQuiz.Alice"
+WORKDIR "/src/API/VNQuiz.Alice"
 RUN dotnet build "VNQuiz.Alice.csproj" -c Release -o /app/build
 
 FROM build AS publish
