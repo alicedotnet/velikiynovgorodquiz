@@ -31,7 +31,7 @@ namespace VNQuiz.Alice.Controllers
             {
                 PreprocessRequest(request);
                 Scene currentScene;
-                if (request.State.Session != null)
+                if (request.State?.Session != null)
                 {
                     currentScene = _scenesProvider.Get(request.State.Session.CurrentScene);
                 }
@@ -42,7 +42,10 @@ namespace VNQuiz.Alice.Controllers
                 var response = GetResponse(request, currentScene);
                 if (response != null)
                 {
-                    response.SessionState.ConsecutiveFallbackAnswers = 0;
+                    if(response.SessionState != null)
+                    {
+                        response.SessionState.ConsecutiveFallbackAnswers = 0;
+                    }
                 }
                 else
                 {
@@ -89,6 +92,11 @@ namespace VNQuiz.Alice.Controllers
 
         private QuizResponseBase? GetResponse(QuizRequest request, Scene currentScene)
         {
+            if (request.Request.Command == "ping")
+            {
+                return new QuizResponse(request, "Привет, Яндекс! Навык работает нормально :)");
+            }
+
             if (request.Request.Nlu.Intents != null)
             {
                 if (request.Request.Nlu.Intents.IsRepeat)

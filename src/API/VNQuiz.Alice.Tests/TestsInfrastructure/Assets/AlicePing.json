@@ -1,4 +1,37 @@
 {
+  "request": {
+    "command": "ping",
+    "type": "SimpleUtterance",
+    "original_utterance": "ping",
+    "payload": null,
+    "markup": {
+      "dangerous_context": false
+    },
+    "nlu": {
+      "tokens": [],
+      "entities": [],
+      "intents": {
+        "YANDEX.CONFIRM": null,
+        "confirm": null,
+        "YANDEX.REJECT": null,
+        "reject": null,
+        "YANDEX.REPEAT": null,
+        "repeat": null,
+        "YANDEX.HELP": null,
+        "help": null,
+        "more": null,
+        "exit": null,
+        "YANDEX.WHAT_CAN_YOU_DO": null,
+        "rules": null,
+        "progress": null,
+        "next": null,
+        "start": null,
+        "restart": null,
+        "answer": null
+      }
+    }
+  },
+  "state": null,
   "meta": {
     "locale": "ru-RU",
     "timezone": "UTC",
@@ -6,39 +39,21 @@
     "interfaces": {
       "screen": {},
       "payments": {},
-      "account_linking": {}
+      "account_linking": {},
+      "geolocation_sharing": {}
     }
   },
   "session": {
+    "new": true,
+    "session_id": "3093fc17-2529-4fe4-a30b-cfae69a9d865",
     "message_id": 0,
-    "session_id": "7203740a-d04f-492b-b4e7-1a1d73eef9d9",
     "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
-    "user": {
-      "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
-    },
+    "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
+    "user": null,
     "application": {
       "application_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57"
     },
-    "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
-    "new": true
-  },
-  "request": {
-    "command": "",
-    "original_utterance": "",
-    "nlu": {
-      "tokens": [],
-      "entities": [],
-      "intents": {}
-    },
-    "markup": {
-      "dangerous_context": false
-    },
-    "type": "SimpleUtterance"
-  },
-  "state": {
-    "session": {},
-    "user": {},
-    "application": {}
+    "location": null
   },
   "version": "1.0"
 }
