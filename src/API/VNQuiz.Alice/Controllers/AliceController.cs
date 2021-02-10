@@ -16,11 +16,15 @@ namespace VNQuiz.Alice.Controllers
     {
         private readonly IScenesProvider _scenesProvider;
         private readonly ILogger<AliceController> _logger;
+        private readonly ILogger _fallbackLogger;
 
-        public AliceController(IScenesProvider scenesProvider, ILogger<AliceController> logger)
+        public AliceController(IScenesProvider scenesProvider
+            , ILogger<AliceController> logger
+            , ILoggerFactory loggerFactory)
         {
             _scenesProvider = scenesProvider;
             _logger = logger;
+            _fallbackLogger = loggerFactory.CreateLogger("Fallback");
         }
 
         [HttpPost]
@@ -49,7 +53,7 @@ namespace VNQuiz.Alice.Controllers
                 }
                 else
                 {
-                    _logger.LogInformation("FALLBACK. Request: {0}", Serialize(request));
+                    _fallbackLogger.LogInformation("FALLBACK. Request: {0}", Serialize(request));
 
                     response = currentScene.Fallback(request);
                     response.SessionState.ConsecutiveFallbackAnswers++;
