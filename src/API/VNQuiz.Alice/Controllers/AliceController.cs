@@ -17,6 +17,7 @@ namespace VNQuiz.Alice.Controllers
         private readonly IScenesProvider _scenesProvider;
         private readonly ILogger<AliceController> _logger;
         private readonly ILogger _fallbackLogger;
+        private readonly ILogger _answersLogger;
 
         public AliceController(IScenesProvider scenesProvider
             , ILogger<AliceController> logger
@@ -25,6 +26,7 @@ namespace VNQuiz.Alice.Controllers
             _scenesProvider = scenesProvider;
             _logger = logger;
             _fallbackLogger = loggerFactory.CreateLogger("Fallback");
+            _answersLogger = loggerFactory.CreateLogger("Answers");
         }
 
         [HttpPost]
@@ -46,7 +48,8 @@ namespace VNQuiz.Alice.Controllers
                 var response = GetResponse(request, currentScene);
                 if (response != null)
                 {
-                    if(response.SessionState != null)
+                    _answersLogger.LogInformation("ANSWER. Request: {0}", Serialize(request));
+                    if (response.SessionState != null)
                     {
                         response.SessionState.ConsecutiveFallbackAnswers = 0;
                     }
