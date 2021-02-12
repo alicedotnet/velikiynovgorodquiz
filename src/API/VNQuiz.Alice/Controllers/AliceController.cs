@@ -48,7 +48,10 @@ namespace VNQuiz.Alice.Controllers
                 var response = GetResponse(request, currentScene);
                 if (response != null)
                 {
-                    _answersLogger.LogInformation("ANSWER. Request: {0}", Serialize(request));
+                    if (request.Request.Command != "ping")
+                    {
+                        _answersLogger.LogInformation("ANSWER. Request: {0}", Serialize(request));
+                    }
                     if (response.SessionState != null)
                     {
                         response.SessionState.ConsecutiveFallbackAnswers = 0;
