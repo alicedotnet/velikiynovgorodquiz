@@ -35,6 +35,12 @@ namespace VNQuiz.Alice.Scenes
             "Следующий вопрос:"
         };
 
+        private readonly string[] _requestAdditionalInfoVariations = new string[]
+        {
+            "При наличии дополнительной информации, возможность ее посмотреть появится после ответа на вопрос.",
+            "Если у вопроса есть дополнительная информация, то вы сможете посмотреть ее только после ответа на вопрос."
+        };
+
         private readonly string[] _repeatVariations = new string[]
         {
             "Повторяю вопрос:",
@@ -79,7 +85,7 @@ namespace VNQuiz.Alice.Scenes
                 {
                     return _scenesProvider.Get(SceneType.WrongAnswer);
                 }
-            } else if(_isNeedMoreInfo)
+            } else if(_isNeedMoreInfo || request.Request.Nlu.Intents.IsMore)
             {
                 return this;
             }
@@ -265,7 +271,11 @@ namespace VNQuiz.Alice.Scenes
             }
 
             string? text = string.Empty;
-            if(!request.State.Session.RestorePreviousState)
+            if(request.Request.Nlu.Intents.IsMore)
+            {
+                text = GetRandomSkillAnswer(_requestAdditionalInfoVariations);
+            }
+            else if(!request.State.Session.RestorePreviousState)
             {
                 if (request.State.Session.CurrentQuestionId == 0)
                 {

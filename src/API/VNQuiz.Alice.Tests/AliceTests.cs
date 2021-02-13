@@ -37,6 +37,7 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.LoseGame_StartNew)]
         [InlineData(TestsConstants.Assets.WinGame)]
         [InlineData(TestsConstants.Assets.Question)]
+        [InlineData(TestsConstants.Assets.Question_AdditionalInfo)]
         [InlineData(TestsConstants.Assets.CorrectAnswer)]
         [InlineData(TestsConstants.Assets.AdditionalInfo)]
         [InlineData(TestsConstants.Assets.Rules_GameStarted_Continue)]

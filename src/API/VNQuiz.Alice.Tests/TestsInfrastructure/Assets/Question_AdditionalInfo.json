@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "locale": "ru-RU",
+    "timezone": "UTC",
+    "client_id": "ru.yandex.searchplugin/7.16 (none none; android 4.4.2)",
+    "interfaces": {
+      "screen": {},
+      "payments": {},
+      "account_linking": {},
+      "geolocation_sharing": {}
+    }
+  },
+  "session": {
+    "message_id": 3,
+    "session_id": "9109d601-98bf-464e-a79b-eb3c3e829992",
+    "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
+    "user": {
+      "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
+    },
+    "application": {
+      "application_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57"
+    },
+    "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
+    "new": false
+  },
+  "request": {
+    "command": "дополнительная информация",
+    "original_utterance": "дополнительная информация",
+    "nlu": {
+      "tokens": [
+        "дополнительная",
+        "информация"
+      ],
+      "entities": [],
+      "intents": {
+        "answer": {
+          "slots": {
+            "exactAnswer": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 0,
+                "end": 2
+              },
+              "value": "дополнительная информация"
+            }
+          }
+        },
+        "more": {
+          "slots": {}
+        }
+      }
+    },
+    "markup": {
+      "dangerous_context": false
+    },
+    "type": "SimpleUtterance"
+  },
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 0,
+      "currentQuestionId": 36,
+      "currentQuestionAnswers": [
+        "Родина-мать зовет",
+        "Монумент Победы",
+        "Памятник Матр+осу и Солдату"
+      ],
+      "unansweredQuestionsIds": [
+        34,
+        36,
+        35,
+        8,
+        11,
+        21,
+        24,
+        37,
+        39,
+        6,
+        38,
+        32,
+        33,
+        18,
+        7,
+        22,
+        19,
+        12,
+        14,
+        31,
+        16,
+        1,
+        17,
+        25,
+        3,
+        15,
+        2,
+        23,
+        30,
+        29,
+        13,
+        28,
+        10,
+        26,
+        27,
+        5,
+        4,
+        20,
+        9
+      ],
+      "currentScene": 3,
+      "nextScene": 0,
+      "restorePreviousState": false,
+      "lastRandomSkillAnswerIndex": 2,
+      "consecutiveFallbackAnswers": 1,
+      "unlockedAchievements": [],
+      "isOpenedAdditionalInfo": false,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": [
+        29,
+        16,
+        34,
+        33,
+        12,
+        27,
+        21,
+        13,
+        11,
+        9,
+        1,
+        4,
+        31,
+        19,
+        25,
+        7,
+        32,
+        8,
+        10,
+        35,
+        24,
+        30,
+        23,
+        2,
+        6,
+        5,
+        14
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
+  "version": "1.0"
+}

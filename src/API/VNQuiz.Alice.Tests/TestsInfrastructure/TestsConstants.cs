@@ -21,6 +21,7 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure
             public const string LoseGame_StartNew = _assetsFolder + "LoseGame_StartNew.json";
             public const string WinGame = _assetsFolder + "WinGame.json";
             public const string Question = _assetsFolder + "Question.json";
+            public const string Question_AdditionalInfo = _assetsFolder + "Question_AdditionalInfo.json";
             public const string CorrectAnswer = _assetsFolder + "CorrectAnswer.json";
             public const string AdditionalInfo = _assetsFolder + "AdditionalInfo.json";
             public const string Rules_GameStarted_Continue = _assetsFolder + "Rules_GameStarted_Continue.json";
