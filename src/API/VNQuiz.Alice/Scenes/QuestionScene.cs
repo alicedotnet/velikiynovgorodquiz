@@ -37,8 +37,8 @@ namespace VNQuiz.Alice.Scenes
 
         private readonly string[] _requestAdditionalInfoVariations = new string[]
         {
-            "При наличии дополнительной информации, возможность ее посмотреть появится после ответа на вопрос.",
-            "Если у вопроса есть дополнительная информация, то вы сможете посмотреть ее только после ответа на вопрос."
+            "При наличии дополнительной информации, возможность ее посмотреть появится только после ответа на вопрос.",
+            "Если по теме вопроса есть дополнительная информация, то вы сможете посмотреть ее только после ответа на данный вопрос."
         };
 
         private readonly string[] _repeatVariations = new string[]
@@ -273,7 +273,7 @@ namespace VNQuiz.Alice.Scenes
             string? text = string.Empty;
             if(request.Request.Nlu.Intents.IsMore)
             {
-                text = GetRandomSkillAnswer(_requestAdditionalInfoVariations);
+                text = GetRandomSkillAnswer(_requestAdditionalInfoVariations) + "\n";
             }
             else if(!request.State.Session.RestorePreviousState)
             {
