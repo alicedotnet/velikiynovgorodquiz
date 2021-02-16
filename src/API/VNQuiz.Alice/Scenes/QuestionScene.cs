@@ -41,6 +41,12 @@ namespace VNQuiz.Alice.Scenes
             "Если по теме вопроса есть дополнительная информация, то вы сможете посмотреть ее только после ответа на данный вопрос."
         };
 
+        private readonly string[] _requestSkip = new string[]
+        {
+            "К сожалению, у нас нельзя пропускать вопросы.",
+            "Вы не можете пропускать вопросы викторины."
+        };
+
         private readonly string[] _repeatVariations = new string[]
         {
             "Повторяю вопрос:",
@@ -89,6 +95,10 @@ namespace VNQuiz.Alice.Scenes
             {
                 return this;
             }
+            else if(request.Request.Nlu.Intents.IsNext || request.Request.Nlu.Intents.IsSkip)
+            {
+                return this;
+            }
             return null;
         }
 
@@ -98,6 +108,10 @@ namespace VNQuiz.Alice.Scenes
         {
             _isNeedMoreInfo = false;
             string answer = GetAnswerText(request);
+            if(answer == null)
+            {
+                return null;
+            }
             answer = Preprocess(answer)!;
             string? correctAnswer = Preprocess(question.CorrectAnswer);
             if(answer == correctAnswer)
@@ -274,6 +288,10 @@ namespace VNQuiz.Alice.Scenes
             if(request.Request.Nlu.Intents.IsMore)
             {
                 text = GetRandomSkillAnswer(_requestAdditionalInfoVariations) + "\n";
+            }
+            else if(request.Request.Nlu.Intents.IsNext || request.Request.Nlu.Intents.IsSkip)
+            {
+                text = GetRandomSkillAnswer(_requestSkip) + "\n";
             }
             else if(!request.State.Session.RestorePreviousState)
             {

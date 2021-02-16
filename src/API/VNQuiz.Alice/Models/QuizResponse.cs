@@ -7,36 +7,6 @@ using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Models
 {
-    public class QuizResponseBaseReturn
-    {
-        [JsonPropertyName("response")]
-        public object? Response { get; set; }
-
-        [JsonPropertyName("session_state")]
-        public QuizSessionState? SessionState { get; set; }
-
-        [JsonPropertyName("user_state_update")]
-        public QuizUserState? UserStateUpdate { get; set; }
-
-        [JsonPropertyName("application_state")]
-        public QuizUserState? ApplicationState { get; set; }
-
-        [JsonPropertyName("version")]
-        public string? Version { get; set; }
-
-        public static implicit operator QuizResponseBaseReturn(QuizResponseBase quizResponseBase)
-        {
-            return new QuizResponseBaseReturn()
-            {
-                Response = quizResponseBase.Response,
-                SessionState = quizResponseBase.SessionState,
-                UserStateUpdate = quizResponseBase.UserStateUpdate,
-                ApplicationState = quizResponseBase.ApplicationState,
-                Version = quizResponseBase.Version
-            };
-        }
-    }
-
     public class QuizResponseBase : AliceResponseBase<AliceResponseModel, QuizSessionState, QuizUserState>
     {
         public QuizResponseBase()

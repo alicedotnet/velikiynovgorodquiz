@@ -11,15 +11,20 @@ WORKDIR /src
 COPY ["Core/VNQuiz.Core/VNQuiz.Core.csproj", "Core/VNQuiz.Core/"]
 RUN dotnet restore "Core/VNQuiz.Core/VNQuiz.Core.csproj"
 
+COPY ["Core/VNQuiz.Core.Tests/VNQuiz.Core.Tests.csproj", "Core/VNQuiz.Core.Tests/"]
+RUN dotnet restore "Core/VNQuiz.Core.Tests/VNQuiz.Core.Tests.csproj"
+
 COPY ["API/VNQuiz.Alice/VNQuiz.Alice.csproj", "API/VNQuiz.Alice/"]
 RUN dotnet restore "API/VNQuiz.Alice/VNQuiz.Alice.csproj"
 
+COPY ["API/VNQuiz.Alice.Tests/VNQuiz.Alice.Tests.csproj", "API/VNQuiz.Alice.Tests/"]
+RUN dotnet restore "API/VNQuiz.Alice.Tests/VNQuiz.Alice.Tests.csproj"
+
 COPY . .
-WORKDIR "/src/API/VNQuiz.Alice"
-RUN dotnet build "VNQuiz.Alice.csproj" -c Release -o /app/build
+RUN dotnet test . -c Release
 
 FROM build AS publish
-RUN dotnet publish "VNQuiz.Alice.csproj" -c Release -o /app/publish
+RUN dotnet publish "API/VNQuiz.Alice/VNQuiz.Alice.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

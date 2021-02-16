@@ -142,6 +142,18 @@ namespace VNQuiz.Alice.Models
             }
         }
 
+        [JsonPropertyName("skip")]
+        public AliceIntentModel? Skip { get; set; }
+
+        [JsonIgnore]
+        public bool IsSkip
+        {
+            get
+            {
+                return Skip != null;
+            }
+        }
+
         [JsonPropertyName("start")]
         public AliceIntentModel? Start { get; set; }
 

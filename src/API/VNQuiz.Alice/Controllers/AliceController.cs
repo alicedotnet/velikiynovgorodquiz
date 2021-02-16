@@ -30,9 +30,9 @@ namespace VNQuiz.Alice.Controllers
         }
 
         [HttpPost]
-        public QuizResponseBaseReturn Post(QuizRequest request)
+        public QuizResponseBase Post(QuizRequest request)
         {
-            QuizResponseBaseReturn quizReturn;
+            QuizResponseBase quizReturn;
             try
             {
                 PreprocessRequest(request);
@@ -68,8 +68,7 @@ namespace VNQuiz.Alice.Controllers
             }
             catch(Exception e)
             {
-                QuizResponseBase response = new QuizResponse(request, "Кажется у меня что-то сломалось. Не переживайте, мой создатель скоро это увидит и все исправит!");
-                quizReturn = response;
+                quizReturn = new QuizResponse(request, "Кажется у меня что-то сломалось. Не переживайте, мой создатель скоро это увидит и все исправит!");
                 _logger.LogError(e, Serialize(request));
             }
             return quizReturn;
@@ -154,7 +153,8 @@ namespace VNQuiz.Alice.Controllers
 
         private static QuizResponse? EasterEggResponse(QuizRequest request)
         {
-            if((request.Request.Nlu.Tokens.Contains("жыве") || request.Request.Nlu.Tokens.Contains("живе") || request.Request.Nlu.Tokens.Contains("живи"))
+            if(request.Request.Nlu.Tokens != null && 
+                (request.Request.Nlu.Tokens.Contains("жыве") || request.Request.Nlu.Tokens.Contains("живе") || request.Request.Nlu.Tokens.Contains("живи"))
                 && request.Request.Nlu.Tokens.Contains("беларусь"))
             {
                 return new QuizResponse(request, "Жыве вечна!");

@@ -1,0 +1,12 @@
+root:
+    %lemma
+    $Skip ($What)*
+filler:
+    давай
+$Skip:
+    %lemma
+    удалить
+    удали
+    другой
+$What:
+    .+
