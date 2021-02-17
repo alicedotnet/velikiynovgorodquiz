@@ -107,7 +107,7 @@ namespace VNQuiz.Alice.Scenes
         public bool? IsCorrectAnswer(QuizRequest request, Question question)
         {
             _isNeedMoreInfo = false;
-            string answer = GetAnswerText(request);
+            string? answer = GetAnswerText(request);
             if(answer == null)
             {
                 return null;
@@ -236,7 +236,7 @@ namespace VNQuiz.Alice.Scenes
             return value;
         }
 
-        private static string GetAnswerText(QuizRequest request)
+        private string? GetAnswerText(QuizRequest request)
         {
             if(request.Request.Type == AliceRequestType.ButtonPressed)
             {
@@ -247,12 +247,24 @@ namespace VNQuiz.Alice.Scenes
             {
                 if(request.Request.Nlu.Intents.Answer.Slots.Number != null)
                 {
-                    int index = (int)request.Request.Nlu.Intents.Answer.Slots.Number!.Value - 1;
+                    int number = (int)request.Request.Nlu.Intents.Answer.Slots.Number!.Value;
+                    if(request.Request.Nlu.Entities.Any())
+                    {
+                        foreach (var entity in request.Request.Nlu.Entities)
+                        {
+                            if(entity is AliceEntityNumberModel entityNumber)
+                            {
+                                int entityNumberValue = (int)entityNumber.Value;
+                                if(entityNumberValue != number)
+                                {
+                                    _isNeedMoreInfo = true;
+                                    return null;
+                                }
+                            }
+                        }
+                    }
+                    int index = number - 1;
                     return request.State.Session.CurrentQuestionAnswers.ElementAt(index);
-                }
-                if(request.Request.Nlu.Intents.Answer.Slots.ExactNumber != null)
-                {
-                    return request.Request.Nlu.Intents.Answer.Slots.ExactNumber!.Value.ToString();
                 }
                 if (request.Request.Nlu.Intents.Answer.Slots.ExactAnswer != null)
                 {

@@ -51,7 +51,7 @@ namespace VNQuiz.Alice.Tests
         [InlineData(TestsConstants.Assets.Progress)]
         public async Task Alice_SendRequest_Success(string filePath)
         {
-            string text = File.ReadAllText(filePath);
+            string text = File.ReadAllText(filePath, Encoding.Default);
             HttpContent requestContent = new StringContent(text, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/alice", requestContent);
             string responseContent = await response.Content.ReadAsStringAsync();

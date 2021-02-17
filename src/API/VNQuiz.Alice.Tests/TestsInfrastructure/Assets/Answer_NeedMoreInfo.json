@@ -11,8 +11,8 @@
     }
   },
   "session": {
-    "message_id": 39,
-    "session_id": "32f13c73-eac6-4d31-a986-7afefe25e653",
+    "message_id": 36,
+    "session_id": "1d56d7c1-0f13-4a4f-82f0-cebbd52fc37a",
     "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
     "user": {
       "user_id": "1A2CFB869ADEB82C0436830DE8ADAC7180921EB180CC1153A10F6596FA0BA1D2"
@@ -23,113 +23,15 @@
     "user_id": "10601649994EF2E2DB7C3C9813566457B7299BCDD26EC49FBB6C2EA5D9E64B57",
     "new": false
   },
-  "version": "1.0",
-  "state": {
-    "session": {
-      "incorrectAnswersCount": 0,
-      "currentQuestionId": 7,
-      "currentQuestionAnswers": [
-        "Повесть временных лет",
-        "Летописи Северо-Восточной Руси",
-        "Московские летописи"
-      ],
-      "unansweredQuestionsIds": [
-        32,
-        37,
-        26,
-        33,
-        4,
-        21,
-        19,
-        30,
-        24,
-        15,
-        10,
-        35,
-        5,
-        36,
-        25,
-        39,
-        38,
-        23,
-        17,
-        7,
-        29,
-        16,
-        28,
-        1,
-        20,
-        22,
-        27,
-        14,
-        2,
-        9,
-        31,
-        12,
-        11,
-        3,
-        13,
-        34
-      ],
-      "currentScene": 3,
-      "nextScene": 0,
-      "restorePreviousState": false,
-      "lastRandomSkillAnswerIndex": 2,
-      "consecutiveFallbackAnswers": 0,
-      "unlockedAchievements": [],
-      "isOpenedAdditionalInfo": true,
-      "maxConsecutiveCorrectAnswers": 0,
-      "currentConsecutiveCorrectAnswers": 3
-    },
-    "user": {
-      "requestNumber": 1,
-      "unlockedAchievementsIds": [
-        1,
-        7,
-        3,
-        4,
-        5,
-        6
-      ],
-      "answeredQuestionsIds": [
-        11,
-        37,
-        30,
-        25,
-        14,
-        16,
-        15,
-        10,
-        32,
-        7,
-        19,
-        2,
-        3,
-        5,
-        21,
-        34,
-        33,
-        4,
-        26,
-        35,
-        8,
-        6,
-        24,
-        39,
-        31,
-        22,
-        18
-      ]
-    },
-    "application": {
-      "unlockedAchievementsIds": [],
-      "answeredQuestionsIds": []
-    }
-  },
   "request": {
+    "command": "1 ответ 2 вариант",
+    "original_utterance": "1 ответ 2 вариант",
     "nlu": {
       "tokens": [
-        "1"
+        "1",
+        "ответ",
+        "2",
+        "вариант"
       ],
       "entities": [
         {
@@ -139,23 +41,136 @@
             "end": 1
           },
           "value": 1
+        },
+        {
+          "type": "YANDEX.NUMBER",
+          "tokens": {
+            "start": 2,
+            "end": 3
+          },
+          "value": 2
         }
       ],
       "intents": {
         "answer": {
           "slots": {
-            "exactAnswer": {
-              "type": "YANDEX.STRING",
+            "number": {
+              "type": "YANDEX.NUMBER",
               "tokens": {
                 "start": 0,
                 "end": 1
               },
-              "value": "летописи"
+              "value": 1
             }
           }
         }
       }
     },
+    "markup": {
+      "dangerous_context": false
+    },
     "type": "SimpleUtterance"
-  }
+  },
+  "state": {
+    "session": {
+      "incorrectAnswersCount": 2,
+      "currentQuestionId": 21,
+      "currentQuestionAnswers": [
+        "Военнопленные",
+        "Дань",
+        "Овощи"
+      ],
+      "unansweredQuestionsIds": [
+        21,
+        15,
+        19,
+        1,
+        10,
+        27,
+        9,
+        35,
+        31,
+        7,
+        18,
+        17,
+        38,
+        12,
+        33,
+        41,
+        8,
+        11,
+        5,
+        4,
+        6,
+        37,
+        2,
+        23,
+        39,
+        29,
+        16,
+        32,
+        25,
+        22,
+        13,
+        24,
+        40,
+        26,
+        36,
+        3,
+        34,
+        30,
+        14
+      ],
+      "currentScene": 3,
+      "nextScene": 0,
+      "restorePreviousState": false,
+      "lastRandomSkillAnswerIndex": 1,
+      "consecutiveFallbackAnswers": 0,
+      "unlockedAchievements": [],
+      "isOpenedAdditionalInfo": false,
+      "maxConsecutiveCorrectAnswers": 0,
+      "currentConsecutiveCorrectAnswers": 0
+    },
+    "user": {
+      "requestNumber": 1,
+      "unlockedAchievementsIds": [
+        1
+      ],
+      "answeredQuestionsIds": [
+        13,
+        11,
+        9,
+        1,
+        4,
+        31,
+        19,
+        25,
+        7,
+        32,
+        8,
+        10,
+        35,
+        24,
+        30,
+        23,
+        2,
+        6,
+        5,
+        14,
+        3,
+        37,
+        15,
+        28,
+        20,
+        16,
+        18,
+        27
+      ]
+    },
+    "application": {
+      "unlockedAchievementsIds": [],
+      "answeredQuestionsIds": []
+    }
+  },
+  "version": "1.0"
 }

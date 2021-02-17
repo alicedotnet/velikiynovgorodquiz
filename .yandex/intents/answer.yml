@@ -1,18 +1,13 @@
 root:
     %lemma
-    $Number 
-    $ExactAnswer
-    [$Person $Number]
-    [$Person $ExactAnswer]
+    [($Person)? ($Number)+]
+    [($Person)? $ExactAnswer]
 slots:
     number:
         source: $Number
         type: YANDEX.NUMBER
     exactAnswer:
         source: $ExactAnswer
-    exactNumber:
-        source: $ExactAnswer
-        type: YANDEX.NUMBER
 filler:
     %lemma
     вариант

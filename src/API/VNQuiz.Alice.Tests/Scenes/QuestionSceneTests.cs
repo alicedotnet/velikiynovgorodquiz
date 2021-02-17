@@ -17,7 +17,7 @@ namespace VNQuiz.Alice.Tests.Scenes
         [InlineData("На каком пути", "на шелковом пути", "Шелковый путь")]
         [InlineData("На каком пути лежал", "на балтийском", "Балтийско-Волжский")]
         [InlineData("любой вопрос", "законсервированные находки", "Законсервированные находки в торфянистой почве")]
-        public void FuzzyComparison_CorrectAnswer(string questionText, string userAnswer, string correctAnswer)
+        public void FuzzyComparison_CorrectAnswer(string questionText, string userAnswer, string correctAnswer, string wrongAnswer = "синева")
         {
             var questionScene = new QuestionScene(null, null);
             var request = new QuizRequest()
@@ -42,7 +42,7 @@ namespace VNQuiz.Alice.Tests.Scenes
                     }
                 }
             };
-            var question = new Question(1, questionText, correctAnswer, new List<string>() { "синева"}, string.Empty, false, null);
+            var question = new Question(1, questionText, correctAnswer, new List<string>() { wrongAnswer }, string.Empty, false, null);
             var result = questionScene.IsCorrectAnswer(request, question);
             Assert.NotNull(result);
             Assert.True(result);

@@ -189,9 +189,6 @@ namespace VNQuiz.Alice.Models
 
         [JsonPropertyName("exactAnswer")]
         public AliceEntityStringModel? ExactAnswer { get; set; }
-
-        [JsonPropertyName("exactNumber")]
-        public AliceEntityNumberModel? ExactNumber { get; set; }
     }
 
     public class RepeatSlots
