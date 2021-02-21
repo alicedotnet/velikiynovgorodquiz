@@ -80,34 +80,39 @@ namespace VNQuiz.Alice.Scenes
         {
             int currentQuestionId = request.State.Session.CurrentQuestionId;
             var question = _questionsService.GetQuestion(currentQuestionId);
-            bool? isCorrectAnswer = IsCorrectAnswer(request, question);
-            if(isCorrectAnswer != null)
+            var answers = GetAnswerText(request);
+            foreach (string? answer in answers)
             {
-                if (isCorrectAnswer.Value)
+                bool? isCorrectAnswer = IsCorrectAnswer(answer, question);
+                if (isCorrectAnswer != null)
                 {
-                    return _scenesProvider.Get(SceneType.CorrectAnswer);
+                    if (isCorrectAnswer.Value)
+                    {
+                        return _scenesProvider.Get(SceneType.CorrectAnswer);
+                    }
+                    else
+                    {
+                        return _scenesProvider.Get(SceneType.WrongAnswer);
+                    }
                 }
-                else
-                {
-                    return _scenesProvider.Get(SceneType.WrongAnswer);
-                }
-            } else if(_isNeedMoreInfo || request.Request.Nlu.Intents.IsMore)
+            }
+            if (_isNeedMoreInfo || request.Request.Nlu.Intents.IsMore)
             {
                 return this;
             }
-            else if(request.Request.Nlu.Intents.IsNext || request.Request.Nlu.Intents.IsSkip)
+            else if (request.Request.Nlu.Intents.IsNext || request.Request.Nlu.Intents.IsSkip)
             {
                 return this;
             }
+
             return null;
         }
 
         private readonly string[] _excludeWords = Array.Empty<string>();
 
-        public bool? IsCorrectAnswer(QuizRequest request, Question question)
+        public bool? IsCorrectAnswer(string? answer, Question question)
         {
             _isNeedMoreInfo = false;
-            string? answer = GetAnswerText(request);
             if(answer == null)
             {
                 return null;
@@ -236,12 +241,12 @@ namespace VNQuiz.Alice.Scenes
             return value;
         }
 
-        private string? GetAnswerText(QuizRequest request)
+        private string[] GetAnswerText(QuizRequest request)
         {
             if(request.Request.Type == AliceRequestType.ButtonPressed)
             {
                 int index = request.Request.GetPayload<int>() - 1;
-                return request.State.Session.CurrentQuestionAnswers.ElementAt(index);
+                return new string[] { request.State.Session.CurrentQuestionAnswers[index] };
             }
             if(request.Request.Nlu.Intents?.Answer != null)
             {
@@ -258,20 +263,30 @@ namespace VNQuiz.Alice.Scenes
                                 if(entityNumberValue != number)
                                 {
                                     _isNeedMoreInfo = true;
-                                    return null;
+                                    return Array.Empty<string>();
                                 }
                             }
                         }
                     }
                     int index = number - 1;
-                    return request.State.Session.CurrentQuestionAnswers.ElementAt(index);
+                    return new string[] { request.State.Session.CurrentQuestionAnswers[index] };
                 }
-                if (request.Request.Nlu.Intents.Answer.Slots.ExactAnswer != null)
+                if(request.Request.Nlu.Intents.Answer.Slots.ExactNumber != null
+                    || request.Request.Nlu.Intents.Answer.Slots.ExactAnswer != null)
                 {
-                    return request.Request.Nlu.Intents.Answer.Slots.ExactAnswer!.Value;
+                    var answers = new List<string>();
+                    if (request.Request.Nlu.Intents.Answer.Slots.ExactAnswer != null)
+                    {
+                        answers.Add(request.Request.Nlu.Intents.Answer.Slots.ExactAnswer!.Value);
+                    }
+                    if (request.Request.Nlu.Intents.Answer.Slots.ExactNumber != null)
+                    {
+                        answers.Add(((int)request.Request.Nlu.Intents.Answer.Slots.ExactNumber!.Value).ToString());
+                    }
+                    return answers.ToArray();
                 }
             }
-            return request.Request.Command;
+            return new string[] { request.Request.Command };
         }
 
         public override QuizResponseBase Reply(QuizRequest request)

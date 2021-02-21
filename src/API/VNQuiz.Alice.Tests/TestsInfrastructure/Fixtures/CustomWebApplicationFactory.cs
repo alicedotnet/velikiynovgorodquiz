@@ -8,17 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace VNQuiz.Alice.Tests.TestsInfrastructure.Fixtures
 {
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>
         where TStartup : class
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        private readonly IMessageSink _messageSink;
 
-        public CustomWebApplicationFactory(ITestOutputHelper testOutputHelper)
+        public CustomWebApplicationFactory(IMessageSink messageSink)
         {
-            _testOutputHelper = testOutputHelper;
+            _messageSink = messageSink;
         }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -26,8 +27,17 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure.Fixtures
             // Register the xUnit logger
             builder.ConfigureLogging(loggingBuilder =>
             {
-                loggingBuilder.Services.AddSingleton<ILoggerProvider>(serviceProvider => new XUnitLoggerProvider(_testOutputHelper));
-            });
+                loggingBuilder.Services.AddSingleton<ILoggerProvider>(serviceProvider
+                    => new XUnitLoggerProvider(_messageSink));
+            })
+                .ConfigureAppConfiguration(config =>
+                {
+                    var integrationConfig = new ConfigurationBuilder()
+                        .AddJsonFile("integrationsettings.json")
+                        .Build();
+
+                    config.AddConfiguration(integrationConfig);
+                });
         }
     }
 }

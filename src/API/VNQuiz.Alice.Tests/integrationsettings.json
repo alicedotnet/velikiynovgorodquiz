@@ -1,0 +1,6 @@
+{
+  "QuizSettings": {
+    "ShowPrettyErrors": false
+  },
+  "xunit.diagnosticMessages": true
+}

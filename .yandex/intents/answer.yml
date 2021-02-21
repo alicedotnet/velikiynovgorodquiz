@@ -8,6 +8,9 @@ slots:
         type: YANDEX.NUMBER
     exactAnswer:
         source: $ExactAnswer
+    exactNumber:
+        source: $ExactAnswer
+        type: YANDEX.NUMBER
 filler:
     %lemma
     вариант

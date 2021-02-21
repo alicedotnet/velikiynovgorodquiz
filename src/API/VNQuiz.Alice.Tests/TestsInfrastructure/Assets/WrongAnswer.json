@@ -1,123 +1,114 @@
 {
-  "request": {
-      "command": "алиса 1 летопись в европе",
-      "type": "SimpleUtterance",
-      "original_utterance": "алиса первая летопись в европе",
-      "payload": null,
-      "markup": {
-          "dangerous_context": false
-      },
-      "nlu": {
-          "tokens": ["алиса", "1", "летопись", "в", "европе"],
-          "entities": [{
-              "value": {
-                  "first_name": "алиса",
-                  "last_name": null
-              },
-              "tokens": {
-                  "start": 0,
-                  "end": 1
-              },
-              "type": "YANDEX.FIO"
-          }, {
-              "value": 1,
-              "tokens": {
-                  "start": 1,
-                  "end": 2
-              },
-              "type": "YANDEX.NUMBER"
-          }],
-          "intents": {
-              "YANDEX.CONFIRM": null,
-              "confirm": null,
-              "YANDEX.REJECT": null,
-              "reject": null,
-              "YANDEX.REPEAT": null,
-              "repeat": null,
-              "YANDEX.HELP": null,
-              "help": null,
-              "more": null,
-              "exit": null,
-              "YANDEX.WHAT_CAN_YOU_DO": null,
-              "rules": null,
-              "progress": null,
-              "next": null,
-              "start": null,
-              "restart": null,
-              "answer": {
-                  "slots": {
-                      "number": null,
-                      "exactAnswer": {
-                          "value": "первая летопись в европе",
-                          "tokens": {
-                              "start": 1,
-                              "end": 5
+    "request": {
+        "command": "990",
+        "type": "SimpleUtterance",
+        "original_utterance": "девятьсот девяносто",
+        "payload": null,
+        "markup": {
+            "dangerous_context": false
+        },
+        "nlu": {
+            "tokens": ["990"],
+            "entities": [{
+                "value": 990,
+                "tokens": {
+                    "start": 0,
+                    "end": 1
+                },
+                "type": "YANDEX.NUMBER"
+            }],
+            "intents": {
+                "YANDEX.CONFIRM": null,
+                "confirm": null,
+                "YANDEX.REJECT": null,
+                "reject": null,
+                "YANDEX.REPEAT": null,
+                "repeat": null,
+                "YANDEX.HELP": null,
+                "help": null,
+                "more": null,
+                "exit": null,
+                "YANDEX.WHAT_CAN_YOU_DO": null,
+                "rules": null,
+                "progress": null,
+                "next": null,
+                "skip": null,
+                "start": null,
+                "restart": null,
+                "answer": {
+                    "slots": {
+                        "number": null,
+                        "exactNumber": {
+                            "type": "YANDEX.NUMBER",
+                            "tokens": {
+                              "start": 0,
+                              "end": 1
+                            },
+                            "value": 990
                           },
-                          "type": "YANDEX.STRING"
-                      },
-                      "exactNumber": {
-                          "value": 1,
-                          "tokens": {
-                              "start": 1,
-                              "end": 2
-                          },
-                          "type": "YANDEX.NUMBER"
-                      }
-                  }
-              }
-          }
-      }
-  },
-  "state": {
-      "session": {
-          "IncorrectAnswersCount": 2,
-          "CurrentQuestionId": 18,
-          "CurrentQuestionAnswers": ["Древнейшая русская летопись", "Дошла до наших дней в идеальном состоянии", "Первая летопись в Европе"],
-          "unansweredQuestionsIds": [18, 22, 24, 10, 23, 34, 9, 37, 33, 4, 6, 1, 21, 30, 36, 26, 28, 3, 38, 15, 17, 2, 27, 32, 5, 31, 20, 35, 13, 12, 8, 39, 11, 14, 25, 16],
-          "CurrentScene": 3,
-          "NextScene": 0,
-          "RestorePreviousState": false,
-          "LastRandomSkillAnswerIndex": 0,
-          "ConsecutiveFallbackAnswers": 3,
-          "UnlockedAchievements": [],
-          "IsOpenedAdditionalInfo": false,
-          "MaxConsecutiveCorrectAnswers": 1,
-          "CurrentConsecutiveCorrectAnswers": 0
-      },
-      "user": {
-          "unlockedAchievementsIds": [],
-          "AnsweredQuestionsIds": [19, 7, 29]
-      },
-      "application": {
-          "unlockedAchievementsIds": [],
-          "AnsweredQuestionsIds": []
-      }
-  },
-  "meta": {
-      "locale": "ru-RU",
-      "timezone": "Europe/Moscow",
-      "client_id": "aliced/1.0 (Yandex yandexmini; Linux 1.0)",
-      "interfaces": {
-          "screen": null,
-          "payments": {},
-          "account_linking": {},
-          "geolocation_sharing": null
-      }
-  },
-  "session": {
-      "new": false,
-      "session_id": "e037955d-39c3-4267-9fdd-13339f8350b3",
-      "message_id": 8,
-      "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
-      "user_id": "D1C321A095D6AD91E1E0119D3924F9AC2B4DF2C0D725B811D1611195B8BADE8C",
-      "user": {
-          "user_id": "135A9DD5A1F2CBD9E20AFF1EB295BD700E4CE80ED71D135AAF7FF3FBAB914F27",
-          "access_token": null
-      },
-      "application": {
-          "application_id": "D1C321A095D6AD91E1E0119D3924F9AC2B4DF2C0D725B811D1611195B8BADE8C"
-      },
-      "location": null
-  },
-  "version": "1.0"
+                        "exactAnswer": {
+                            "value": "девятьсот девяносто",
+                            "tokens": {
+                                "start": 0,
+                                "end": 2
+                            },
+                            "type": "YANDEX.STRING"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "state": {
+        "session": {
+            "IncorrectAnswersCount": 0,
+            "CurrentQuestionId": 15,
+            "CurrentQuestionAnswers": ["990-м", "1090-м", "1190-м"],
+            "unansweredQuestionsIds": [15, 8, 2, 24, 31, 13, 35, 5, 34, 20, 10, 9, 29, 36, 40, 30, 7, 41, 39, 16, 22, 11, 23, 18, 32, 33, 28, 37, 19, 26, 6, 38, 12, 4, 21, 3, 1, 14, 25, 17, 27],
+            "CurrentScene": 3,
+            "NextScene": 0,
+            "RestorePreviousState": false,
+            "LastRandomSkillAnswerIndex": 1,
+            "ConsecutiveFallbackAnswers": 0,
+            "UnlockedAchievements": [],
+            "IsOpenedAdditionalInfo": false,
+            "MaxConsecutiveCorrectAnswers": 0,
+            "CurrentConsecutiveCorrectAnswers": 0
+        },
+        "user": {
+            "unlockedAchievementsIds": [],
+            "AnsweredQuestionsIds": []
+        },
+        "application": {
+            "unlockedAchievementsIds": [],
+            "AnsweredQuestionsIds": []
+        }
+    },
+    "meta": {
+        "locale": "ru-RU",
+        "timezone": "Europe/Moscow",
+        "client_id": "aliced/1.0 (Yandex yandexmini; Linux 1.0)",
+        "interfaces": {
+            "screen": null,
+            "payments": {},
+            "account_linking": {},
+            "geolocation_sharing": null
+        }
+    },
+    "session": {
+        "new": false,
+        "session_id": "5d9a6f0b-7072-4444-bfa8-e5b57b820eb3",
+        "message_id": 3,
+        "skill_id": "ae834363-800c-4264-b0f7-70a2a13f32d9",
+        "user_id": "A7D7C1D18B76CE6301A63263AFC36DFC3A079991797FE1C04E1AD9070ECDDF33",
+        "user": {
+            "user_id": "3490A99F246FFDEA814EFCC40F3119732097E0E3F66DBFF9750B78E2D98B7A4B",
+            "access_token": null
+        },
+        "application": {
+            "application_id": "A7D7C1D18B76CE6301A63263AFC36DFC3A079991797FE1C04E1AD9070ECDDF33"
+        },
+        "location": null
+    },
+    "version": "1.0"
 }

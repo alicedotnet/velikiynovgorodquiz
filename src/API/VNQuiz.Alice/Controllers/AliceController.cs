@@ -15,15 +15,18 @@ namespace VNQuiz.Alice.Controllers
     public class AliceController : ControllerBase
     {
         private readonly IScenesProvider _scenesProvider;
+        private readonly QuizSettings _quizSettings;
         private readonly ILogger<AliceController> _logger;
         private readonly ILogger _fallbackLogger;
         private readonly ILogger _answersLogger;
 
         public AliceController(IScenesProvider scenesProvider
+            , QuizSettings quizSettings
             , ILogger<AliceController> logger
             , ILoggerFactory loggerFactory)
         {
             _scenesProvider = scenesProvider;
+            _quizSettings = quizSettings;
             _logger = logger;
             _fallbackLogger = loggerFactory.CreateLogger("Fallback");
             _answersLogger = loggerFactory.CreateLogger("Answers");
@@ -68,8 +71,15 @@ namespace VNQuiz.Alice.Controllers
             }
             catch(Exception e)
             {
-                quizReturn = new QuizResponse(request, "Кажется у меня что-то сломалось. Не переживайте, мой создатель скоро это увидит и все исправит!");
                 _logger.LogError(e, Serialize(request));
+                if(_quizSettings.ShowPrettyErrors)
+                {
+                    quizReturn = new QuizResponse(request, "Кажется у меня что-то сломалось. Не переживайте, мой создатель скоро это увидит и все исправит!");
+                }
+                else
+                {
+                    throw;
+                }
             }
             return quizReturn;
         }

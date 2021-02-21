@@ -5,21 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace VNQuiz.Alice.Tests.TestsInfrastructure
 {
     internal class XUnitLogger : ILogger
     {
-        private readonly ITestOutputHelper _testOutputHelper;
         private readonly string _categoryName;
+        private readonly IMessageSink _messageSink;
         private readonly LoggerExternalScopeProvider _scopeProvider;
 
-        public static ILogger CreateLogger(ITestOutputHelper testOutputHelper) => new XUnitLogger(testOutputHelper, new LoggerExternalScopeProvider(), "");
-        public static ILogger<T> CreateLogger<T>(ITestOutputHelper testOutputHelper) => new XUnitLogger<T>(testOutputHelper, new LoggerExternalScopeProvider());
+        public static ILogger CreateLogger(IMessageSink messageSink) 
+            => new XUnitLogger(messageSink, new LoggerExternalScopeProvider(), "");
+        public static ILogger<T> CreateLogger<T>(IMessageSink messageSink) 
+            => new XUnitLogger<T>(messageSink, new LoggerExternalScopeProvider());
 
-        public XUnitLogger(ITestOutputHelper testOutputHelper, LoggerExternalScopeProvider scopeProvider, string categoryName)
+        public XUnitLogger(IMessageSink messageSink, LoggerExternalScopeProvider scopeProvider, string categoryName)
         {
-            _testOutputHelper = testOutputHelper;
+            _messageSink = messageSink;
             _scopeProvider = scopeProvider;
             _categoryName = categoryName;
         }
@@ -47,7 +50,8 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure
                 state.Append(scope);
             }, sb);
 
-            _testOutputHelper.WriteLine(sb.ToString());
+            var message = new DiagnosticMessage(sb.ToString());
+            _messageSink.OnMessage(message);
         }
 
         private static string GetLogLevelString(LogLevel logLevel)
@@ -67,25 +71,25 @@ namespace VNQuiz.Alice.Tests.TestsInfrastructure
 
     internal sealed class XUnitLogger<T> : XUnitLogger, ILogger<T>
     {
-        public XUnitLogger(ITestOutputHelper testOutputHelper, LoggerExternalScopeProvider scopeProvider)
-            : base(testOutputHelper, scopeProvider, typeof(T).FullName)
+        public XUnitLogger(IMessageSink messageSink, LoggerExternalScopeProvider scopeProvider)
+            : base(messageSink, scopeProvider, typeof(T).FullName)
         {
         }
     }
 
     internal sealed class XUnitLoggerProvider : ILoggerProvider
     {
-        private readonly ITestOutputHelper _testOutputHelper;
         private readonly LoggerExternalScopeProvider _scopeProvider = new LoggerExternalScopeProvider();
+        private readonly IMessageSink _messageSink;
 
-        public XUnitLoggerProvider(ITestOutputHelper testOutputHelper)
+        public XUnitLoggerProvider(IMessageSink messageSink)
         {
-            _testOutputHelper = testOutputHelper;
+            _messageSink = messageSink;
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            return new XUnitLogger(_testOutputHelper, _scopeProvider, categoryName);
+            return new XUnitLogger(_messageSink, _scopeProvider, categoryName);
         }
 
         public void Dispose()

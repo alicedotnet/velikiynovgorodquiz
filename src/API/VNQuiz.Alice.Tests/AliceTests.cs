@@ -20,13 +20,13 @@ using Yandex.Alice.Sdk.Models;
 namespace VNQuiz.Alice.Tests
 {
     public class AliceTests
+        : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _httpClient;
         private readonly ITestOutputHelper _testOutputHelper;
 
-        public AliceTests(ITestOutputHelper testOutputHelper)
+        public AliceTests(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper testOutputHelper)
         {
-            var factory = new CustomWebApplicationFactory<Startup>(testOutputHelper);
             _httpClient = factory.CreateClient();
             _testOutputHelper = testOutputHelper;
         }

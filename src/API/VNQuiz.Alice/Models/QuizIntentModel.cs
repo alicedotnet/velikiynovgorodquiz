@@ -187,6 +187,9 @@ namespace VNQuiz.Alice.Models
         [JsonPropertyName("number")]
         public AliceEntityNumberModel? Number { get; set; }
 
+        [JsonPropertyName("exactNumber")]
+        public AliceEntityNumberModel? ExactNumber { get; set; }
+
         [JsonPropertyName("exactAnswer")]
         public AliceEntityStringModel? ExactAnswer { get; set; }
     }

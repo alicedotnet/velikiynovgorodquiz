@@ -65,6 +65,11 @@ namespace VNQuiz.Alice
             services.AddScoped<TenConsecutiveAnswersAchievementUnlocker>();
             services.AddScoped<WinGameAchievementUnlocker>();
 
+            var quizSettingsSection = Configuration.GetSection("QuizSettings");
+            var quizSettings = new QuizSettings();
+            quizSettingsSection.Bind(quizSettings);
+            services.AddSingleton(quizSettings);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VNQuiz.Alice", Version = "v1" });
