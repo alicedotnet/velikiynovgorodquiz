@@ -67,6 +67,35 @@ namespace VNQuiz.Alice.Tests
             _testOutputHelper.WriteLine(prettyJson);
         }
 
+        [Fact]
+        public async Task Alice_GetSpecificQuestionId_Success()
+        {
+            var request = new QuizRequest()
+            {
+                Request = new AliceRequestModel<QuizIntentModel>()
+                {
+                    OriginalUtterance = "/question_44",
+                },
+                State = new AliceStateModel<QuizSessionState, QuizUserState>
+                {
+                    Session = new QuizSessionState()
+                }
+            };
+            string text = JsonSerializer.Serialize(request);
+            HttpContent requestContent = new StringContent(text, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("/alice", requestContent);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            Assert.True(response.IsSuccessStatusCode, responseContent);
+            var aliceResponse = JsonSerializer.Deserialize<QuizResponseBase>(responseContent);
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                WriteIndented = true
+            };
+            string prettyJson = JsonSerializer.Serialize(aliceResponse, options);
+            _testOutputHelper.WriteLine(prettyJson);
+        }
+
 
         [Fact]
         public async Task Alice_QuestionScene_SkipQuestion()

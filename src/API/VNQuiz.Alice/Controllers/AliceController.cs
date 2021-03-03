@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using VNQuiz.Alice.Models;
 using VNQuiz.Alice.Scenes;
+using Yandex.Alice.Sdk.Models;
 
 namespace VNQuiz.Alice.Controllers
 {
@@ -96,15 +98,36 @@ namespace VNQuiz.Alice.Controllers
 
         private static void PreprocessRequest(QuizRequest request)
         {
-            if(request.Request.OriginalUtterance == "/reset")
+            if(!string.IsNullOrEmpty(request.Request.OriginalUtterance))
             {
-                if(request.State.Application != null)
+                if (request.Request.OriginalUtterance == "/reset")
                 {
-                    request.State.Application = new QuizUserState();
+                    if (request.State.Application != null)
+                    {
+                        request.State.Application = new QuizUserState();
+                    }
+                    if (request.State.User != null)
+                    {
+                        request.State.User = new QuizUserState();
+                    }
                 }
-                if(request.State.User != null)
+                if (request.Request.OriginalUtterance.StartsWith("/question_"))
                 {
-                    request.State.User = new QuizUserState();
+                    string questionIdValue = request.Request.OriginalUtterance.Replace("/question_", string.Empty);
+                    int questionId = int.Parse(questionIdValue);
+                    request.State.Session.CurrentScene = SceneType.CorrectAnswer;
+                    request.Request.Nlu = new AliceNLUModel<QuizIntentModel>()
+                    {
+                        Intents = new QuizIntentModel()
+                        {
+                            Reject = new AliceIntentModel()
+                        }
+                    };
+                    request.State.Session.UnansweredQuestionsIds = new List<int>() { questionId };
+                    request.State.User = new QuizUserState()
+                    {
+                        AnsweredQuestionsIds = new Queue<int>()
+                    };
                 }
             }
         }
@@ -146,28 +169,12 @@ namespace VNQuiz.Alice.Controllers
                     var requestEndSessionScene = _scenesProvider.Get(SceneType.RequestEndSession);
                     return requestEndSessionScene.Reply(request);
                 }
-                var easterEggResponse = EasterEggResponse(request);
-                if(easterEggResponse != null)
-                {
-                    return easterEggResponse;
-                }
             }
 
             var nextScene = currentScene.MoveToNextScene(request);
             if (nextScene != null)
             {
                 return nextScene.Reply(request);
-            }
-            return null;
-        }
-
-        private static QuizResponse? EasterEggResponse(QuizRequest request)
-        {
-            if(request.Request.Nlu.Tokens != null && 
-                (request.Request.Nlu.Tokens.Contains("жыве") || request.Request.Nlu.Tokens.Contains("живе") || request.Request.Nlu.Tokens.Contains("живи"))
-                && request.Request.Nlu.Tokens.Contains("беларусь"))
-            {
-                return new QuizResponse(request, "Жыве вечна!");
             }
             return null;
         }
