@@ -56,7 +56,7 @@ namespace VNQuiz.Alice.Tests
             var response = await _httpClient.PostAsync("/alice", requestContent);
             string responseContent = await response.Content.ReadAsStringAsync();
             Assert.True(response.IsSuccessStatusCode, responseContent);
-            var aliceResponse = JsonSerializer.Deserialize<QuizResponseBase>(responseContent);
+            var aliceResponse = JsonSerializer.Deserialize<QuizResponseBaseReturn>(responseContent);
             Assert.NotNull(aliceResponse);
             var options = new JsonSerializerOptions
             {
@@ -86,7 +86,7 @@ namespace VNQuiz.Alice.Tests
             var response = await _httpClient.PostAsync("/alice", requestContent);
             string responseContent = await response.Content.ReadAsStringAsync();
             Assert.True(response.IsSuccessStatusCode, responseContent);
-            var aliceResponse = JsonSerializer.Deserialize<QuizResponseBase>(responseContent);
+            var aliceResponse = JsonSerializer.Deserialize<QuizResponseBaseReturn>(responseContent);
             var options = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),

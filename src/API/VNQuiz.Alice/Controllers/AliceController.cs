@@ -35,7 +35,7 @@ namespace VNQuiz.Alice.Controllers
         }
 
         [HttpPost]
-        public QuizResponseBase Post(QuizRequest request)
+        public IActionResult Post(QuizRequest request)
         {
             QuizResponseBase quizReturn;
             try
@@ -83,7 +83,8 @@ namespace VNQuiz.Alice.Controllers
                     throw;
                 }
             }
-            return quizReturn;
+            QuizResponseBaseReturn responseValue = quizReturn;
+            return Ok(responseValue);
         }
 
         private static string Serialize<T>(T value)
